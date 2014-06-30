@@ -1,0 +1,2 @@
+require 'fukuzatsu/cli'
+Fukuzatsu::CLI.start
