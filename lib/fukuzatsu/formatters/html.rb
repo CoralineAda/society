@@ -1,6 +1,6 @@
 module Formatters
 
-  class Csv
+  class Html
 
     include Formatters::Base
 
