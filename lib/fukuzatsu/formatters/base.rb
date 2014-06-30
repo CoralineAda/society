@@ -16,14 +16,6 @@ module Formatters
       ["class", "method", "complexity", "lines"]
     end
 
-    def content
-      [
-        header,
-        rows,
-        footer
-      ].flatten.join("\r\n")
-    end
-
     def output_path
       top_level = File.dirname("docs")
       bot_level = File.dirname("docs/fukuzatsu")

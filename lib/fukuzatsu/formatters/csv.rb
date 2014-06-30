@@ -4,6 +4,14 @@ module Formatters
 
     include Formatters::Base
 
+    def content
+      [
+        header,
+        rows,
+        footer
+      ].flatten.join("\r\n")
+    end
+
     def header
       columns.join(',')
     end
