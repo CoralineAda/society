@@ -3,7 +3,9 @@ module Formatters
   class Csv
 
     include PoroPlus
+    include Formatters::Base
     include Ephemeral::Base
+
     collects :parsed_files
 
     def initialize(files=[])
@@ -26,6 +28,9 @@ module Formatters
         end
         a
       end
+    end
+
+    def footer
     end
 
     private
