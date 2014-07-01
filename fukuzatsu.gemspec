@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Bantik"]
   spec.email         = ["coraline@idolhands.com"]
   spec.summary       = "A simple cyclomatic complexity analyzer."
-  spec.description   = "A simple cyclomatic complexity analyzer. Awesome output."
+  spec.description   = "A simple cyclomatic complexity analyzer.."
   spec.homepage      = "https://gitlab.com/coraline/fukuzatsu"
   spec.license       = "MIT"
 
@@ -23,7 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "poro_plus"
   spec.add_dependency "haml"
   spec.add_dependency "parser"
-  spec.add_dependency "metric_fu-Saikuro"
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"

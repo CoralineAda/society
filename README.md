@@ -1,20 +1,20 @@
 # Fukuzatsu
 
-TODO: Write a gem description
+Fukuzatsu ("complexity") is a tool for measuring code complexity. Its analysis is based on a cycomatic complexity algorithm.
+
+You can learn more about cyclomatic complexity at http://en.wikipedia.org/wiki/Cyclomatic_complexity
+
+Why should you care about this kind of complexity? More complex code tends to attract bugs and to increase the friction around extending features or refactoring code.
+
+Fukuzatsu was inspired by Saikuro, written by Zev Blut.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'fukuzatsu'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Install the gem:
 
     $ gem install fukuzatsu
+
+This installs the CLI tool.
 
 ## Usage
 
