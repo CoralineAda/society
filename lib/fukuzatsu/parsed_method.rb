@@ -1,8 +1,13 @@
+require 'parser/current'
+
 class ParsedMethod
 
   include PoroPlus
-  include Ephemeral::Base
 
-  attr_accessor :method_body, :method_name, :complexity, :loc
+  attr_accessor :name, :content
+
+  def complexity
+    @complexity ||= Analyzer.parse!(content)
+  end
 
 end

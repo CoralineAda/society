@@ -1,6 +1,4 @@
-require 'parser/current'
-
-class Analyzer
+class Breathalizer
 
   INDICATORS = [
     :if,

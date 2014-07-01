@@ -2,7 +2,6 @@ class ParsedFile
 
   include PoroPlus
   include Ephemeral::Base
-  collects :parsed_methods
 
   attr_accessor :path_to_file, :class_name
 
@@ -16,6 +15,10 @@ class ParsedFile
 
   def complexity
     @complexity ||= Analyzer.parse!(content)
+  end
+
+  def methods
+    @methods ||= Analyzer.parse_methods!(content)
   end
 
 end

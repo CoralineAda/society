@@ -1,4 +1,5 @@
 require 'parser/current'
+require 'pry'
 
 class Analyzer
 
@@ -8,6 +9,10 @@ class Analyzer
 
   def self.parse!(content)
     new(content).parse!
+  end
+
+  def self.parse_methods!(content)
+    new(content).extract_methods
   end
 
   def initialize(content)
@@ -27,6 +32,27 @@ class Analyzer
     self.exits += 1
   end
 
+  def extract_methods
+    methods_from(parsed)
+  end
+
+  def methods_from(node, methods=[])
+    if node.type == :def
+      name = node.loc.name
+      expression = node.loc.expression
+      methods << ParsedMethod.new(
+        name: content[name.begin_pos..name.end_pos - 1],
+        content: content[expression.begin_pos..expression.end_pos - 1]
+      )
+    end
+    node.children.each do |child|
+      if parent_node?(child)
+        methods_from(child, methods)
+      end
+    end
+    methods
+  end
+
   def parent_node?(node)
     node.respond_to?(:type) || node.respond_to?(:children)
   end
@@ -39,7 +65,7 @@ class Analyzer
     Parser::CurrentRuby.parse(content)
   end
 
-  def traverse(node, accumulator=[])
+  def traverse(node, accumulator=[], extract_methods=false)
     accumulator << node.type
     extend_graph if CONDITIONALS.include?(node.type)
     node.children.each do |child|
