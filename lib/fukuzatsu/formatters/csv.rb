@@ -4,33 +4,22 @@ module Formatters
 
     include Formatters::Base
 
-    def content
-      [
-        header,
-        rows,
-        footer
-      ].flatten.join("\r\n")
-    end
-
     def header
       columns.join(',')
     end
 
     def rows
-      parsed_files.inject([]) do |a, parsed_file|
-        parsed_file.parsed_methods.each do |method|
-          a << [
-            parsed_file.class_name,
-            method.method_name,
-            method.complexity,
-            method.loc
-          ].join(",")
-        end
+      file.methods.inject([]) do |a, method|
+        a << "#{file.class_name},#{method.prefix}#{method.name},#{method.complexity}"
         a
-      end
+      end.join("\r\n")
     end
 
     def footer
+    end
+
+    def file_extension
+      ".csv"
     end
 
   end

@@ -5,15 +5,17 @@ module Fukuzatsu
 
   class CLI < Thor
 
-    desc "parse PATH_TO_FILE", "Parse a file."
-    def parse(file)
+    desc "parse PATH_TO_FILE --format", "Parse a file."
+    def parse(file, format='text')
       file = ParsedFile.new(path_to_file: file)
-
-      puts "#{file.class_name}\t\t#{file.complexity}"
-      file.methods.each do |method|
-        puts "#{file.class_name}\t#{method.prefix}#{method.name}\t#{method.complexity}"
+      case format
+      when 'html'
+        puts Formatters::Html.new(file).content
+      when 'csv'
+        puts Formatters::Csv.new(file).content
+      else
+        puts Formatters::Text.new(file).content
       end
-
     end
 
   end

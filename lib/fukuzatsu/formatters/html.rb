@@ -17,16 +17,11 @@ module Formatters
     end
 
     def rows
-      parsed_files.inject([]) do |a, parsed_file|
-        parsed_file.parsed_methods.each do |method|
-          a << "<tr>"
-          a << [
-            parsed_file.class_name,
-            method.method_name,
-            method.complexity,
-            method.loc
-          ].map{|column| "<td>#{column}</td>"}
-        end
+      file.methods.inject([]) do |a, method|
+        a << "<tr>"
+        a << "  <td>#{file.class_name}</td>"
+        a << "  <td>#{method.prefix}#{method.name}</td>"
+        a << "  <td>#{method.complexity}</td>"
         a << "</tr>"
         a
       end.join("\r\n")
@@ -34,6 +29,11 @@ module Formatters
 
     def footer
     end
+
+    def file_extension
+      ".htm"
+    end
+
 
   end
 

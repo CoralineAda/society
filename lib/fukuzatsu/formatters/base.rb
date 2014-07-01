@@ -3,13 +3,15 @@ module Formatters
   module Base
 
     def self.included(klass)
-      klass.send(:include, PoroPlus)
-      klass.send(:include, Ephemeral::Base)
-      klass.send(:collects, :parsed_files)
+      klass.send(:attr_accessor, :file)
     end
 
-    def initialize(files=[])
-      self.parsed_files = files
+    def initialize(file)
+      self.file = file
+    end
+
+    def content
+      [header, rows, footer].flatten.join("\r\n")
     end
 
     def columns
@@ -17,11 +19,13 @@ module Formatters
     end
 
     def output_path
-      top_level = File.dirname("docs")
-      bot_level = File.dirname("docs/fukuzatsu")
-      FileUtils.mkdir_p(top_level) unless File.directory?(top_level)
-      FileUtils.mkdir_p(bot_level) unless File.directory?(bot_level)
-      "docs/fukuzatsu"
+      output_path = "docs/fukuzatsu/#{self.file.file_to_path.split('/')[0..-2]}"
+      top_level = FileUtils.mkpath(output_path)
+      output_path
+    end
+
+    def filename
+      self.file.file_to_path.split('/')[-1] + file_extension
     end
 
     def write
