@@ -1,71 +1,56 @@
-# every if = 2 edges
-# ifs + blocks = nodes
-# exits = returns
-
-# AST elemenents to care about?
-# Full list at (https://github.com/whitequark/parser/blob/master/doc/AST_FORMAT.md)
-# block, class, condition, def, do
-
 require 'parser/current'
 
 class Analyzer
 
-  INDICATORS = [
-    :if,
-    :def,
-    :defs
-  ]
+  INDICATORS = [:if, :def, :defs]
 
-  attr_accessor :path_to_file, :edges, :nodes, :exits
+  attr_accessor :content, :edges, :nodes, :exits
 
-  def self.parse!(path_to_file)
-    new(path_to_file).parse
+  def self.parse!(content)
+    new(content).parse!
   end
 
-  def initialize(path_to_file)
+  def initialize(content)
+    self.content = content
     self.edges = 0
     self.nodes = 1
     self.exits = 1
-    self.path_to_file = path_to_file
   end
 
-  def file_contents
-    File.open(path_to_file, "r").read
+  def complexity
+    self.edges - self.nodes + exits
   end
 
-  def parsed
-    @parsed ||= Parser::CurrentRuby.parse(file_contents)
+  def extend_graph
+    self.edges += 2
+    self.nodes += 2
+    self.exits += 1
+  end
+
+  def parent_node?(node)
+    node.respond_to?(:type) || node.respond_to?(:children)
   end
 
   def parse!
-    traverse(parsed)
-    complexity
+    traverse(parsed) && complexity
+  end
+
+  def parsed
+    Parser::CurrentRuby.parse(content)
   end
 
   def traverse(node, accumulator=[])
-
     accumulator << node.type
-    if INDICATORS.include?(accumulator[-1])
-      self.edges += 2
-      self.nodes += 2
-      self.exits += 1
-    end
-
+    extend_graph if INDICATORS.include?(node.type)
     node.children.each do |child|
-      if child.respond_to?(:type) || child.respond_to?(:children)
+      if parent_node?(child)
         accumulator << child.type
         traverse(child, accumulator)
-      else
-        p node.type
       end
     end
     accumulator
   end
 
-  def complexity
-    p "edges = #{self.edges}, nodes = #{self.nodes}, exits = #{self.exits}"
-    self.edges - self.nodes + exits
-  end
 
 end
 
