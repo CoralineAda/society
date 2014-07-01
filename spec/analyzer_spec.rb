@@ -10,7 +10,7 @@ describe Analyzer do
     let(:analyzer)  { Analyzer.new(content_1) }
 
     it "returns a complexity of 4" do
-      analyzer.parse!.should == 4
+      expect(analyzer.parse!).to eq(4)
     end
 
   end
@@ -20,7 +20,7 @@ describe Analyzer do
     let(:analyzer)  { Analyzer.new(content_2) }
 
     it "returns a complexity of 5" do
-      analyzer.parse!.should == 5
+      expect(analyzer.parse!).to eq(5)
     end
 
   end
