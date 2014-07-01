@@ -2,7 +2,7 @@ require 'parser/current'
 
 class Analyzer
 
-  INDICATORS = [:if, :def, :defs]
+  CONDITIONALS = [:if] # not :def, :defs
 
   attr_accessor :content, :edges, :nodes, :exits
 
@@ -41,7 +41,7 @@ class Analyzer
 
   def traverse(node, accumulator=[])
     accumulator << node.type
-    extend_graph if INDICATORS.include?(node.type)
+    extend_graph if CONDITIONALS.include?(node.type)
     node.children.each do |child|
       if parent_node?(child)
         accumulator << child.type

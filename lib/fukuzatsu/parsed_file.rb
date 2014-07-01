@@ -1,12 +1,13 @@
 class ParsedFile
 
+  include PoroPlus
   include Ephemeral::Base
   collects :parsed_methods
 
   attr_accessor :path_to_file, :class_name
 
-  def initialize(path_to_file)
-    self.path_to_file = path_to_file
+  def class_name
+    @class_name ||= "FIXME"
   end
 
   def content
