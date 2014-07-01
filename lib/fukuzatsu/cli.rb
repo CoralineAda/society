@@ -8,7 +8,8 @@ module Fukuzatsu
     desc "parse PATH_TO_FILE", "Parse a file."
     def parse(file)
       puts "Parsing #{file}..."
-      puts Parser.parse!(file)
+      file = ParsedFile.new(path_to_file: file)
+      puts "Overall complexity: #{file.complexity}"
     end
 
   end
