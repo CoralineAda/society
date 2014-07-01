@@ -12,7 +12,8 @@ class Analyzer
 
   INDICATORS = [
     :if,
-    :def
+    :def,
+    :defs
   ]
 
   attr_accessor :path_to_file, :edges, :nodes, :exits
