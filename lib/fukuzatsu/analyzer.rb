@@ -3,9 +3,9 @@ require 'pry'
 
 class Analyzer
 
-  CONDITIONALS = [:if] # not :def, :defs
+  CONDITIONALS = [:if]
 
-  attr_accessor :content, :edges, :nodes, :exits
+  attr_accessor :content, :class_name, :edges, :nodes, :exits
 
   def self.parse!(content)
     new(content).parse!
@@ -37,12 +37,13 @@ class Analyzer
   end
 
   def methods_from(node, methods=[])
-    if node.type == :def
+    if node.type == :def || node.type == :defs
       name = node.loc.name
       expression = node.loc.expression
       methods << ParsedMethod.new(
         name: content[name.begin_pos..name.end_pos - 1],
-        content: content[expression.begin_pos..expression.end_pos - 1]
+        content: content[expression.begin_pos..expression.end_pos - 1],
+        type: node.type == :defs ? :class : :instance
       )
     end
     node.children.each do |child|
@@ -65,9 +66,14 @@ class Analyzer
     Parser::CurrentRuby.parse(content)
   end
 
+  def extract_class_name(node)
+    @class_name ||= content[node.loc.name.begin_pos..node.loc.name.end_pos - 1]
+  end
+
   def traverse(node, accumulator=[], extract_methods=false)
     accumulator << node.type
     extend_graph if CONDITIONALS.include?(node.type)
+    extract_class_name(node) if node.type == :class
     node.children.each do |child|
       if parent_node?(child)
         accumulator << child.type

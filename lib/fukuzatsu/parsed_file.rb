@@ -6,7 +6,7 @@ class ParsedFile
   attr_accessor :path_to_file, :class_name
 
   def class_name
-    @class_name ||= "FIXME"
+    @class_name ||= "Fixme"
   end
 
   def content

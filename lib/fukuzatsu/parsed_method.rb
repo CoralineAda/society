@@ -4,10 +4,14 @@ class ParsedMethod
 
   include PoroPlus
 
-  attr_accessor :name, :content
+  attr_accessor :name, :content, :type
 
   def complexity
     @complexity ||= Analyzer.parse!(content)
+  end
+
+  def prefix
+    self.type == :class ? "." : "#"
   end
 
 end
