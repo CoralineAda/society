@@ -22,7 +22,7 @@ class Breathalizer
   end
 
   def file_contents
-    File.open(path_to_file, "r").read
+    contents ||= File.open(path_to_file, "r").read
   end
 
   def parsed

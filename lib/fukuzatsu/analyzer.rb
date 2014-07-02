@@ -2,7 +2,7 @@ require 'parser/current'
 
 class Analyzer
 
-  CONDITIONALS = [:if]
+  CONDITIONALS = [:if, :or_asgn, :and_asgn, :or, :and]
 
   attr_accessor :content, :class_name, :edges, :nodes, :exits
 
