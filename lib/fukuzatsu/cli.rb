@@ -10,11 +10,11 @@ module Fukuzatsu
       file = ParsedFile.new(path_to_file: file)
       case format
       when 'html'
-        puts Formatters::Html.new(file).content
+        Formatters::Html.new(file).export
       when 'csv'
-        puts Formatters::Csv.new(file).content
+        Formatters::Csv.new(file).export
       else
-        puts Formatters::Text.new(file).content
+        Formatters::Text.new(file).export
       end
     end
 

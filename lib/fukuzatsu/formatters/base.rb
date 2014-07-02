@@ -15,27 +15,27 @@ module Formatters
     end
 
     def columns
-      ["class", "method", "complexity", "lines"]
+      ["class", "method", "complexity"]
     end
 
     def output_path
-      output_path = "docs/fukuzatsu/#{self.file.file_to_path.split('/')[0..-2]}"
-      top_level = FileUtils.mkpath(output_path)
+      output_path = "doc/fukuzatsu/#{self.file.path_to_file.split('/')[0..-2].join("/")}"
+      FileUtils.mkpath(output_path)
       output_path
     end
 
     def filename
-      self.file.file_to_path.split('/')[-1] + file_extension
+      self.file.path_to_file.split('/')[-1] + file_extension
     end
 
-    def write
+    def export
       begin
         outfile = File.open("#{output_path}/#{filename}", 'w')
         outfile.write(content)
       rescue Exception => e
         puts "Unable to write output: #{e} #{e.backtrace}"
       ensure
-        outfile.close
+        outfile && outfile.close
       end
     end
 
