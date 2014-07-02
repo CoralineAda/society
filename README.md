@@ -6,7 +6,7 @@ You can learn more about cyclomatic complexity at http://en.wikipedia.org/wiki/C
 
 Why should you care about this kind of complexity? More complex code tends to attract bugs and to increase the friction around extending features or refactoring code.
 
-Fukuzatsu was inspired by Saikuro, written by Zev Blut. Thanks to Mike Ziwisky (mziwizsky) for help in understanding the algorithm!
+Fukuzatsu was inspired by Saikuro, written by Zev Blut. Thanks to Mike Ziwisky (mziwisky) for help in understanding the algorithm!
 
 ## Installation
 
