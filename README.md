@@ -1,6 +1,6 @@
 # Fukuzatsu
 
-Fukuzatsu ("complexity") is a tool for measuring code complexity. Its analysis is based on a cycomatic complexity algorithm.
+Fukuzatsu ("complexity") is a tool for measuring code complexity in Ruby class files. Its analysis is based on a cycomatic complexity algorithm.
 
 You can learn more about cyclomatic complexity at http://en.wikipedia.org/wiki/Cyclomatic_complexity
 
