@@ -24,8 +24,12 @@ class Analyzer
 
   def extract_class_name
     return self.class_name if self.class_name
-    name = parsed.children.select{|node| node.type == :class}.first.loc.name
-    self.class_name = self.content[name.begin_pos..(name.end_pos - 1)]
+    child = parsed.children.compact.select{|node| node.respond_to?(:type) && node.type == :class}.first
+    if child && child.loc.name
+      self.class_name = self.content[child.loc.name.begin_pos..(child.loc.name.end_pos - 1)]
+    else
+      ""
+    end
   end
 
   private
