@@ -1,19 +1,10 @@
 require 'parser/current'
-require 'pry'
 
 class Analyzer
 
   CONDITIONALS = [:if]
 
   attr_accessor :content, :class_name, :edges, :nodes, :exits
-
-  def self.parse!(content)
-    new(content).parse!
-  end
-
-  def self.parse_methods!(content)
-    new(content).extract_methods
-  end
 
   def initialize(content)
     self.content = content
@@ -23,17 +14,26 @@ class Analyzer
   end
 
   def complexity
+    return unless traverse(parsed)
     self.edges - self.nodes + exits
   end
+
+  def extract_methods
+    @methods ||= methods_from(parsed)
+  end
+
+  def extract_class_name
+    return self.class_name if self.class_name
+    name = parsed.children.select{|node| node.type == :class}.first.loc.name
+    self.class_name = self.content[name.begin_pos..(name.end_pos - 1)]
+  end
+
+  private
 
   def extend_graph
     self.edges += 2
     self.nodes += 2
     self.exits += 1
-  end
-
-  def extract_methods
-    methods_from(parsed)
   end
 
   def methods_from(node, methods=[])
@@ -63,17 +63,12 @@ class Analyzer
   end
 
   def parsed
-    Parser::CurrentRuby.parse(content)
-  end
-
-  def extract_class_name(node)
-    @class_name ||= content[node.loc.name.begin_pos..node.loc.name.end_pos - 1]
+    @parsed ||= Parser::CurrentRuby.parse(content)
   end
 
   def traverse(node, accumulator=[], extract_methods=false)
     accumulator << node.type
     extend_graph if CONDITIONALS.include?(node.type)
-    extract_class_name(node) if node.type == :class
     node.children.each do |child|
       if parent_node?(child)
         accumulator << child.type
@@ -82,7 +77,6 @@ class Analyzer
     end
     accumulator
   end
-
 
 end
 

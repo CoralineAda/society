@@ -6,19 +6,23 @@ class ParsedFile
   attr_accessor :path_to_file, :class_name
 
   def class_name
-    @class_name ||= "Fixme"
+    @class_name ||= analyzer.extract_class_name
   end
 
   def content
-    File.open(path_to_file, "r").read
+    @content ||= File.open(path_to_file, "r").read
+  end
+
+  def analyzer
+    Analyzer.new(content)
   end
 
   def complexity
-    @complexity ||= Analyzer.parse!(content)
+    @complexity ||= analyzer.complexity
   end
 
   def methods
-    @methods ||= Analyzer.parse_methods!(content)
+    @methods ||= analyzer.extract_methods
   end
 
 end

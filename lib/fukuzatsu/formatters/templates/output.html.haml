@@ -2,12 +2,43 @@
 %html
   %head
     %title
-      Fukuzatsu
+      Fukuzatsu:
+      = class_name
+    %style{media: "screen", type: "text/css"}
+      body { background: #593232; color: #fff; font-family: arial, sans-serif; padding: 2em; }
+      table { border: 10px solid #000; border-collapse: collapse; min-width: 50%; }
+      tr { border-top: 1px solid #000; }
+      tr.header { background: rgba(255, 255, 255, 0.75)}
+      tr.even { background: rgba(128, 128, 128, 0.5);}
+      tr.odd { background: rgba(128, 128, 128, 0.25);}
+      th { background: #000; text-align: left; padding: .5em; text-transform: uppercase; font-size: .8em}
+      td { text-align: left; padding: .5em;}
+      td.center { text-align: center; }
+      tfoot { background: #000; border-top: 10px solid #000; font-family: courier; margin-top: 4em; font-size: .75em;  }
+      a:link, a:visited { color: #aaa }
+      h1 { color:#593232; font-size: 1.25em; }
+      h2 { color:#593232; font-size: .75em; margin-top: -1em}
   %body
-
     %table
       %thead
+        %tr.header
+          %td{colspan: 3}
+            %h1
+              = class_name
+            %h2
+              = path_to_file
         %tr
           = header
       %tbody
         = rows
+      %tfoot
+        %tr
+          %td.center{colspan: 3}
+            %em
+              Analyzed on
+              = date
+              at
+              = time
+              by
+              %a{href: "https://gitlab.com/coraline/fukuzatsu", target: "_new"}
+                Fukuzatsu

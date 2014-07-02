@@ -7,7 +7,7 @@ class ParsedMethod
   attr_accessor :name, :content, :type
 
   def complexity
-    @complexity ||= Analyzer.parse!(content)
+    @complexity ||= Analyzer.new(content).complexity
   end
 
   def prefix

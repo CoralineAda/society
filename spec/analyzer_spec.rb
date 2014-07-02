@@ -10,7 +10,7 @@ describe Analyzer do
     let(:analyzer)  { Analyzer.new(content_1) }
 
     it "matches the manual calculation of complexity of 4" do
-      expect(analyzer.parse!).to eq(4)
+      expect(analyzer.complexity).to eq(4)
     end
 
   end
@@ -20,7 +20,7 @@ describe Analyzer do
     let(:analyzer)  { Analyzer.new(content_2) }
 
     it "matches the manual calculation of complexity of 5" do
-      expect(analyzer.parse!).to eq(5)
+      expect(analyzer.complexity).to eq(5)
     end
 
   end

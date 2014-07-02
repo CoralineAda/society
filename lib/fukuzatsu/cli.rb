@@ -5,10 +5,11 @@ module Fukuzatsu
 
   class CLI < Thor
 
-    desc "parse PATH_TO_FILE format", "Formats are text (default, to STDOUT), html, and csv. Ex: parse foo.rb html"
-    def parse(file, format='text')
+    desc "parse PATH_TO_FILE -f FORMAT", "Formats are text (default, to STDOUT), html, and csv. Ex: parse foo.rb -f html"
+    method_option :format, :type => :string, :default => 'text', :aliases => "-f"
+    def parse(file)
       file = ParsedFile.new(path_to_file: file)
-      case format
+      case options['format']
       when 'html'
         Formatters::Html.new(file).export
       when 'csv'
