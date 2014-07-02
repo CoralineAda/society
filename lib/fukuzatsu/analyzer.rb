@@ -24,18 +24,24 @@ class Analyzer
 
   def extract_class_name
     return self.class_name if self.class_name
-    child = parsed.children.compact.select do |node|
-      node.respond_to?(:type) &&
-      (node.type == :class || node.type == :module)
-    end.first
-    if child && child.loc.name
-      self.class_name = self.content[child.loc.name.begin_pos..(child.loc.name.end_pos - 1)]
-    else
-      ""
-    end
+    child = find_class(parsed)
+    return "?" unless child
+    name = child.loc.name
+    self.class_name = self.content[name.begin_pos..(name.end_pos - 1)]
   end
 
   private
+
+  def find_class(parsed)
+    return parsed if parsed.respond_to?(:type) && (parsed.type == :class || (parsed.type == :module && parsed.children.empty?))
+    child_nodes = parsed.respond_to?(:children) ? parsed.children : parsed
+    child_nodes.each do |child_node|
+      next unless child_node.respond_to?(:type)
+      return child_node if child_node.type == :class
+      return find_class(child_node.children) if child_node.type == :module
+    end
+    false
+  end
 
   def extend_graph
     self.edges += 2
