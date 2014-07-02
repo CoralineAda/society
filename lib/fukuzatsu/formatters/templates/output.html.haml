@@ -9,15 +9,13 @@
     %script{language: "javascript", src: "http://code.jquery.com/jquery-migrate-1.2.1.min.js", type: "text/javascript"}
     %script{language: "javascript", src: "http://cdn.datatables.net/1.10.0/js/jquery.dataTables.js", type: "text/javascript"}
 
-
-
     %style{media: "screen", type: "text/css"}
       body { background: #593232; color: #fff; font-family: arial, sans-serif; padding: 2em; }
       table { border: 10px solid #000; border-collapse: collapse; min-width: 50%; }
       tr { border-top: 1px solid #000; }
       tr.header { background: rgba(255, 255, 255, 0.75)}
-      tr.even { background: rgba(128, 128, 128, 0.5);}
-      tr.odd { background: rgba(128, 128, 128, 0.25);}
+      tr.even { background: rgba(128, 128, 128, 0.5) !important;}
+      tr.odd { background: rgba(128, 128, 128, 0.25) !important}
       th { background: #000; text-align: left; padding: .5em; text-transform: uppercase; font-size: .8em}
       td { text-align: left; padding: .5em;}
       td.center { text-align: center; }
@@ -25,8 +23,13 @@
       a:link, a:visited { color: #aaa }
       h1 { color:#593232; font-size: 1.25em; }
       h2 { color:#593232; font-size: .75em; margin-top: -1em}
+      td.sorting_1 { background: none !important; }
+      div.dataTables_filter { display: none !important; }
+      div.dataTables_paginate { display: none !important; }
+      div.dataTables_info { display: none !important; }
+
   %body
-    %table.output-table
+    %table{class: "output-table"}
       %thead
         %tr.header
           %td{colspan: 3}
@@ -50,4 +53,10 @@
               %a{href: "https://gitlab.com/coraline/fukuzatsu", target: "_new"}
                 Fukuzatsu
     :javascript
-      $(document).ready(function(){ $('.output-table').dataTable(); });
+      $(document).ready(function(){
+        $('.output-table').dataTable({
+          bLengthChange: false,
+          iDisplayLength: 25000
+        });
+      });
+
