@@ -5,7 +5,7 @@ module Fukuzatsu
 
   class CLI < Thor
 
-    desc "parse PATH_TO_FILE --format", "Parse a file."
+    desc "parse PATH_TO_FILE format", "Formats are text (default, to STDOUT), html, and csv. Ex: parse foo.rb html"
     def parse(file, format='text')
       file = ParsedFile.new(path_to_file: file)
       case format

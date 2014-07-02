@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Fukuzatsu::VERSION
   spec.authors       = ["Bantik"]
   spec.email         = ["coraline@idolhands.com"]
-  spec.summary       = "A simple cyclomatic complexity analyzer."
-  spec.description   = "A simple cyclomatic complexity analyzer.."
+  spec.summary       = "A simple code complexity analyzer."
+  spec.description   = "Calculates the cyclomatic complexity of methods within a given file."
   spec.homepage      = "https://gitlab.com/coraline/fukuzatsu"
   spec.license       = "MIT"
 
