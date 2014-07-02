@@ -1,5 +1,7 @@
 # Fukuzatsu
 
+*Note: this gem is a work in progress and should not be considered production-ready until version 1.0*
+
 Fukuzatsu ("complexity") is a tool for measuring code complexity in Ruby class files. Its analysis is based on a cycomatic complexity algorithm.
 
 You can learn more about cyclomatic complexity at http://en.wikipedia.org/wiki/Cyclomatic_complexity
