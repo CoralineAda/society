@@ -14,16 +14,17 @@
       tr { border-top: 1px solid #000; }
       tr.header { background: rgba(255, 255, 255, 0.75)}
       tr.even { background: rgba(128, 128, 128, 0.5) !important;}
-      tr.odd { background: rgba(128, 128, 128, 0.25) !important}
+      tr.odd { background: rgba(128, 128, 128, 0.25) !important;}
+      tr.even:hover, tr.odd:hover { background: rgba(128, 128, 128, 0.75) !important;}
       th { background: #000; text-align: left; padding: .5em; text-transform: uppercase; font-size: .8em}
-      td { text-align: left; padding: .5em;}
+      td { text-align: left; padding: .5em; padding-left: 1.25em !important;}
       td.center { text-align: center; }
       tfoot { background: #000; border-top: 10px solid #000; font-family: courier; margin-top: 4em; font-size: .75em;  }
       a:link, a:visited { color: #aaa }
       h1 { color:#593232; font-size: 1.25em; }
       h2 { color:#593232; font-size: .75em; margin-top: -1em}
-      td.sorting_1 { background: none !important; }
-      div.dataTables_filter { display: none !important; }
+      td.sorting_1 { background: none !important; padding-left: 1.25em !important; }
+      div.dataTables_filter label { color: #fff; }
       div.dataTables_paginate { display: none !important; }
       div.dataTables_info { display: none !important; }
 
@@ -31,29 +32,29 @@
     %table{class: "output-table"}
       %thead
         %tr
-          %td
+          %th
             File
-          %td
-            Name
-          %td
+          %th
+            Module/Class Name
+          %th
             Complexity
-          %td
+          %th
             Details
       %tbody
-        - file_list.each do |file|
+        - file_summary.each do |summary|
           %tr
             %td
-              = file[:path_to_file]
+              = summary[:path_to_file]
             %td
-              = file[:class_name]
+              = summary[:class_name]
             %td
-              = file[:complexity]
+              = summary[:complexity]
             %td
-              %a{href: "#{file[:path_to_file]}"}
-                View
+              %a{href: "#{summary[:path_to_file]}.htm"}
+                View Details
       %tfoot
         %tr
-          %td.center{colspan: 3}
+          %td.center{colspan: 4}
             %em
               Analyzed on
               = date

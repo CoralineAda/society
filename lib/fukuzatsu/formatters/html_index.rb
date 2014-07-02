@@ -1,25 +1,29 @@
 module Formatters
 
-  class Html
+  class HtmlIndex
 
     include Formatters::Base
 
-    attr_accessor :file_list
+    attr_accessor :file_summary
 
-    def initialize(file_list)
-      self.file_list = file_list
+    def initialize(file_summary)
+      self.file_summary = file_summary
+    end
+
+    def filename
+      "index.htm"
     end
 
     def output_path
-      output_path = "doc/fukuzatsu/index.htm}"
+      output_path = "doc/fukuzatsu/"
       FileUtils.mkpath(output_path)
       output_path
     end
 
-    def content(file_list)
-      Haml::Engine.new(index_template).render(
+    def content
+      Haml::Engine.new(output_template).render(
         Object.new, {
-          file_list: file_list,
+          file_summary: file_summary,
           date: Time.now.strftime("%Y/%m/%d"),
           time: Time.now.strftime("%l:%M %P")
         }

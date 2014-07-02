@@ -14,11 +14,11 @@ module Fukuzatsu
 
     def check(path)
 
-      file_complexities = []
       file_summary = []
+      file_complexities = []
 
-      file_list(path).each do |file|
-        file = ParsedFile.new(path_to_file: file)
+      file_list(path).each do |path_to_file|
+        file = ParsedFile.new(path_to_file: path_to_file)
         case options['format']
         when 'html'
           Formatters::Html.new(file).export
@@ -27,11 +27,11 @@ module Fukuzatsu
         else
           Formatters::Text.new(file).export
         end
-        file_summary << {file_name: file, class_name: file.class_name, complexity: file.complexity}
+        file_summary << {path_to_file: path_to_file, class_name: file.class_name, complexity: file.complexity}
         file_complexities << file.complexity
       end
 
-      Formatters::HtmlIndex.new(file_list).export if options['format'] == 'html'
+      Formatters::HtmlIndex.new(file_summary).export if options['format'] == 'html'
 
       handle_complexity(file_complexities.sort.last, options['threshold'])
 
