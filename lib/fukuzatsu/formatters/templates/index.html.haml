@@ -40,7 +40,7 @@
           %td
             Details
       %tbody
-        - file_list each do |file|
+        - file_list.each do |file|
           %tr
             %td
               = file[:path_to_file]
@@ -49,7 +49,7 @@
             %td
               = file[:complexity]
             %td
-              a{href: "#{file[:path_to_file]}"}
+              %a{href: "#{file[:path_to_file]}"}
                 View
       %tfoot
         %tr

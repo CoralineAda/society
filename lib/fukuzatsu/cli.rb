@@ -27,13 +27,13 @@ module Fukuzatsu
         else
           Formatters::Text.new(file).export
         end
-        file_summary << {file_name: file, class_name: file.class_name, complexity: complexity}
+        file_summary << {file_name: file, class_name: file.class_name, complexity: file.complexity}
         file_complexities << file.complexity
       end
 
-      write_index(file_summary) if options['format'] == 'html'
+      Formatters::HtmlIndex.new(file_list).export if options['format'] == 'html'
 
-      handle_complexity(file_complexities.sort.last, options['threshold']
+      handle_complexity(file_complexities.sort.last, options['threshold'])
 
     end
 
