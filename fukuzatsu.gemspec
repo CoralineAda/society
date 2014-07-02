@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["coraline@idolhands.com"]
   spec.summary       = "A simple code complexity analyzer."
   spec.description   = "Calculates the cyclomatic complexity of methods within a given file."
-  spec.homepage      = "https://gitlab.com/coraline/fukuzatsu/blob/master/README.md"
+  spec.homepage      = "https://gitlab.com/coraline/fukuzatsu/tree/master"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
