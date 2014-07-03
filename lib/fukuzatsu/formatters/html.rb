@@ -25,6 +25,7 @@ module Formatters
           header: header,
           rows: rows,
           class_name: file.class_name,
+          complexity: file.complexity,
           path_to_file: file.path_to_file,
           date: Time.now.strftime("%Y/%m/%d"),
           time: Time.now.strftime("%l:%M %P")

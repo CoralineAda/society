@@ -28,7 +28,7 @@ class Analyzer
   end
 
   private
-  
+
   def text_at(start_pos, end_pos)
     content[start_pos..end_pos - 1]
   end
@@ -38,8 +38,8 @@ class Analyzer
     concat = []
     if node.type == :module || node.type == :class
       concat << text_at(node.loc.name.begin_pos, node.loc.name.end_pos)
-      concat << node.children.map{|child| find_class(child)}.compact
     end
+    concat << node.children.map{|child| find_class(child)}.compact
     concat.flatten.select(&:present?).join('::')
   end
 
