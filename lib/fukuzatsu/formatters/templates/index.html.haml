@@ -59,7 +59,11 @@
             %td
               = summary[:path_to_file]
             %td
-              = summary[:class_name]
+              - if summary[:class_name].size > 25
+                = "..."
+                = summary[:class_name][-24..-1]
+              - else
+                = summary[:class_name]
             %td
               = summary[:complexity]
             %td

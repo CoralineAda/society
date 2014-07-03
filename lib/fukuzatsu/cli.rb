@@ -27,7 +27,7 @@ module Fukuzatsu
         else
           Formatters::Text.new(file).export
         end
-        file_summary << {path_to_file: path_to_file, class_name: file.class_name, complexity: file.complexity}
+        file_summary << {path_to_file: path_to_file, class_name: "#{file.class_name}", complexity: file.complexity}
         file_complexities << file.complexity
       end
 
