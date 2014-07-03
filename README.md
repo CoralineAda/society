@@ -2,11 +2,15 @@
 
 *Note: this gem is a work in progress and should not be considered production-ready until version 1.0*
 
-Fukuzatsu ("complexity") is a tool for measuring code complexity in Ruby class files. Its analysis generates relative complexity figures similar to the results of cyclomatic complexity algorithms. (You can learn more about cyclomatic complexity at http://en.wikipedia.org/wiki/Cyclomatic_complexity)
+Fukuzatsu ("complexity") is a tool for measuring code complexity in Ruby class files. Its analysis
+generates relative complexity figures similar to the results of cyclomatic complexity algorithms. 
+(You can learn more about cyclomatic complexity at http://en.wikipedia.org/wiki/Cyclomatic_complexity)
 
-Why should you care about this kind of complexity? More complex code tends to attract bugs and to increase the friction around extending features or refactoring code.
+Why should you care about this kind of complexity? More complex code tends to attract bugs and to 
+increase the friction around extending features or refactoring code.
 
-Fukuzatsu was created by Coraline Ada Ehmke with invaluable assistance from Mike Ziwisky (mziwisky). It was inspired by Saikuro, written by Zev Blut.
+Fukuzatsu was created by Coraline Ada Ehmke with invaluable assistance from Mike Ziwisky (mziwisky). 
+It was inspired by Saikuro, written by Zev Blut.
 
 ## Installation
 
@@ -18,12 +22,12 @@ This installs the CLI tool.
 
 ## Usage
 
-    fuku parse path/to/file/my_file.rb
+    fuku check path/to/file/my_file.rb
 
-    fuku parse path/to/file/my_file.rb -f html
+    fuku check path/to/file/my_file.rb -f html
     # Writes to doc/fuzuzatsu/path/to_file/my_file.rb.htm
 
-    fuku parse path/to/file/my_file.rb -f csv
+    fuku check path/to/file/my_file.rb -f csv
     # Writes to doc/fuzuzatsu/path/to_file/my_file.rb.csv
 
 ## Contributing
