@@ -16,11 +16,11 @@ It was inspired by Saikuro, written by Zev Blut.
 
 These are screenshots of the `-f html` output. First, the overall project summary:
 
-![Project Summary](https://gitlab.com/coraline/fukuzatsu/blob/master/doc/summary.png)
+![Project Summary](https://gitlab.com/coraline/fukuzatsu/raw/master/doc/overview.png)
 
 Then the detail view of a single class:
 
-![Project Summary](https://gitlab.com/coraline/fukuzatsu/blob/master/doc/details.png)
+![Project Summary](https://gitlab.com/coraline/fukuzatsu/raw/master/doc/details.png)
 
 ## Installation
 
