@@ -12,6 +12,8 @@ increase the friction around extending features or refactoring code.
 Fukuzatsu was created by Coraline Ada Ehmke with invaluable assistance from Mike Ziwisky (mziwisky). 
 It was inspired by Saikuro, written by Zev Blut.
 
+## Screenshots
+
 ## Installation
 
 Install the gem:
