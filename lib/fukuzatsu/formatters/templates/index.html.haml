@@ -57,7 +57,8 @@
         - file_summary.each do |summary|
           %tr
             %td
-              = summary[:path_to_file]
+              %a{href: "#{summary[:path_to_file]}.htm"}
+                = summary[:path_to_file]
             %td
               - if summary[:class_name].size > 25
                 = "..."
