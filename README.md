@@ -14,6 +14,14 @@ It was inspired by Saikuro, written by Zev Blut.
 
 ## Screenshots
 
+These are screenshots of the `-f html` output. First, the overall project summary:
+
+![Project Summary](https://gitlab.com/coraline/fukuzatsu/blob/master/doc/summary.png)
+
+Then the detail view of a single class:
+
+![Project Summary](https://gitlab.com/coraline/fukuzatsu/blob/master/doc/details.png)
+
 ## Installation
 
 Install the gem:
