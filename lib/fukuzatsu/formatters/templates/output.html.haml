@@ -72,7 +72,8 @@
       $(document).ready(function(){
         $('.output-table').dataTable({
           bLengthChange: false,
-          iDisplayLength: 25000
+          iDisplayLength: 25000,
+          "order": [[2, "desc"]]
         });
       });
 
