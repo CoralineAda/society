@@ -4,17 +4,6 @@ module Formatters
 
     include Formatters::Base
 
-    def self.write_index(file_list)
-      index_template = File.read(File.dirname(__FILE__) + "/templates/index.html.haml")
-      Haml::Engine.new(index_template).render(
-        Object.new, {
-          file_list: file_list,
-          date: Time.now.strftime("%Y/%m/%d"),
-          time: Time.now.strftime("%l:%M %P")
-        }
-      )
-    end
-
     def header
       columns.map{|col| "<th>#{col.titleize}</th>"}.join("\r\n")
     end

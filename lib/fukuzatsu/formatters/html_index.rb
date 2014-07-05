@@ -15,9 +15,8 @@ module Formatters
     end
 
     def output_path
-      output_path = "doc/fukuzatsu/"
-      FileUtils.mkpath(output_path)
-      output_path
+      FileUtils.mkpath(root_path)
+      root_path
     end
 
     def content
