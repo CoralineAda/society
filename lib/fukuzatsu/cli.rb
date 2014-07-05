@@ -16,6 +16,8 @@ module Fukuzatsu
 
       file_summary = []
       file_complexities = []
+      last_file = ""
+
       file_list(path).each do |path_to_file|
         file = ParsedFile.new(path_to_file: path_to_file)
         parser = formatter.new(file)
@@ -31,7 +33,7 @@ module Fukuzatsu
       end
 
       last_file = handle_index(file_summary) if options['format'] == 'html'
-      report(last_file[:results_file])
+      report(last_file[:results_file]) if options['format']
       handle_complexity(file_complexities.sort.last, options['threshold'])
 
     end
@@ -52,15 +54,15 @@ module Fukuzatsu
     def handle_index(file_summary)
       index = Formatters::HtmlIndex.new(file_summary)
       index.export
-      {results_file: index.output_path}
+      {results_file: "#{index.output_path}/#{index.filename}"}
     end
 
     def report(last_file)
      puts "Results written to:"
-     puts "\t#{last_file}"
+     puts "#{last_file}"
     end
 
-    def handle_complexity(max, threshold)
+    def handle_complexity(highest_complexity, threshold)
       return if options['threshold'] == 0
       return if highest_complexity <= options['threshold']
       puts "Maximum complexity is #{highest_complexity}, which is greater than the threshold of #{options['threshold']}."

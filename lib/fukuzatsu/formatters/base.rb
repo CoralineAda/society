@@ -32,6 +32,10 @@ module Formatters
       self.file.path_to_file.split('/')[-1] + file_extension
     end
 
+    def file_extension
+      ""
+    end
+
     def export
       begin
         outfile = File.open("#{output_path}/#{filename}", 'w')
