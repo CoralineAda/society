@@ -18,8 +18,12 @@ module Formatters
       ["class", "method", "complexity"]
     end
 
+    def root_path
+      "doc/fukuzatsu"
+    end
+
     def output_path
-      output_path = "doc/fukuzatsu/#{self.file.path_to_file.split('/')[0..-2].join("/")}"
+      output_path = "#{root_path}/#{self.file.path_to_file.split('/')[0..-2].join("/")}"
       FileUtils.mkpath(output_path)
       output_path
     end
