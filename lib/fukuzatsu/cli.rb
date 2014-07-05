@@ -12,15 +12,15 @@ module Fukuzatsu
     method_option :format, :type => :string, :default => 'text', :aliases => "-f"
     method_option :threshold, :type => :numeric, :default => 0, :aliases => "-t"
 
-    def check(path)
+    def check(path="./")
 
       file_summary = []
       file_complexities = []
-      last_file = ""
+      last_file = {}
 
       file_list(path).each do |path_to_file|
         file = ParsedFile.new(path_to_file: path_to_file)
-        parser = formatter.new(file)
+        parser = formatter(options).new(file)
         parser.export
         file_summary << {
           results_file: "#{parser.output_path}/#{parser.filename}",
@@ -29,18 +29,19 @@ module Fukuzatsu
           complexity: file.complexity
         }
         file_complexities << file.complexity
-        last_file = file_summary.last
       end
 
       last_file = handle_index(file_summary) if options['format'] == 'html'
-      report(last_file[:results_file]) if options['format']
-      handle_complexity(file_complexities.sort.last, options['threshold'])
+      report(last_file[:results_file], file_summary.map{|s| s[:results_file]})
+      handle_complexity(options, file_complexities.sort.last, options['threshold'])
 
     end
 
+    default_task :check
+
     private
 
-    def formatter
+    def formatter(options)
       formatter = case options['format']
       when 'html'
         Formatters::Html
@@ -57,13 +58,14 @@ module Fukuzatsu
       {results_file: "#{index.output_path}/#{index.filename}"}
     end
 
-    def report(last_file)
+    def report(last_file, file_list)
+     return if options['format'] == "text"
      puts "Results written to:"
-     puts "#{last_file}"
+     puts last_file.present? && "#{last_file}" || file_list.join("\r\n")
     end
 
-    def handle_complexity(highest_complexity, threshold)
-      return if options['threshold'] == 0
+    def handle_complexity(options, highest_complexity, threshold)
+      return if options['threshold'].to_i == 0
       return if highest_complexity <= options['threshold']
       puts "Maximum complexity is #{highest_complexity}, which is greater than the threshold of #{options['threshold']}."
       exit 1
