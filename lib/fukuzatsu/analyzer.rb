@@ -50,13 +50,13 @@ class Analyzer
   end
 
   def methods_from(node, methods=[])
-    if node.type == :def || node.type == :defs
+    if node.type == :def || node.type == :defs || node.type == :class
       name = node.loc.name
       expression = node.loc.expression
       methods << ParsedMethod.new(
         name: content[name.begin_pos..name.end_pos - 1],
         content: content[expression.begin_pos..expression.end_pos - 1],
-        type: node.type == :defs ? :class : :instance
+        type: [:defs, :class].include?(node.type) ? :class : :instance
       )
     end
     node.children.each do |child|
