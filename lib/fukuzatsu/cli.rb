@@ -60,6 +60,7 @@ module Fukuzatsu
       parser.export
       self.summaries ||= []
       self.summaries << file.summary.merge(results_file: parser.path_to_results)
+      last_file = file
     end
 
     def report
