@@ -27,6 +27,28 @@ describe Analyzer do
     end
   end
   
+  describe "extract_class_name" do
+    context "from a file with a class in it" do
+      let(:analyzer) { Analyzer.new(File.read("spec/fixtures/single_class.rb")) }
+      it "should return the name of the class" do
+        expect(analyzer.extract_class_name).to eq "Gown"
+      end
+    end
+    context "from a file with a class inside a module" do
+      let(:analyzer) { Analyzer.new(File.read("spec/fixtures/module_with_class.rb")) }
+      it "should return the name of the class" do
+        expect(analyzer.extract_class_name).to eq "Bee"
+      end
+    end
+    context "from a file with no class in it" do
+      let(:analyzer) { Analyzer.new(File.read("spec/fixtures/single_method.rb")) }
+      it "should return '?'" do
+        expect(analyzer.extract_class_name).to eq "?"
+      end
+    end
+    
+  end
+  
   describe "extract_methods" do
     # Note: should implicitly trust private method #methods_from
     context "from a file with a single method" do
