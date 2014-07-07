@@ -1,0 +1,92 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Analyzer	lib/fukuzatsu/analyzer.rb	/^class Analyzer$/;"	c
+Base	lib/fukuzatsu/formatters/base.rb	/^  module Base$/;"	m	class:Formatters
+Breathalizer	spec/fixtures/program_3.rb	/^class Breathalizer$/;"	c
+CLI	lib/fukuzatsu/cli.rb	/^  class CLI < Thor$/;"	c	class:Fukuzatsu
+Csv	lib/fukuzatsu/formatters/csv.rb	/^  class Csv$/;"	c	class:Formatters
+Extracted	spec/fixtures/eg_mod_class_2.rb	/^module Extracted$/;"	m
+Foo	spec/fixtures/eg_class.rb	/^class Foo$/;"	c
+Foo	spec/fixtures/eg_mod_class.rb	/^class Foo::Bar$/;"	c
+Formatters	lib/fukuzatsu/formatters/base.rb	/^module Formatters$/;"	m
+Formatters	lib/fukuzatsu/formatters/csv.rb	/^module Formatters$/;"	m
+Formatters	lib/fukuzatsu/formatters/html.rb	/^module Formatters$/;"	m
+Formatters	lib/fukuzatsu/formatters/html_index.rb	/^module Formatters$/;"	m
+Formatters	lib/fukuzatsu/formatters/text.rb	/^module Formatters$/;"	m
+Fukuzatsu	lib/fukuzatsu.rb	/^module Fukuzatsu$/;"	m
+Fukuzatsu	lib/fukuzatsu/cli.rb	/^module Fukuzatsu$/;"	m
+Fukuzatsu	lib/fukuzatsu/version.rb	/^module Fukuzatsu$/;"	m
+Html	lib/fukuzatsu/formatters/html.rb	/^  class Html$/;"	c	class:Formatters
+HtmlIndex	lib/fukuzatsu/formatters/html_index.rb	/^  class HtmlIndex$/;"	c	class:Formatters
+ParsedFile	lib/fukuzatsu/parsed_file.rb	/^class ParsedFile$/;"	c
+ParsedMethod	lib/fukuzatsu/parsed_method.rb	/^class ParsedMethod$/;"	c
+Something	spec/fixtures/eg_module.rb	/^module Something$/;"	m
+Text	lib/fukuzatsu/formatters/text.rb	/^  class Text$/;"	c	class:Formatters
+Thing	spec/fixtures/eg_mod_class_2.rb	/^  class Thing$/;"	c	class:Extracted
+analyzer	lib/fukuzatsu/parsed_file.rb	/^  def analyzer$/;"	f	class:ParsedFile
+check	lib/fukuzatsu/cli.rb	/^    def check(path=".\/")$/;"	f	class:Fukuzatsu.CLI
+class_name	lib/fukuzatsu/parsed_file.rb	/^  def class_name$/;"	f	class:ParsedFile
+columns	lib/fukuzatsu/formatters/base.rb	/^    def columns$/;"	f	class:Formatters.Base
+complexity	lib/fukuzatsu/analyzer.rb	/^  def complexity$/;"	f	class:Analyzer
+complexity	lib/fukuzatsu/parsed_file.rb	/^  def complexity$/;"	f	class:ParsedFile
+complexity	lib/fukuzatsu/parsed_method.rb	/^  def complexity$/;"	f	class:ParsedMethod
+complexity	spec/fixtures/program_3.rb	/^  def complexity$/;"	f	class:Breathalizer
+content	lib/fukuzatsu/formatters/base.rb	/^    def content$/;"	f	class:Formatters.Base
+content	lib/fukuzatsu/formatters/html.rb	/^    def content$/;"	f	class:Formatters.Html
+content	lib/fukuzatsu/formatters/html_index.rb	/^    def content$/;"	f	class:Formatters.HtmlIndex
+content	lib/fukuzatsu/parsed_file.rb	/^  def content$/;"	f	class:ParsedFile
+export	lib/fukuzatsu/formatters/base.rb	/^    def export$/;"	f	class:Formatters.Base
+export	lib/fukuzatsu/formatters/text.rb	/^    def export$/;"	f	class:Formatters.Text
+extend_graph	lib/fukuzatsu/analyzer.rb	/^  def extend_graph$/;"	f	class:Analyzer
+extract_class_name	lib/fukuzatsu/analyzer.rb	/^  def extract_class_name$/;"	f	class:Analyzer
+extract_methods	lib/fukuzatsu/analyzer.rb	/^  def extract_methods$/;"	f	class:Analyzer
+file_contents	spec/fixtures/program_3.rb	/^  def file_contents$/;"	f	class:Breathalizer
+file_extension	lib/fukuzatsu/formatters/base.rb	/^    def file_extension$/;"	f	class:Formatters.Base
+file_extension	lib/fukuzatsu/formatters/csv.rb	/^    def file_extension$/;"	f	class:Formatters.Csv.rows
+file_extension	lib/fukuzatsu/formatters/html.rb	/^    def file_extension$/;"	f	class:Formatters.Html.rows
+file_list	lib/fukuzatsu/cli.rb	/^    def file_list(start_file)$/;"	f	class:Fukuzatsu
+filename	lib/fukuzatsu/formatters/base.rb	/^    def filename$/;"	f	class:Formatters.Base
+filename	lib/fukuzatsu/formatters/html_index.rb	/^    def filename$/;"	f	class:Formatters.HtmlIndex
+find_class	lib/fukuzatsu/analyzer.rb	/^  def find_class(node)$/;"	f	class:Analyzer
+footer	lib/fukuzatsu/formatters/csv.rb	/^    def footer$/;"	f	class:Formatters.Csv.rows
+footer	lib/fukuzatsu/formatters/html.rb	/^    def footer$/;"	f	class:Formatters.Html.rows
+footer	lib/fukuzatsu/formatters/text.rb	/^    def footer$/;"	f	class:Formatters.Text
+formatter	lib/fukuzatsu/cli.rb	/^    def formatter(options)$/;"	f	class:Fukuzatsu.CLI
+handle_complexity	lib/fukuzatsu/cli.rb	/^    def handle_complexity(options, highest_complexity, threshold)$/;"	f	class:Fukuzatsu
+handle_index	lib/fukuzatsu/cli.rb	/^    def handle_index(file_summary)$/;"	f	class:Fukuzatsu
+header	lib/fukuzatsu/formatters/csv.rb	/^    def header$/;"	f	class:Formatters.Csv
+header	lib/fukuzatsu/formatters/html.rb	/^    def header$/;"	f	class:Formatters.Html
+header	lib/fukuzatsu/formatters/text.rb	/^    def header$/;"	f	class:Formatters.Text
+included	lib/fukuzatsu/formatters/base.rb	/^    def self.included(klass)$/;"	F	class:Formatters.Base
+initialize	lib/fukuzatsu/analyzer.rb	/^  def initialize(content)$/;"	f	class:Analyzer
+initialize	lib/fukuzatsu/formatters/base.rb	/^    def initialize(file)$/;"	f	class:Formatters.Base
+initialize	lib/fukuzatsu/formatters/html_index.rb	/^    def initialize(file_summary)$/;"	f	class:Formatters.HtmlIndex
+initialize	spec/fixtures/program_3.rb	/^  def initialize(path_to_file)$/;"	f	class:Breathalizer
+methods	lib/fukuzatsu/parsed_file.rb	/^  def methods$/;"	f	class:ParsedFile
+methods_from	lib/fukuzatsu/analyzer.rb	/^  def methods_from(node, methods=[])$/;"	f	class:Analyzer
+output_path	lib/fukuzatsu/formatters/base.rb	/^    def output_path$/;"	f	class:Formatters.Base
+output_path	lib/fukuzatsu/formatters/html_index.rb	/^    def output_path$/;"	f	class:Formatters.HtmlIndex
+output_template	lib/fukuzatsu/formatters/html.rb	/^    def output_template$/;"	f	class:Formatters.Html
+output_template	lib/fukuzatsu/formatters/html_index.rb	/^    def output_template$/;"	f	class:Formatters.HtmlIndex
+parent_node?	lib/fukuzatsu/analyzer.rb	/^  def parent_node?(node)$/;"	f	class:Analyzer
+parse	spec/fixtures/program_3.rb	/^  def self.parse!(path_to_file)$/;"	F	class:Breathalizer
+parse!	lib/fukuzatsu/analyzer.rb	/^  def parse!$/;"	f	class:Analyzer
+parse!	spec/fixtures/program_3.rb	/^  def parse!$/;"	f	class:Breathalizer
+parsed	lib/fukuzatsu/analyzer.rb	/^  def parsed$/;"	f	class:Analyzer
+parsed	spec/fixtures/program_3.rb	/^  def parsed$/;"	f	class:Breathalizer
+prefix	lib/fukuzatsu/parsed_method.rb	/^  def prefix$/;"	f	class:ParsedMethod
+report	lib/fukuzatsu/cli.rb	/^    def report(last_file, file_list)$/;"	f	class:Fukuzatsu
+root_path	lib/fukuzatsu/formatters/base.rb	/^    def root_path$/;"	f	class:Formatters.Base
+rows	lib/fukuzatsu/formatters/csv.rb	/^    def rows$/;"	f	class:Formatters.Csv
+rows	lib/fukuzatsu/formatters/html.rb	/^    def rows$/;"	f	class:Formatters.Html
+rows	lib/fukuzatsu/formatters/text.rb	/^    def rows$/;"	f	class:Formatters.Text
+say_hello	spec/fixtures/eg_class.rb	/^  def say_hello$/;"	f	class:Foo
+spaghetti	spec/fixtures/program_1.rb	/^def spaghetti$/;"	f
+text_at	lib/fukuzatsu/analyzer.rb	/^  def text_at(start_pos, end_pos)$/;"	f	class:Analyzer
+toppings	spec/fixtures/program_2.rb	/^def toppings$/;"	f
+traverse	lib/fukuzatsu/analyzer.rb	/^  def traverse(node, accumulator=[], extract_methods=false)$/;"	f	class:Analyzer
+traverse	spec/fixtures/program_3.rb	/^  def traverse(node)#, accumulator=[])$/;"	f	class:Breathalizer

@@ -13,36 +13,30 @@ module Fukuzatsu
     method_option :threshold, :type => :numeric, :default => 0, :aliases => "-t"
 
     def check(path="./")
-
-      file_summary = []
-      file_complexities = []
-      last_file = {}
-
-      file_list(path).each do |path_to_file|
-        file = ParsedFile.new(path_to_file: path_to_file)
-        parser = formatter(options).new(file)
-        parser.export
-        file_summary << {
-          results_file: "#{parser.output_path}/#{parser.filename}",
-          path_to_file: path_to_file,
-          class_name: "#{file.class_name}",
-          complexity: file.complexity
-        }
-        file_complexities << file.complexity
-      end
-
-      last_file = handle_index(file_summary) if options['format'] == 'html'
-      report(last_file[:results_file], file_summary.map{|s| s[:results_file]})
-      handle_complexity(options, file_complexities.sort.last, options['threshold'])
-
+      file_list(path).each{ |path_to_file| parse(path_to_file) }
+      handle_index(file_summary) && report
     end
 
     default_task :check
 
+    attr_accessor :summaries, :last_file
+
     private
 
-    def formatter(options)
-      formatter = case options['format']
+    def complexities
+      summaries.map{|s| s[:complexity]}
+    end
+
+    def file_list(start_file)
+      if File.directory?(start_file)
+        return Dir.glob(File.join(start_file, "**", "*")).select{|n| n =~ /\.rb$/}
+      else
+        return [start_file]
+      end
+    end
+
+    def formatter
+      case options['format']
       when 'html'
         Formatters::Html
       when 'csv'
@@ -53,30 +47,36 @@ module Fukuzatsu
     end
 
     def handle_index(file_summary)
+      return unless options['format'] == 'html'
       index = Formatters::HtmlIndex.new(file_summary)
       index.export
-      {results_file: "#{index.output_path}/#{index.filename}"}
+      last_file = "#{index.output_path}/#{index.filename}"
     end
 
-    def report(last_file, file_list)
-     return if options['format'] == "text"
-     puts "Results written to:"
-     puts last_file.present? && "#{last_file}" || file_list.join("\r\n")
+    def parse(path_to_file, options={})
+      file = ParsedFile.new(path_to_file: path_to_file)
+      parser = formatter.new(file)
+      parser.export
+      summaries << file.summary.merge(results_file: parser.path_to_results)
     end
 
-    def handle_complexity(options, highest_complexity, threshold)
+    def report
+      unless options['format'] == "text"
+        puts "Results written to:"
+        puts last_file.present? && "#{last_file}" || results_files.join("\r\n")
+      end
+      report_complexity
+    end
+
+    def report_complexity(highest_complexity, threshold)
       return if options['threshold'].to_i == 0
-      return if highest_complexity <= options['threshold']
-      puts "Maximum complexity is #{highest_complexity}, which is greater than the threshold of #{options['threshold']}."
+      return if complexities.max <= options['threshold']
+      puts "Maximum complexity of #{highest_complexity} exceeds #{options['threshold']} threshold!"
       exit 1
     end
 
-    def file_list(start_file)
-      if File.directory?(start_file)
-        return Dir.glob(File.join(start_file, "**", "*")).select{|n| n =~ /\.rb$/}
-      else
-        return [start_file]
-      end
+    def results_files
+      summaries.map{|s| s[:results_file]}
     end
 
   end

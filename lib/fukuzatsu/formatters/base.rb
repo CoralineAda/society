@@ -28,6 +28,10 @@ module Formatters
       output_path
     end
 
+    def path_to_results
+      "#{output_path}/#{filename}"
+    end
+
     def filename
       self.file.path_to_file.split('/')[-1] + file_extension
     end
@@ -38,7 +42,7 @@ module Formatters
 
     def export
       begin
-        outfile = File.open("#{output_path}/#{filename}", 'w')
+        outfile = File.open("#{path_to_results}", 'w')
         outfile.write(content)
       rescue Exception => e
         puts "Unable to write output: #{e} #{e.backtrace}"
