@@ -3,7 +3,7 @@ class ParsedFile
   include PoroPlus
   include Ephemeral::Base
 
-  attr_accessor :path_to_file, :class_name, :path_to_results
+  attr_accessor :complexity, :path_to_file, :class_name, :path_to_results
 
   def class_name
     @class_name ||= analyzer.extract_class_name

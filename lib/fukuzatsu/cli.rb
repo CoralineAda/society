@@ -14,7 +14,8 @@ module Fukuzatsu
 
     def check(path="./")
       file_list(path).each{ |path_to_file| parse(path_to_file) }
-      handle_index(file_summary) && report
+      handle_index(summaries)
+      report
     end
 
     default_task :check
@@ -24,7 +25,7 @@ module Fukuzatsu
     private
 
     def complexities
-      summaries.map{|s| s[:complexity]}
+      summaries.to_a.map{|s| s[:complexity]}
     end
 
     def file_list(start_file)
@@ -49,15 +50,16 @@ module Fukuzatsu
     def handle_index(file_summary)
       return unless options['format'] == 'html'
       index = Formatters::HtmlIndex.new(file_summary)
+      self.last_file = "#{index.output_path}/#{index.filename}"
       index.export
-      last_file = "#{index.output_path}/#{index.filename}"
     end
 
     def parse(path_to_file, options={})
       file = ParsedFile.new(path_to_file: path_to_file)
       parser = formatter.new(file)
       parser.export
-      summaries << file.summary.merge(results_file: parser.path_to_results)
+      self.summaries ||= []
+      self.summaries << file.summary.merge(results_file: parser.path_to_results)
     end
 
     def report
@@ -68,10 +70,10 @@ module Fukuzatsu
       report_complexity
     end
 
-    def report_complexity(highest_complexity, threshold)
+    def report_complexity
       return if options['threshold'].to_i == 0
-      return if complexities.max <= options['threshold']
-      puts "Maximum complexity of #{highest_complexity} exceeds #{options['threshold']} threshold!"
+      return if complexities.max.to_i <= options['threshold']
+      puts "Maximum complexity of #{complexities.max} exceeds #{options['threshold']} threshold!"
       exit 1
     end
 

@@ -51,6 +51,26 @@ describe "Fukuzatsu::CLI" do
     end
   end
 
+  describe "#report" do
+    it "does not report if format is text" do
+      allow(cli).to receive(:options) { {'format' => 'text'} }
+      expect(cli.send(:report)).to be_nil
+    end
+  end
+
+  describe "#report_complexity" do
+    it "does not report if threshold is not set" do
+      expect(cli.send(:report_complexity)).to be_nil
+    end
+
+    it "does not report if threshold is respected" do
+      allow(cli).to receive(:options) { {'threshold' => 15} }
+      allow(cli).to receive(:complexities) { [0,13,11] }
+      expect(cli.send(:report_complexity)).to be_nil
+
+    end
+  end
+
   describe "#results_files" do
     it "extracts results files from its file summaries" do
       expect(cli.send(:results_files)).to eq(
