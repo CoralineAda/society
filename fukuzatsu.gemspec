@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Bantik"]
   spec.email         = ["coraline@idolhands.com"]
   spec.summary       = "A simple code complexity analyzer."
-  spec.description   = "Calculates code complexity as a measure of paths through code executition. Multiple, beautiful output options."
+  spec.description   = "Calculates code complexity as a measure of paths through code execution. CI integration and beautiful output options."
   spec.homepage      = "https://gitlab.com/coraline/fukuzatsu/tree/master"
   spec.license       = "MIT"
 
