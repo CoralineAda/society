@@ -30,7 +30,7 @@ module Fukuzatsu
 
     def file_list(start_file)
       if File.directory?(start_file)
-        return Dir.glob(File.join(start_file, "**", "*")).select{|n| n =~ /\.rb$/}
+        return Dir.glob(File.join(start_file, "**", "*.rb"))
       else
         return [start_file]
       end
@@ -50,7 +50,7 @@ module Fukuzatsu
     def handle_index(file_summary)
       return unless options['format'] == 'html'
       index = Formatters::HtmlIndex.new(file_summary)
-      self.last_file = "#{index.output_path}/#{index.filename}"
+      self.last_file = File.join(index.output_path, index.filename)
       index.export
     end
 

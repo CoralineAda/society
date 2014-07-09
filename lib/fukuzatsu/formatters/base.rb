@@ -23,17 +23,17 @@ module Formatters
     end
 
     def output_path
-      output_path = "#{root_path}/#{self.file.path_to_file.split('/')[0..-2].join("/")}"
+      output_path = File.dirname(File.join(root_path, self.file.path_to_file))
       FileUtils.mkpath(output_path)
       output_path
     end
 
     def path_to_results
-      "#{output_path}/#{filename}"
+      File.join(output_path, filename)
     end
 
     def filename
-      self.file.path_to_file.split('/')[-1] + file_extension
+      File.basename(self.file.path_to_file) + file_extension
     end
 
     def file_extension
@@ -42,12 +42,9 @@ module Formatters
 
     def export
       begin
-        outfile = File.open("#{path_to_results}", 'w')
-        outfile.write(content)
+        File.open(path_to_results, 'w') {|outfile| outfile.write(content)}
       rescue Exception => e
         puts "Unable to write output: #{e} #{e.backtrace}"
-      ensure
-        outfile && outfile.close
       end
     end
 
