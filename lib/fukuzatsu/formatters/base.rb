@@ -4,10 +4,12 @@ module Formatters
 
     def self.included(klass)
       klass.send(:attr_accessor, :file)
+      klass.send(:attr_accessor, :source)
     end
 
-    def initialize(file)
+    def initialize(file, source="")
       self.file = file
+      self.source = source
     end
 
     def content

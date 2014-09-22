@@ -1,3 +1,3 @@
 module Fukuzatsu
-  VERSION = "0.9.16"
+  VERSION = "0.10.1"
 end
