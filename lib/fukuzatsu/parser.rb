@@ -23,7 +23,7 @@ module Fukuzatsu
     end
 
     def report
-      self.parsed_files.each{ |file| formatter.new(file, file.source).export }
+      self.parsed_files.each{ |file| formatter.new(file, OUTPUT_DIRECTORY, file.source).export }
       puts "Results written to #{OUTPUT_DIRECTORY} "
       write_report_index
       report_complexity
@@ -60,7 +60,8 @@ module Fukuzatsu
     end
 
     def write_report_index
-      self.formatter.has_index? && formatter.index_class.new(parsed_files.map(&:summary)).export
+      return unless self.formatter.has_index?
+      formatter.index_class.new(parsed_files.map(&:summary), OUTPUT_DIRECTORY).export
     end
 
   end

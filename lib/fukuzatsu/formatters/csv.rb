@@ -5,20 +5,16 @@ module Formatters
     include Formatters::Base
 
     def self.has_index?
-      true
+      false
     end
 
-    def self.index_class
-      Formatters::CsvIndex
-    end
-
-    def header
+    def content
+      rows + "\r\n"
     end
 
     def rows
-      file.methods.inject([]) do |a, method|
-        a << "#{file.path_to_file},#{file.class_name},#{method.prefix}#{method.name},#{method.complexity}"
-        a
+      file.methods.map do |method|
+        "#{file.path_to_file},#{file.class_name},#{method.prefix}#{method.name},#{method.complexity}"
       end.join("\r\n")
     end
 
@@ -26,7 +22,7 @@ module Formatters
     end
 
     def path_to_results
-      File.join(root_path, "results#{file_extension}")
+      File.join(output_directory, "results#{file_extension}")
     end
 
     def file_extension

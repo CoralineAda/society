@@ -4,10 +4,11 @@ module Formatters
 
     include Formatters::Base
 
-    attr_accessor :file_summary
+    attr_reader :file_summary, :output_directory
 
-    def initialize(file_summary)
-      self.file_summary = file_summary
+    def initialize(file_summary, output_directory)
+      @file_summary = file_summary
+      @output_directory = output_directory
     end
 
     def filename
@@ -15,8 +16,8 @@ module Formatters
     end
 
     def output_path
-      FileUtils.mkpath(root_path)
-      root_path
+      FileUtils.mkpath(self.output_directory)
+      self.output_directory
     end
 
     def content

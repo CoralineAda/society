@@ -14,6 +14,10 @@ module Formatters
       Formatters::HtmlIndex
     end
 
+    def content
+      [header, rows, footer].flatten.join("\r\n")
+    end
+
     def header
       columns.map{|col| "<th>#{col.titleize}</th>"}.join("\r\n")
     end

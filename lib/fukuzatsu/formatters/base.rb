@@ -5,27 +5,21 @@ module Formatters
     def self.included(klass)
       klass.send(:attr_accessor, :file)
       klass.send(:attr_accessor, :source)
+      klass.send(:attr_accessor, :output_directory)
     end
 
-    def initialize(file, source="")
+    def initialize(file, output_directory, source="")
       self.file = file
       self.source = source
-    end
-
-    def content
-      [header, rows, footer].flatten.join("\r\n")
+      self.output_directory = output_directory
     end
 
     def columns
       ["file", "class", "method", "complexity"]
     end
 
-    def root_path
-      "doc/fukuzatsu"
-    end
-
     def output_path
-      output_path = File.dirname(File.join(root_path, self.file.path_to_file))
+      output_path = File.dirname(File.join(self.output_directory, self.file.path_to_file))
       FileUtils.mkpath(output_path)
       output_path
     end
