@@ -8,6 +8,10 @@ module Formatters
       true
     end
 
+    def self.index_class
+      Formatters::CsvIndex
+    end
+
     def header
     end
 

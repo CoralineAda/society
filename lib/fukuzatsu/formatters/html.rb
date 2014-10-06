@@ -10,6 +10,10 @@ module Formatters
       true
     end
 
+    def self.index_class
+      Formatters::HtmlIndex
+    end
+
     def header
       columns.map{|col| "<th>#{col.titleize}</th>"}.join("\r\n")
     end

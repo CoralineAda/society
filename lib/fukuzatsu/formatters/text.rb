@@ -16,10 +16,6 @@ module Formatters
       puts content
     end
 
-    def format
-      'text'
-    end
-
     def rows
       file.methods.map do |method|
         "#{file.class_name}\t#{method.prefix}#{method.name}\t#{method.complexity}"

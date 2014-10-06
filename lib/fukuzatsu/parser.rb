@@ -11,17 +11,22 @@ module Fukuzatsu
 
     def initialize(path, formatter, threshold=0)
       @start_path = path
-      @formatter = formatter
-      @threshold = threshold
-      @parsed_files = []
-      @root_path = "doc/fukuzatsu"
+      @formatter  = formatter
+      @threshold  = threshold
       reset_output_directory
     end
 
     def parse_files
-      source_files.each{ |path_to_file| parse(path_to_file) }
+      @parsed_files = source_files.map do |path_to_file|
+        parse_source_file(path_to_file)
+      end
+    end
+
+    def report
+      self.parsed_files.each{ |file| formatter.new(file, file.source).export }
+      puts "Results written to #{OUTPUT_DIRECTORY} "
       write_report_index
-      report
+      report_complexity
     end
 
     private
@@ -42,18 +47,8 @@ module Fukuzatsu
       end
     end
 
-    def write_report_index
-      self.formatter.has_index? && Formatters::HtmlIndex.new(parsed_files.map(&:summary)).export
-    end
-
-    def parse(path_to_file, options={})
-      @parsed_files << ParsedFile.new(path_to_file: path_to_file)
-    end
-
-    def report
-      parsed_files.each{ |file| formatter.new(file, file.source).export }
-      puts "Results written to #{OUTPUT_DIRECTORY} "
-      report_complexity
+    def parse_source_file(path_to_file, options={})
+      ParsedFile.new(path_to_file: path_to_file)
     end
 
     def report_complexity
@@ -62,6 +57,10 @@ module Fukuzatsu
       return if complexities.max.to_i <= self.threshold
       puts "Maximum complexity of #{complexities.max} exceeds #{options['threshold']} threshold!"
       exit 1
+    end
+
+    def write_report_index
+      self.formatter.has_index? && formatter.index_class.new(parsed_files.map(&:summary)).export
     end
 
   end
