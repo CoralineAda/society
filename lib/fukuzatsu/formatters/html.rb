@@ -6,6 +6,10 @@ module Formatters
 
     include Formatters::Base
 
+    def self.has_index?
+      true
+    end
+
     def header
       columns.map{|col| "<th>#{col.titleize}</th>"}.join("\r\n")
     end

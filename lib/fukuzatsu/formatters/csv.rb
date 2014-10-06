@@ -4,6 +4,10 @@ module Formatters
 
     include Formatters::Base
 
+    def self.has_index?
+      true
+    end
+
     def header
     end
 

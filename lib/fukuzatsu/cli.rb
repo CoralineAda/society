@@ -13,10 +13,27 @@ module Fukuzatsu
     method_option :threshold, :type => :numeric, :default => 0, :aliases => "-t"
 
     def check(path="./")
-      Fukuzatsu::Parser.new(path, options['format'], options['threshold']).parse_files
+      Fukuzatsu::Parser.new(
+        path,
+        formatter,
+        options['threshold']
+      ).parse_files
     end
 
     default_task :check
+
+    private
+
+    def formatter
+      case options['format']
+      when 'html'
+        Formatters::Html
+      when 'csv'
+        Formatters::Csv
+      else
+        Formatters::Text
+      end
+    end
 
   end
 
