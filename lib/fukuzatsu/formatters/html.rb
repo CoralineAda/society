@@ -29,6 +29,10 @@ module Formatters
       Rouge::Formatters::HTML.new(line_numbers: true)
     end
 
+    def columns
+      ["class", "method", "complexity"]
+    end
+
     def lexer
       lexer = Rouge::Lexers::Ruby.new
     end

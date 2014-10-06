@@ -1,8 +1,10 @@
+require 'fileutils'
+
 module Fukuzatsu
 
   class Parser
 
-    attr_reader :start_path, :summaries, :last_file, :start_file, :format, :threshold
+    attr_reader :start_path, :summaries, :last_file, :start_file, :last_file, :format, :threshold
 
     def initialize(path, format, threshold=nil)
       @start_path = path
@@ -11,12 +13,22 @@ module Fukuzatsu
     end
 
     def parse_files
+      init_directory
       file_list.each{ |path_to_file| parse(path_to_file) }
       handle_index(summaries)
       report
     end
 
     private
+
+    def init_directory
+      begin
+        FileUtils.remove_dir(root_path)
+      rescue
+      ensure
+        FileUtils.mkpath(root_path)
+      end
+    end
 
     def complexities
       self.summaries.to_a.map{|s| s[:complexity]}
@@ -44,7 +56,7 @@ module Fukuzatsu
     def handle_index(file_summary)
       return unless format == 'html'
       index = Formatters::HtmlIndex.new(file_summary)
-      self.last_file = File.join(index.output_path, index.filename)
+      @last_file = File.join(index.output_path, index.filename)
       index.export
     end
 
