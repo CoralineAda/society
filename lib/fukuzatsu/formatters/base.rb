@@ -17,7 +17,7 @@ module Formatters
     end
 
     def columns
-      ["class", "method", "complexity"]
+      ["file", "class", "method", "complexity"]
     end
 
     def root_path
