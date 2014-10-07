@@ -29,6 +29,7 @@ module Fukuzatsu
         print "."
         formatter.new(file, OUTPUT_DIRECTORY, file.source).export
       end
+      puts
       write_report_index
       report_complexity
     end
