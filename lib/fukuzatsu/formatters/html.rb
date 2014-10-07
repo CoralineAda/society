@@ -71,7 +71,7 @@ module Formatters
         i += 1
         a << "<tr class='#{i % 2 == 1 ? 'even' : 'odd'}'>"
         a << "  <td>#{file.class_name}</td>"
-        a << "  <td>#{method.prefix}#{method.name}</td>"
+        a << "  <td>#{method.name}</td>"
         a << "  <td>#{method.complexity}</td>"
         a << "</tr>"
         a
