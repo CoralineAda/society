@@ -1,5 +1,8 @@
 module Formatters
 
+  require 'terminal-table'
+  require 'rainbow/ext/string'
+
   class Text
 
     include Formatters::Base
@@ -8,21 +11,38 @@ module Formatters
       false
     end
 
+    def self.writes_to_file_system?
+      false
+    end
+
+    def color_for(row)
+      return :green if row.complexity == 0
+      return :yellow if row.complexity <= file.average_complexity
+      return :red if row.complexity > file.average_complexity
+      return :white
+    end
+
     def header
-      "#{file.class_name}\t\t#{file.complexity}"
+      ["Class/Module", "Method", "Complexity"]
     end
 
     def export
-      puts content
+      return if rows.empty?
+      table = Terminal::Table.new(
+        title: file.path_to_file.color(:white),
+        headings: header,
+        rows: rows,
+        style: {width: 80}
+      )
+      table.align_column(3, :right)
+      puts table
     end
 
     def rows
       file.methods.map do |method|
-        "#{file.class_name}\t#{method.prefix}#{method.name}\t#{method.complexity}"
+        color = color_for(method)
+        ["#{file.class_name}".color(color), "#{method.name}".color(color), "#{method.complexity}".color(color)]
       end
-    end
-
-    def footer
     end
 
   end

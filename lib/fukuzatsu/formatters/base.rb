@@ -14,8 +14,8 @@ module Formatters
       self.output_directory = output_directory
     end
 
-    def columns
-      ["file", "class", "method", "complexity"]
+    def filename
+      File.basename(self.file.path_to_file) + file_extension
     end
 
     def output_path
@@ -26,22 +26,6 @@ module Formatters
 
     def path_to_results
       File.join(output_path, filename)
-    end
-
-    def filename
-      File.basename(self.file.path_to_file) + file_extension
-    end
-
-    def file_extension
-      ""
-    end
-
-    def export
-      begin
-        File.open(path_to_results, 'w') {|outfile| outfile.write(content)}
-      rescue Exception => e
-        puts "Unable to write output: #{e} #{e.backtrace}"
-      end
     end
 
   end

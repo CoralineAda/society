@@ -8,25 +8,12 @@ module Formatters
       false
     end
 
+    def self.writes_to_file_system?
+      true
+    end
+
     def content
       rows + "\r\n"
-    end
-
-    def rows
-      file.methods.map do |method|
-        "#{file.path_to_file},#{file.class_name},#{method.prefix}#{method.name},#{method.complexity}"
-      end.join("\r\n")
-    end
-
-    def footer
-    end
-
-    def path_to_results
-      File.join(output_directory, "results#{file_extension}")
-    end
-
-    def file_extension
-      ".csv"
     end
 
     def export
@@ -35,6 +22,20 @@ module Formatters
       rescue Exception => e
         puts "Unable to write output: #{e} #{e.backtrace}"
       end
+    end
+
+    def file_extension
+      ".csv"
+    end
+
+    def path_to_results
+      File.join(output_directory, "results#{file_extension}")
+    end
+
+    def rows
+      file.methods.map do |method|
+        "#{file.path_to_file},#{file.class_name},#{method.prefix}#{method.name},#{method.complexity}"
+      end.join("\r\n")
     end
 
   end

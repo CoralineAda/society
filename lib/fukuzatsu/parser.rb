@@ -17,14 +17,11 @@ module Fukuzatsu
     end
 
     def parse_files
-      @parsed_files = source_files.map do |path_to_file|
-        parse_source_file(path_to_file)
-      end
+      @parsed_files = source_files.map{ |path_to_file| parse_source_file(path_to_file) }
     end
 
     def report
       self.parsed_files.each{ |file| formatter.new(file, OUTPUT_DIRECTORY, file.source).export }
-      puts "Results written to #{OUTPUT_DIRECTORY} "
       write_report_index
       report_complexity
     end
@@ -60,6 +57,8 @@ module Fukuzatsu
     end
 
     def write_report_index
+      return unless self.formatter.writes_to_file_system?
+      puts "Results written to #{OUTPUT_DIRECTORY} "
       return unless self.formatter.has_index?
       formatter.index_class.new(parsed_files.map(&:summary), OUTPUT_DIRECTORY).export
     end

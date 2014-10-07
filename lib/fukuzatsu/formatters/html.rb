@@ -10,16 +10,16 @@ module Formatters
       true
     end
 
+    def self.writes_to_file_system?
+      true
+    end
+
     def self.index_class
       Formatters::HtmlIndex
     end
 
-    def content
-      [header, rows, footer].flatten.join("\r\n")
-    end
-
-    def header
-      columns.map{|col| "<th>#{col.titleize}</th>"}.join("\r\n")
+    def columns
+      ["class", "method", "complexity"]
     end
 
     def content
@@ -37,12 +37,20 @@ module Formatters
       )
     end
 
+    def export
+      begin
+        File.open(path_to_results, 'w') {|outfile| outfile.write(content)}
+      rescue Exception => e
+        puts "Unable to write output: #{e} #{e.backtrace}"
+      end
+    end
+
     def formatter
       Rouge::Formatters::HTML.new(line_numbers: true)
     end
 
-    def columns
-      ["class", "method", "complexity"]
+    def header
+      columns.map{|col| "<th>#{col.titleize}</th>"}.join("\r\n")
     end
 
     def lexer
@@ -68,9 +76,6 @@ module Formatters
         a << "</tr>"
         a
       end.join("\r\n")
-    end
-
-    def footer
     end
 
     def file_extension

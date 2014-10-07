@@ -8,8 +8,15 @@ class ParsedMethod
     @complexity ||= analyzer.complexity
   end
 
+  def name
+    return "" if self.type == :none
+    "#{prefix}#{@name}"
+  end
+
   def prefix
-    self.type.to_s == 'class' ? "." : "#"
+    return "." if self.type == :class
+    return "#" if self.type == :instance
+    return "*"
   end
 
   def analyzer
