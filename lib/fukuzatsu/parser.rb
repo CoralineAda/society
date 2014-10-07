@@ -6,6 +6,7 @@ module Fukuzatsu
 
     attr_reader :start_path, :parsed_files
     attr_reader :threshold, :formatter
+    attr_reader :start_time
 
     OUTPUT_DIRECTORY = "doc/fukuzatsu"
 
@@ -13,15 +14,21 @@ module Fukuzatsu
       @start_path = path
       @formatter  = formatter
       @threshold  = threshold
+      @start_time = Time.now
       reset_output_directory
     end
 
     def parse_files
-      @parsed_files = source_files.map{ |path_to_file| parse_source_file(path_to_file) }
+      @parsed_files = source_files.map do |path_to_file|
+         parse_source_file(path_to_file)
+      end
     end
 
     def report
-      self.parsed_files.each{ |file| formatter.new(file, OUTPUT_DIRECTORY, file.source).export }
+      self.parsed_files.each do |file|
+        print "."
+        formatter.new(file, OUTPUT_DIRECTORY, file.source).export
+      end
       write_report_index
       report_complexity
     end
