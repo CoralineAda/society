@@ -32,7 +32,7 @@ module Formatters
         title: file.path_to_file.color(:white),
         headings: header,
         rows: rows,
-        style: {width: 80}
+        style: {width: 90}
       )
       table.align_column(3, :right)
       puts table
@@ -41,8 +41,13 @@ module Formatters
     def rows
       file.methods.map do |method|
         color = color_for(method)
-        ["#{file.class_name}".color(color), "#{method.name}".color(color), "#{method.complexity}".color(color)]
+        [wrap("#{file.class_name}").color(color), wrap("#{method.name}".color(color)), "#{method.complexity}".color(color)]
       end
+    end
+
+    def wrap(string)
+      return string if string.length < 25
+      string[0..24] << "..."
     end
 
   end
