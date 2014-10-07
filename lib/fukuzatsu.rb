@@ -13,6 +13,7 @@ require_relative "fukuzatsu/formatters/text"
 require_relative "fukuzatsu/line_of_code"
 require_relative "fukuzatsu/parsed_file"
 require_relative "fukuzatsu/parsed_method"
+require_relative "fukuzatsu/parser"
 require_relative "fukuzatsu/version"
 
 module Fukuzatsu

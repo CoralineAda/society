@@ -4,19 +4,11 @@ module Formatters
 
     include Formatters::Base
 
-    attr_accessor :file_summary
+    attr_reader :file_summary, :output_directory
 
-    def initialize(file_summary)
-      self.file_summary = file_summary
-    end
-
-    def filename
-      "index.htm"
-    end
-
-    def output_path
-      FileUtils.mkpath(root_path)
-      root_path
+    def initialize(file_summary, output_directory)
+      @file_summary = file_summary
+      @output_directory = output_directory
     end
 
     def content
@@ -27,6 +19,23 @@ module Formatters
           time: Time.now.strftime("%l:%M %P")
         }
       )
+    end
+
+    def export
+      begin
+        File.open(path_to_results, 'w') {|outfile| outfile.write(content)}
+      rescue Exception => e
+        puts "Unable to write output: #{e} #{e.backtrace}"
+      end
+    end
+
+    def filename
+      "index.htm"
+    end
+
+    def output_path
+      FileUtils.mkpath(self.output_directory)
+      self.output_directory
     end
 
     def output_template

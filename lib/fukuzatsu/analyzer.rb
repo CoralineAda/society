@@ -53,10 +53,18 @@ class Analyzer
     if node.type == :def || node.type == :defs || node.type == :class
       name = node.loc.name
       expression = node.loc.expression
+      type = case(node.type)
+        when :defs
+          :class
+        when :def
+          :instance
+        when :class
+          :none
+      end
       methods << ParsedMethod.new(
         name: content[name.begin_pos..name.end_pos - 1],
         content: content[expression.begin_pos..expression.end_pos - 1],
-        type: [:defs, :class].include?(node.type) ? :class : :instance
+        type: type
       )
     end
     node.children.each do |child|
