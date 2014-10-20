@@ -25,7 +25,7 @@ class Analyzer
       concat << text_at(node.loc.name.begin_pos, node.loc.name.end_pos)
     end
     concat << node.children.map{|child| find_class(child)}.compact
-    concat.flatten.select(&:present?).join('::')
+    concat.flatten.reject(&:empty?).join('::')
   end
 
   def methods_from(node, methods=[])
