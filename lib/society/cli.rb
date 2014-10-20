@@ -1,12 +1,13 @@
 require "thor"
+require "society"
 
 module Society
 
-  class CLI < thor
+  class CLI < Thor
 
-    desc_text = "society from PATH_TO_FILE"
+    desc_text = ""
 
-    desc "from PATH_TO_FILE"
+    desc "from PATH_TO_FILE", desc_text
     def from(path="./")
       parser = Society::Parser.new(path)
       parser.parse_files
@@ -22,3 +23,5 @@ module Society
     end
 
   end
+
+end
