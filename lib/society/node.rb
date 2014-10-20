@@ -1,21 +1,23 @@
-module Society
+class Node
 
-  class Node
+  attr_reader   :name       # method or class name
+  attr_reader   :address    # file name or file name + loc
+  attr_accessor :references # relation between nodes
 
-    attr_reader   :name     # method or class name
-    attr_reader   :address  # file name or file name + loc
-    attr_accessor :edges    # relation between nodes
+  def initialize(name: name, address: address, references: references=[])
+    @name = name
+    @address = address
+    @references = references
+  end
 
-    def initialize(name: name, address: address, edges: edges=[])
-      @edges = edges
-      @name = name
-      @address = address
+  def edges
+    @edges ||= references.map do |reference|
+      Edge.new(from: name, to: reference)
     end
+  end
 
-    def edge_count
-      edges.count
-    end
-
+  def edge_count
+    edges.count
   end
 
 end

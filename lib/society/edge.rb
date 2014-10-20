@@ -2,14 +2,12 @@ module Society
 
   class Edge
 
-    attr_reader :from_node
-    attr_reader :to_node
-    attr_reader :relation
+    attr_reader :from
+    attr_reader :to
 
-    def initialize(from_node: from_node, to_node: to_node, relation: relation)
-      @from_node  = from_node
-      @to_node    = to_node
-      @relation   = relation
+    def initialize(from: from_node, to: to_node)
+      @from = from
+      @to = to
     end
 
   end
