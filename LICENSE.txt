@@ -1,4 +1,4 @@
-Copyright (c) 2014 Bantik
+Copyright (c) 2014 Coraline Ada Ehmke  / Instructure.inc
 
 MIT License
 
