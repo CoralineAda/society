@@ -1,24 +1,28 @@
-class ParsedMethod
+module Society
 
-  attr_reader :name, :content, :type
+  class ParsedMethod
 
-  def initialize(name: name, content: content, type: type)
-    @name = name
-    @content = content
-    @type = type
-  end
+    attr_reader :name, :content, :type
 
-  def name
-    return "" if self.type == :none
-    "#{prefix}#{@name}"
-  end
+    def initialize(name: name, content: content, type: type)
+      @name = name
+      @content = content
+      @type = type
+    end
 
-  private
+    def name
+      return "" if self.type == :none
+      "#{prefix}#{@name}"
+    end
 
-  def prefix
-    return "." if self.type == :class
-    return "#" if self.type == :instance
-    return "*"
+    private
+
+    def prefix
+      return "." if self.type == :class
+      return "#" if self.type == :instance
+      return "*"
+    end
+
   end
 
 end
