@@ -1,4 +1,5 @@
 require 'graphviz'
+require 'json'
 
 module Society
   class Mapper
@@ -19,6 +20,19 @@ module Society
       draw_nodes
       graph.output(svg: "#{path_to_file}.svg")
       graph.output(dot: "#{path_to_file}.dot")
+    end
+
+    def generate_d3_data
+      nodeNames = []
+      dep_matrix = [[]]
+      nodeNames = sorted_nodes.map(&:name)
+      sorted_nodes.each_with_index do |node, i|
+        dependencies = nodeNames.map do |name|
+          node.references.include?(name) ? 1 : 0
+        end
+        dep_matrix.push(dependencies)
+      end
+      { packageNames: nodeNames, matrix: dep_matrix }.to_json
     end
 
     private
