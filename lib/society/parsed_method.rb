@@ -2,12 +2,13 @@ module Society
 
   class ParsedMethod
 
-    attr_reader :name, :content, :type
+    attr_reader :name, :content, :type, :references
 
-    def initialize(name: name, content: content, type: type)
+    def initialize(name: name, content: content, type: type, refs: refs=[])
       @name = name
       @content = content
       @type = type
+      @references = refs
     end
 
     def name

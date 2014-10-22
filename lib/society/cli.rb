@@ -1,5 +1,4 @@
 require "thor"
-require "society"
 
 module Society
 

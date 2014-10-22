@@ -46,6 +46,19 @@ module Society
       concat.flatten.reject(&:empty?).join('::')
     end
 
+    def extract_references_from(node_array)
+      node_array.map do |child|
+        if child.respond_to?(:type)
+          case child.type
+          when :send
+            child.children.last
+          when :begin
+            extract_references_from(child.children) if child.respond_to? :children
+          end
+        end
+      end.flatten.compact
+    end
+
     def methods_from(node, found=[])
       if node.type == :def || node.type == :defs || node.type == :class
         name = node.loc.name
@@ -61,12 +74,13 @@ module Society
         found << ParsedMethod.new(
           name: content[name.begin_pos..name.end_pos - 1],
           content: content[expression.begin_pos..expression.end_pos - 1],
-          type: type
+          type: type,
+          refs: extract_references_from(node.children)
         )
       end
       node.children.each do |child|
         if parent_node?(child)
-          methods_from(child, methods)
+          methods_from(child, found)
         end
       end
       found

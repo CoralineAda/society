@@ -27,6 +27,15 @@ module Society
       @methods ||= analyzer.methods
     end
 
+    def method_counts
+      referenced_methods = methods.map(&:references).flatten
+      referenced_methods.inject({}) do |hash, method|
+        hash[method] ||= 0
+        hash[method] += 1
+        hash
+      end
+    end
+
     private
 
     def analyzer

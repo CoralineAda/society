@@ -25,8 +25,8 @@ module Society
 
     def sorted_node_names
       names = self.graph.nodes
-      names = names.sort{|a,b| a.name.split('::').last.length <=> b.name.split('::').last.length}
-      names = names.reject{|node| node.references.empty?}
+      names = names.reject{ |node| node.references.empty? || node.name.empty? }
+      names = names.sort{ |a,b| a.name.split('::').last.length <=> b.name.split('::').last.length }
       names.compact
     end
 
