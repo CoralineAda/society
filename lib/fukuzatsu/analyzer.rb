@@ -32,6 +32,10 @@ class Analyzer
     @constants ||= constants_from(parsed)
   end
 
+  def method_names
+    @method_names ||= method_names_from(parsed)
+  end
+
   def extract_methods
     @methods ||= methods_from(parsed)
   end
@@ -45,7 +49,7 @@ class Analyzer
   private
 
   def method_list
-    @method_list ||= method_names_from(parsed.children.first)
+    @method_list ||= method_names
   end
 
   def method_names_from(node, found=[])
