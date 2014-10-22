@@ -30,9 +30,22 @@ Generate a method dependency graph:
 
      graph = parser.method_graph
 
-Generate JSON dependency matrix for export to d3:
+Generate JSON dependency matrix for visualization:
 
-    parser.matrix.to_jsno
+    parser.matrix(parser.object_graph).to_json
+
+  or
+
+    parser.matrix(parser.method_graph).to_json
+
+  then
+
+    file = File.open("./doc/analysis.json","w"); file.write json; file.close
+
+  and open `doc/index.htm` in your browser.
+
+
+
 
 ## TODO
 
