@@ -1,6 +1,6 @@
 # Society
 
-TODO: Write a gem description
+Society analyzes and presents a social graph of relationships between classes or methods.
 
 ## Installation
 
@@ -16,17 +16,23 @@ Or install it yourself as:
 
     $ gem install society
 
-## Testing in IRB
-
-     parser = Society::Parser.new(start_path: "path/to/models")
-     graph = parser.object_graph
-     Society::Mapper.new(graph).write
-
-Then open `graph.svg` in your browser.
-
 ## Usage
 
-TODO: Write usage instructions here
+Initialize a parser with source files:
+
+     parser = Society::Parser.new(start_path: "path/to/models")
+
+Generate an object dependency graph:
+
+     graph = parser.class_graph
+
+Generate a method dependency graph:
+
+     graph = parser.method_graph
+
+Generate JSON dependency matrix for export to d3:
+
+    parser.matrix.to_jsno
 
 ## Contributing
 
