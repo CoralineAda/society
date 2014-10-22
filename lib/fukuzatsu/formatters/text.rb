@@ -47,7 +47,7 @@ module Formatters
 
     def wrap(string)
       return string if string.length < 25
-      string[0..24] << "..."
+      string[0..20] << "..."
     end
 
   end
