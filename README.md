@@ -34,6 +34,12 @@ Generate JSON dependency matrix for export to d3:
 
     parser.matrix.to_jsno
 
+## TODO
+
+* Add fukuzatsu as a dependency
+
+* Wrap fukuzatsu parsing and remove duplicate classes
+
 ## Contributing
 
 Please note that this project is released with a [Contributor Code of Conduct](https://github.com/Bantik/society/blob/master/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.

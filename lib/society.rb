@@ -5,7 +5,6 @@ end
 
 require_relative "society/analyzer"
 require_relative "society/cli"
-require_relative "society/edge"
 require_relative "society/line_of_code"
 require_relative "society/mapper"
 require_relative "society/matrix"

@@ -50,7 +50,7 @@ module Society
       node.children.each do |child|
         constants_from(child, found) if parent_node?(child)
       end
-      found
+      found.reject{ |constant| constant == class_name }
     end
 
     def find_class(node)

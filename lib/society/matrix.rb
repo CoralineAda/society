@@ -1,3 +1,5 @@
+require 'json'
+
 module Society
 
   class Matrix
@@ -8,7 +10,6 @@ module Society
       @nodes = nodes
     end
 
-    # note that d3 implementation wanted packageNames key
     def to_json
       { names: node_names, matrix: matrix }.to_json
     end
