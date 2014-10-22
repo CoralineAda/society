@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["coraline@instructure.com", "kerrizor@gmail.com"]
   spec.summary       = %q{Social graph for Ruby objects}
   spec.description   = %q{Social graph for Ruby objects}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/Bantik/society"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
