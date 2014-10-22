@@ -15,12 +15,8 @@ module Society
       @class_name ||= analyzer.class_name
     end
 
-    def constants
-      @constants ||= analyzer.constants
-    end
-
-    def peers
-      self.source
+    def class_references
+      @class_references ||= analyzer.constants
     end
 
     def methods
