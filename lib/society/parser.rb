@@ -1,13 +1,13 @@
-require 'fileutils'
+require 'fukuzatsu'
 
 module Society
 
-  class Parser
+  class Parser < Fukuzatsu::Parser
 
-    attr_reader :path_to_files, :parsed_files
+    attr_reader :parsed_files
 
-    def initialize(path_to_files: path_to_files)
-      @path_to_files = path_to_files
+    def initialize(start_path)
+      super(start_path, :none, 0)
       @parsed_files = parse_files
     end
 
@@ -18,7 +18,7 @@ module Society
           Node.new(
             name: parsed_file.class_name,
             address: parsed_file.path_to_file,
-            references: parsed_file.class_references
+            edges: parsed_file.class_references
           )
         end
         graph
@@ -33,7 +33,7 @@ module Society
           Node.new(
             name: method.name,
             address: target.class_name,
-            references: method.references
+            edges: method.references
           )
         end
         graph
@@ -44,18 +44,7 @@ module Society
       Society::Matrix.new(graph.nodes)
     end
 
-    private
-
-    def parse_files
-      source_files.map{ |path| ParsedFile.new(path_to_file: path) }
-    end
-
-    def source_files
-      if File.directory?(path_to_files)
-        return Dir.glob(File.join(path_to_files, "**", "*.rb"))
-      else
-        return [path_to_files]
-      end
+    def reset_output_directory
     end
 
   end

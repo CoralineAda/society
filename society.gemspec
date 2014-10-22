@@ -6,8 +6,8 @@ require 'society/version'
 Gem::Specification.new do |spec|
   spec.name          = "society"
   spec.version       = Society::VERSION
-  spec.authors       = ["Coraline Ada Ehmke"]
-  spec.email         = ["coraline@instructure.com"]
+  spec.authors       = ["Coraline Ada Ehmke", "Kerri Miller"]
+  spec.email         = ["coraline@instructure.com", "kerrizor@gmail.com"]
   spec.summary       = %q{Social graph for Ruby objects}
   spec.description   = %q{Social graph for Ruby objects}
   spec.homepage      = ""
@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "fukuzatsu"
   spec.add_dependency "parser"
   spec.add_dependency "rainbow"
   spec.add_dependency "terminal-table"
