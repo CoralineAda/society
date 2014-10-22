@@ -1,5 +1,8 @@
 require "fileutils"
 
+module Society
+end
+
 require_relative "society/analyzer"
 require_relative "society/cli"
 require_relative "society/edge"
@@ -13,5 +16,3 @@ require_relative "society/parsed_method"
 require_relative "society/parser"
 require_relative "society/version"
 
-module Society
-end

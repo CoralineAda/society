@@ -21,15 +21,15 @@ module Society
       @methods ||= methods_from(parsed)
     end
 
-    def method_list
-      @method_list ||= method_names_from(parsed.children.first)
-    end
-
     def constants
       @constants ||= constants_from(parsed)
     end
 
     private
+
+    def method_list
+      @method_list ||= method_names_from(parsed.children.first)
+    end
 
     def method_names_from(node, found=[])
       if node.type == :def || node.type == :defs
