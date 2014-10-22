@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Society::Matrix do
 
-  let(:node)   { Struct.new(:name, :references)}
+  let(:node)   { Struct.new(:name, :edges) }
   let(:nodes)  {
     [
       node.new("foo", %w{bar bat baz}),

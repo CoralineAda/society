@@ -24,7 +24,7 @@ module Society
       reference_matrix = [[]]
       nodes.each_with_index do |node, i|
         references = node_names.map do |name|
-          node.references.include?(name) ? 1 : 0
+          node.edges.include?(name) ? 1 : 0
         end
         reference_matrix.push(references)
       end

@@ -3,7 +3,6 @@ require "fileutils"
 module Society
 end
 
-require_relative "society/analyzer"
 require_relative "society/cli"
 require_relative "society/matrix"
 require_relative "society/node"
