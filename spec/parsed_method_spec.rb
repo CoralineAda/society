@@ -22,11 +22,11 @@ describe ParsedMethod do
 
   describe "#prefix" do
     it "returns '.' if its type is class" do
-      allow(parsed_method).to receive("type") { "class" }
+      allow(parsed_method).to receive("type") { :class }
       expect(parsed_method.prefix).to eq "."
     end
     it "returns '#' if its type is instance" do
-      allow(parsed_method).to receive("type") { "instance" }
+      allow(parsed_method).to receive("type") { :instance }
       expect(parsed_method.prefix).to eq "#"
     end
   end

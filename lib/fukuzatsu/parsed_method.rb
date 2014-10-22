@@ -1,8 +1,14 @@
 class ParsedMethod
 
-  include PoroPlus
+  attr_reader :name, :content, :type, :complexity, :references
 
-  attr_accessor :name, :content, :type, :complexity
+  def initialize(name: name, content: content, type: type, refs: refs=[], complexity: complexity)
+    @name = name
+    @content = content
+    @type = type
+    @references = refs
+    @complexity = complexity
+  end
 
   def complexity
     @complexity ||= analyzer.complexity

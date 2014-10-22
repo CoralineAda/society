@@ -34,7 +34,7 @@ module Formatters
 
     def rows
       file.methods.map do |method|
-        "#{file.path_to_file},#{file.class_name},#{method.prefix}#{method.name},#{method.complexity}"
+        "#{file.path_to_file},#{file.class_name},#{method.name},#{method.complexity}"
       end.join("\r\n")
     end
 

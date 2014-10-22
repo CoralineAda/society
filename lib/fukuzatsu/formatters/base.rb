@@ -8,7 +8,7 @@ module Formatters
       klass.send(:attr_accessor, :output_directory)
     end
 
-    def initialize(file, output_directory, source="")
+    def initialize(file, output_directory=nil, source="")
       self.file = file
       self.source = source
       self.output_directory = output_directory

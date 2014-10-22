@@ -6,7 +6,7 @@ module Formatters
 
     attr_reader :file_summary, :output_directory
 
-    def initialize(file_summary, output_directory)
+    def initialize(file_summary, output_directory=nil)
       @file_summary = file_summary
       @output_directory = output_directory
     end

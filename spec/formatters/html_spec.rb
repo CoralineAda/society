@@ -2,23 +2,24 @@ require 'spec_helper'
 
 describe "Formatters::Text" do
 
-  let (:parsed_file) { ParsedFile.new(class_name: "Foo", complexity: 11) }
+  let(:parsed_file) { Struct.new(:path_to_file, :class_name)}
+  let(:mock_parsed_file) { parsed_file.new("fred/foo.rb", "Foo") }
   let (:method_1) { ParsedMethod.new(
       name: "initialize",
       complexity: 13,
-      type: "instance"
+      type: :instance
     )
   }
   let (:method_2) { ParsedMethod.new(
       name: "report",
       complexity: 11,
-      type: "instance"
+      type: :instance
     )
   }
-  let (:formatter) { Formatters::Html.new(parsed_file) }
+  let (:formatter) { Formatters::Html.new(mock_parsed_file) }
 
   before do
-    allow(parsed_file).to receive(:methods) { [method_1, method_2] }
+    allow(mock_parsed_file).to receive(:methods) { [method_1, method_2] }
   end
 
   describe "#header" do
@@ -33,7 +34,7 @@ describe "Formatters::Text" do
     it "returns HTML-formatted rows" do
       expected = "<tr class='even'>\r\n  <td>Foo</td>\r\n  <td>#initialize</td>\r\n  <td>13</td>\r\n</tr>\r\n"
       expected << "<tr class='odd'>\r\n  <td>Foo</td>\r\n  <td>#report</td>\r\n  <td>11</td>\r\n</tr>"
-      allow(parsed_file).to receive(:methods) { [method_1, method_2] }
+      allow(mock_parsed_file).to receive(:methods) { [method_1, method_2] }
       expect(formatter.rows).to eq(expected)
     end
   end

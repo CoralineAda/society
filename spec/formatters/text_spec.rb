@@ -15,19 +15,23 @@ describe "Formatters::Text" do
       type: "instance"
     )
   }
-  let (:formatter) { Formatters::Text.new(parsed_file) }
+
+
+  let(:parsed_file) { Struct.new(:path_to_file, :class_name, :average_complexity)}
+  let(:mock_parsed_file) { parsed_file.new("fred/foo.rb", "Foo", 12) }
+  let (:formatter) { Formatters::Text.new(mock_parsed_file) }
 
   describe "#header" do
-    it "returns a tab-separated header" do
-      expect(formatter.header).to eq "Foo\t\t11"
+    it "returns a header array" do
+      expect(formatter.header).to eq ["Class/Module", "Method", "Complexity"]
     end
   end
 
   describe "#rows" do
-    it "returns tab-separated rows" do
-      allow(parsed_file).to receive(:methods) { [method_1, method_2] }
+    it "returns formatted rows" do
+      allow(mock_parsed_file).to receive(:methods) { [method_1, method_2] }
       expect(formatter.rows).to eq(
-        ["Foo\t#initialize\t13", "Foo\t#report\t11"]
+        [["\e[31mFoo\e[0m", "\e[31m*initialize\e[0m", "\e[31m13\e[0m"], ["\e[33mFoo\e[0m", "\e[33m*report\e[0m", "\e[33m11\e[0m"]]
       )
     end
   end

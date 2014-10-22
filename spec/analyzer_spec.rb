@@ -22,7 +22,7 @@ describe Analyzer do
         expect(Analyzer.new(content_4).extract_class_name).to eq("Foo::Bar")
       end
     end
-  
+
     context "from Module; Class" do
       it "returns Extracted::Thing" do
         expect(Analyzer.new(content_6).extract_class_name).to eq("Extracted::Thing")
@@ -57,7 +57,7 @@ describe Analyzer do
 
     end
   end
-  
+
   describe "extract_class_name" do
     context "from a file with a class in it" do
       let(:analyzer) { Analyzer.new(File.read("spec/fixtures/single_class.rb")) }
@@ -68,18 +68,18 @@ describe Analyzer do
     context "from a file with a class inside a module" do
       let(:analyzer) { Analyzer.new(File.read("spec/fixtures/module_with_class.rb")) }
       it "should return the name of the class" do
-        expect(analyzer.extract_class_name).to eq "Bee"
+        expect(analyzer.extract_class_name).to eq "Symbolics::Insects::Bee"
       end
     end
     context "from a file with no class in it" do
       let(:analyzer) { Analyzer.new(File.read("spec/fixtures/single_method.rb")) }
-      it "should return '?'" do
-        expect(analyzer.extract_class_name).to eq "?"
+      it "should return 'Unknown'" do
+        expect(analyzer.extract_class_name).to eq "Unknown"
       end
     end
-    
+
   end
-  
+
   describe "extract_methods" do
     # Note: should implicitly trust private method #methods_from
     context "from a file with a single method" do
@@ -88,7 +88,7 @@ describe Analyzer do
         expect(analyzer.extract_methods.count).to eq 1
       end
       it "should extract the method name" do
-        expect(analyzer.extract_methods[0].name).to eq "read_poem"
+        expect(analyzer.extract_methods[0].name).to eq "#read_poem"
       end
       it "should extract the method content" do
         expect(analyzer.extract_methods[0].content).to eq 'def read_poem
@@ -102,22 +102,19 @@ end'
     context "from a file with multiple methods" do
       let(:analyzer) { Analyzer.new(File.read("spec/fixtures/multiple_methods.rb")) }
       it "should return multiple methods" do
-        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["bake_treats", "lower_from_window"]
+        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["#bake_treats", "#lower_from_window"]
       end
     end
     context "from a file with nested methods" do
       let(:analyzer) { Analyzer.new(File.read("spec/fixtures/nested_methods.rb")) }
       it "should return the root method, and its child" do
-        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["grow_flowers", "water_earth"]
+        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["#grow_flowers", "#water_earth"]
       end
     end
     context "from a file with a class" do
       let(:analyzer) { Analyzer.new(File.read("spec/fixtures/single_class.rb")) }
       it "should return the class and its methods" do
-        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["Gown", "initialize", "color"]
-      end
-      it "should set the type of class to :class" do
-        expect(analyzer.extract_methods[0].type).to eq :class
+        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["#initialize", "#color"]
       end
     end
   end

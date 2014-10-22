@@ -2,32 +2,28 @@ require 'spec_helper'
 
 describe "Formatters::Csv" do
 
-  let (:parsed_file) { ParsedFile.new(class_name: "Foo") }
   let (:method_1) { ParsedMethod.new(
       name: "initialize",
       complexity: 13,
-      type: "instance"
+      type: :instance
     )
   }
   let (:method_2) { ParsedMethod.new(
       name: "report",
       complexity: 11,
-      type: "instance"
+      type: :instance
     )
   }
-  let (:formatter) { Formatters::Csv.new(parsed_file) }
 
-  describe "#header" do
-    it "returns a comma-separated header" do
-      expect(formatter.header).to eq "class,method,complexity"
-    end
-  end
+  let(:parsed_file) { Struct.new(:path_to_file, :class_name) }
+  let(:mock_parsed_file) { parsed_file.new("fred/foo.rb", "Foo") }
+  let (:formatter) { Formatters::Csv.new(mock_parsed_file) }
 
   describe "#rows" do
     it "returns comma-separated rows" do
-      allow(parsed_file).to receive(:methods) { [method_1, method_2] }
+      allow(mock_parsed_file).to receive(:methods) { [method_1, method_2] }
       expect(formatter.rows).to eq(
-        "Foo,#initialize,13\r\nFoo,#report,11"
+        "fred/foo.rb,Foo,#initialize,13\r\nfred/foo.rb,Foo,#report,11"
       )
     end
   end
