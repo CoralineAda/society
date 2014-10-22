@@ -49,9 +49,7 @@ Generate JSON dependency matrix for visualization:
 
 ## TODO
 
-* Add fukuzatsu as a dependency
-
-* Wrap fukuzatsu parsing and remove duplicate classes
+* Hierarchical edge bundling visualization (e.g. http://bl.ocks.org/mbostock/7607999)
 
 ## Contributing
 
