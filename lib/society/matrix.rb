@@ -1,10 +1,10 @@
 module Society
 
-  class DependencyMatrix
+  class Matrix
 
     attr_reader :nodes
 
-    def initialize(nodes: nodes)
+    def initialize(nodes)
       @nodes = nodes
     end
 
@@ -27,6 +27,7 @@ module Society
         end
         reference_matrix.push(references)
       end
+      reference_matrix
     end
 
   end

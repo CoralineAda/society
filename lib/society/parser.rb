@@ -41,7 +41,7 @@ module Society
     end
 
     def matrix(graph)
-      Matrix.new(graph.nodes)
+      Society::Matrix.new(graph.nodes)
     end
 
     private
