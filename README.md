@@ -16,11 +16,22 @@ Or install it yourself as:
 
     $ gem install society
 
+## Testing in IRB
+
+     parser = Society::Parser.new(start_path: "path/to/models")
+     graph = parser.object_graph
+     Society::Mapper.new(graph).write
+
+Then open `graph.svg` in your browser.
+
 ## Usage
 
 TODO: Write usage instructions here
 
 ## Contributing
+
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/Bantik/society/blob/master/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
 
 1. Fork it ( https://github.com/[my-github-username]/society/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
