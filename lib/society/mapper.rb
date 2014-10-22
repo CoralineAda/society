@@ -61,5 +61,25 @@ module Society
       end
     end
 
+    def sorted_node_names
+      names = self.graph.nodes
+      names = names.reject{ |node| node.references.empty? || node.name.empty? }
+      names = names.sort{ |a,b| a.name.split('::').last.length <=> b.name.split('::').last.length }
+      names.compact
+    end
+
+    def content
+      @content ||= sorted_node_names.each_with_index.map do |node, index|
+        name = node.name.split("::").last
+        rotate = "#{rotation * index} 500,500)"
+        %Q{
+          <text font-family="Verdana" font-size="10" x="100" y="500" text-anchor="end" transform="rotate(#{rotate}">
+            <title>#{node.name}</title>
+            #{name}
+          </text>
+        }
+      end
+    end
+
   end
 end

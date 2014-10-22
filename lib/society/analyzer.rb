@@ -7,16 +7,22 @@ module Society
 
     attr_reader :content
 
+    DEFAULT_CLASS_NAME = "Unknown"
+
     def initialize(content)
       @content = content
     end
 
     def class_name
-      find_class(parsed) || "Unknown"
+      find_class(parsed) || DEFAULT_CLASS_NAME
     end
 
     def methods
       @methods ||= methods_from(parsed)
+    end
+
+    def method_list
+      @method_list ||= method_names_from(parsed.children.first)
     end
 
     def constants
@@ -24,6 +30,17 @@ module Society
     end
 
     private
+
+    def method_names_from(node, found=[])
+      if node.type == :def || node.type == :defs
+        name = node.loc.name
+        found << content[name.begin_pos..name.end_pos - 1].to_sym
+      end
+      node.children.each do |child|
+        method_names_from(child, found) if parent_node?(child)
+      end
+      found
+    end
 
     def constants_from(node, found=[])
       if node.type == :const
@@ -46,8 +63,20 @@ module Society
       concat.flatten.reject(&:empty?).join('::')
     end
 
+    def extract_references_from(node, found=[])
+      return found unless node && node.respond_to?(:type)
+      if node.type == :send
+        reference = node.loc.expression
+        found << node.children.last
+      end
+      node.children.each do |child|
+        extract_references_from(child, found)
+      end
+      found.select{|name| method_list.include?(name)}
+    end
+
     def methods_from(node, found=[])
-      if node.type == :def || node.type == :defs || node.type == :class
+      if node.type == :def || node.type == :defs
         name = node.loc.name
         expression = node.loc.expression
         type = case(node.type)
@@ -61,12 +90,13 @@ module Society
         found << ParsedMethod.new(
           name: content[name.begin_pos..name.end_pos - 1],
           content: content[expression.begin_pos..expression.end_pos - 1],
-          type: type
+          type: type,
+          refs: extract_references_from(node)
         )
       end
       node.children.each do |child|
         if parent_node?(child)
-          methods_from(child, methods)
+          methods_from(child, found)
         end
       end
       found
