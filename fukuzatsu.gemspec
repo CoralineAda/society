@@ -6,8 +6,8 @@ require 'fukuzatsu/version'
 Gem::Specification.new do |spec|
   spec.name          = "fukuzatsu"
   spec.version       = Fukuzatsu::VERSION
-  spec.authors       = ["Bantik"]
-  spec.email         = ["coraline@idolhands.com"]
+  spec.authors       = ["Coraline Ada Ehmke", "Mike Ziwisky"]
+  spec.email         = ["coraline@idolhands.com", "mikezx@gmail.com"]
   spec.summary       = "A simple code complexity analyzer."
   spec.description   = "Calculates code complexity as a measure of paths through code execution. CI integration and beautiful output options."
   spec.homepage      = "https://gitlab.com/coraline/fukuzatsu/tree/master"
