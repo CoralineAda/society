@@ -40,11 +40,11 @@ module Society
       end
     end
 
-    def matrix(graph)
-      Society::Matrix.new(graph.nodes)
-    end
-
-    def reset_output_directory
+    def matrices(graph)
+      {
+        co_occurrence: Society::Matrix::CoOccurrence.new(graph.nodes),
+        edge_bundling: Society::Matrix::EdgeBundling.new(graph.nodes)
+      }
     end
 
   end
