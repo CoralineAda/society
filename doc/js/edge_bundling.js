@@ -18,19 +18,19 @@ var line = d3.svg.line.radial()
 var edgeBundlingSvg = d3.select("#edge-bundling").append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
-  .append("g")
+    .append("g")
     .attr("transform", "translate(" + radius + "," + radius + ")");
 
-var link = edgeBundlingSvg.append("g").selectAll(".link"),
-    node = edgeBundlingSvg.append("g").selectAll(".node");
+var link = edgeBundlingSvg.append("g").selectAll(".link");
+var node = edgeBundlingSvg.append("g").selectAll(".node");
 
 d3.json("data/edge_bundling.json", function(classes, error) {
-  var nodes = cluster.nodes(packageHierarchy(classes)),
-      links = packageImports(nodes);
+  var nodes = cluster.nodes(nodesFrom(classes));
+  var edges = edgesFrom(nodes);
 
   link = link
-      .data(bundle(links))
-    .enter().append("path")
+      .data(bundle(edges))
+      .enter().append("path")
       .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
       .attr("class", "link")
       .attr("d", line);
@@ -54,7 +54,7 @@ function mouseovered(d) {
   link
       .classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
       .classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
-    .filter(function(l) { return l.target === d || l.source === d; })
+      .filter(function(l) { return l.target === d || l.source === d; })
       .each(function() { this.parentNode.appendChild(this); });
 
   node
@@ -75,7 +75,7 @@ function mouseouted(d) {
 d3.select(self.frameElement).style("height", diameter + "px");
 
 // Lazily construct the package hierarchy from class names.
-function packageHierarchy(classes) {
+function nodesFrom(classes) {
   var map = {};
 
   function find(name, data) {
@@ -98,22 +98,15 @@ function packageHierarchy(classes) {
   return map[""];
 }
 
-// Return a list of imports for the given array of nodes.
-function packageImports(nodes) {
-  var map = {},
-      imports = [];
-
-  // Compute a map from name to node.
+// Return a list of edges for the given array of nodes.
+function edgesFrom(nodes) {
+  var map = {}
+  var edges = [];
+  nodes.forEach(function(d) { map[d.name] = d; });
   nodes.forEach(function(d) {
-    map[d.name] = d;
-  });
-
-  // For each import, construct a link from the source to target node.
-  nodes.forEach(function(d) {
-    if (d.imports) d.imports.forEach(function(i) {
-      imports.push({source: map[d.name], target: map[i]});
+    if (d.edges) d.edges.forEach(function(i) {
+      edges.push({source: map[d.name], target: map[i]});
     });
   });
-
-  return imports;
+  return edges;
 }

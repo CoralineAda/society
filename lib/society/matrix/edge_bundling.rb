@@ -13,7 +13,7 @@ module Society
         nodes.map do |node|
           {
             name: node.name,
-            imports: node.edges.uniq.select{ |n| node_names.include? n }
+            edges: node.edges.uniq.select{ |n| node_names.include? n }
           }
         end.to_json
       end
