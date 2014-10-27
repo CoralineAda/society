@@ -19,7 +19,16 @@ describe Society::Matrix do
 
   describe "#to_json" do
     it "generates a json representation" do
-      expected = "{\"names\":[\"foo\",\"bar\"],\"matrix\":[[],[0,1],[1,0]]}"
+      expected = {
+        "nodes"=>[
+          {"name"=>"foo", "group"=>1},
+          {"name"=>"bar", "group"=>1}
+        ],
+        "links"=>[
+          {"source"=>0, "target"=>1, "value"=>1},
+          {"source"=>1, "target"=>0, "value"=>1}
+        ]
+      }.to_json
       expect(matrix.to_json).to eq(expected)
     end
   end

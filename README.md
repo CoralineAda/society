@@ -44,9 +44,6 @@ Generate JSON dependency matrix for visualization:
 
   and open `doc/index.htm` in your browser.
 
-
-
-
 ## TODO
 
 * Hierarchical edge bundling visualization (e.g. http://bl.ocks.org/mbostock/7607999)
