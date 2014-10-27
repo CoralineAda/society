@@ -10,28 +10,12 @@ module Society
       include Society::Matrix::Core
 
       def to_json
-        [
+        nodes.map do |node|
           {
-            name: "Fukuzatsu.Something.Foo",
-            size: 3958,
-            imports: ["Fukuzatsu.Something.Bar"]
-          },
-          {
-            name: "Fukuzatsu.Bar",
-            size: 3958,
-            imports: ["Society.Something.Baz"]
-          },
-          {
-            name: "Society.Baz",
-            size: 3958,
-            imports: ["Fukuzatsu.Something.Bar"]
-          },
-          {
-            name: "Society.Bat",
-            size: 3958,
-            imports: ["Fukuzatsu.Something.Foo", "Fukuzatsu.Something.Bar"]
+            name: node.name,
+            imports: node.edges.uniq.select{ |n| node_names.include? n }
           }
-        ].to_json
+        end.to_json
       end
 
     end

@@ -32,11 +32,11 @@ Generate a method dependency graph:
 
 Generate JSON dependency matrix for visualization:
 
-    parser.matrix(parser.object_graph).to_json
+    json = parser.matrix(parser.object_graph).to_json
 
   or
 
-    parser.matrix(parser.method_graph).to_json
+    json = parser.matrix(parser.method_graph).co_occurrence.to_json
 
   then
 
