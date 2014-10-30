@@ -3,11 +3,11 @@ require 'pry'
 
 module Society
 
-  module Matrix
+  module Formatter
 
-    class EdgeBundling
+    class Network
 
-      include Society::Matrix::Core
+      include Society::Formatter::Core
 
       def to_json
         self.nodes.map do |node|

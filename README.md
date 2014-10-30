@@ -22,25 +22,19 @@ Initialize a parser with source files:
 
      parser = Society::Parser.new("path/to/models")
 
-Generate an object dependency graph:
+Generate a dependency graph:
 
-     graph = parser.class_graph
+     graph = parser.class_graph # or parser.method_graph
 
-Generate a method dependency graph:
+Generate JSON dependency graph for visualization:
 
-     graph = parser.method_graph
+    heatmap_json = parser.formatters(graph).heatmap.to_json
+    network_json = parser.formatters(graph).network.to_json
 
-Generate JSON dependency matrix for visualization:
+  then save the json:
 
-    json = parser.matrix(parser.object_graph).to_json
-
-  or
-
-    json = parser.matrix(parser.method_graph).co_occurrence.to_json
-
-  then
-
-    file = File.open("./doc/analysis.json","w"); file.write json; file.close
+    file = File.open("./doc/data/heatmap.json","w"); file.write heatmap_json; file.close
+    file = File.open("./doc/data/network.json","w"); file.write network_json; file.close
 
   and open `doc/index.htm` in your browser.
 

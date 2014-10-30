@@ -3,11 +3,11 @@ require 'pry'
 
 module Society
 
-  module Matrix
+  module Formatter
 
-    class CoOccurrence
+    class Heatmap
 
-      include Society::Matrix::Core
+      include Society::Formatter::Core
 
       def to_hash
         {

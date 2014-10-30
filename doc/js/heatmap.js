@@ -7,14 +7,14 @@ var x = d3.scale.ordinal().rangeBands([0, width]),
     z = d3.scale.linear().domain([0, 4]).clamp(true),
     c = d3.scale.category10().domain(d3.range(10));
 
-var coOccurrenceSvg = d3.select("#co-occurrence").append("svg")
+var coOccurrenceSvg = d3.select("#heatmap").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .style("margin-left", -margin.left + "px")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("data/co_occurrence.json", function(analysis) {
+d3.json("data/heatmap.json", function(analysis) {
   var matrix = [],
       nodes = analysis.nodes,
       n = nodes.length;

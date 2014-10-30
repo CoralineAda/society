@@ -3,7 +3,7 @@ require 'pry'
 
 module Society
 
-  module Matrix
+  module Formatter
 
     module Core
 

@@ -40,11 +40,11 @@ module Society
       end
     end
 
-    def matrices(graph)
-      matrix = Struct.new(:co_occurrence, :edge_bundling)
-      matrix.new(
-        Society::Matrix::CoOccurrence.new(graph),
-        Society::Matrix::EdgeBundling.new(graph)
+    def formatters(graph)
+      formatter = Struct.new(:co_occurrence, :edge_bundling)
+      formatter.new(
+        Society::Formatter::CoOccurrence.new(graph),
+        Society::Formatter::EdgeBundling.new(graph)
       )
     end
 

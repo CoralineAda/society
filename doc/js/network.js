@@ -15,7 +15,7 @@ var line = d3.svg.line.radial()
     .radius(function(d) { return d.y; })
     .angle(function(d) { return d.x / 180 * Math.PI; });
 
-var edgeBundlingSvg = d3.select("#edge-bundling").append("svg")
+var edgeBundlingSvg = d3.select("#network").append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
     .append("g")
@@ -24,7 +24,7 @@ var edgeBundlingSvg = d3.select("#edge-bundling").append("svg")
 var link = edgeBundlingSvg.append("g").selectAll(".link");
 var node = edgeBundlingSvg.append("g").selectAll(".node");
 
-d3.json("data/edge_bundling.json", function(classes, error) {
+d3.json("data/network.json", function(classes, error) {
   var nodes = cluster.nodes(nodesFrom(classes));
   var edges = edgesFrom(nodes);
 
