@@ -1,5 +1,7 @@
 class Foo
 
+  has_many :bars
+
   def penultimate_method
     ultimate_method
   end
