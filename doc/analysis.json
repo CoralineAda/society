@@ -1,1 +1,0 @@
-[{:name=>"Foo", :size=>3958, :imports=>"Bar"}, {:name=>"Bar", :size=>3958, :imports=>"Baz"}, {:name=>"Baz", :size=>3958, :imports=>"Bar"}, {:name=>"Bat", :size=>3958, :imports=>"Foo, Bar"}]
