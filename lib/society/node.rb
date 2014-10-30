@@ -1,16 +1,10 @@
 module Society
   class Node
 
-    attr_reader   :name       # method or class name
-    attr_accessor :edges      # relation between nodes
+    attr_reader :name
 
-    def initialize(name: name, edges: edges=[])
+    def initialize(name: name)
       @name = name
-      @edges = edges
-    end
-
-    def edge_count
-      edges.count
     end
 
   end

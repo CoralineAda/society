@@ -11,13 +11,14 @@ module Society
 
       def to_hash
         {
-          nodes: node_names.map{ |name| {name: name, group: 1} },
-          links: self.nodes.map do |node|
-            node.edges.map do |edge|
-              next unless edge_name = node_name_symbols.index(edge) || node_names.index(edge)
-              {source: node_names.index(node.name), target: edge_name, value: 1}
-            end
-          end.flatten.compact
+          nodes: nodes.map{ |name| {name: name, group: 1} },
+          links: edges.map do |edge|
+            {
+              source: nodes.index(edge.from),
+              target: nodes.index(edge.to),
+              value: 1
+            }
+          end.reject{ |link| link[:target].blank? }
         }
       end
 

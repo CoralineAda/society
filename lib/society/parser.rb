@@ -17,11 +17,9 @@ module Society
     def class_graph
       @class_graph ||= begin
         graph = ObjectGraph.new
-        graph.nodes = analyzer.classes.map do |klass|
-          Node.new(
-            name:  klass.full_name,
-            edges: references_from(klass) + relations_from(klass) # TODO direct references + AM relations
-          )
+        graph.nodes = analyzer.classes.map{ |klass| klass.full_name }
+        analyzer.classes.map do |klass|
+          graph.edges.concat(relations_from(klass))
         end
         graph
       end
@@ -45,8 +43,8 @@ module Society
     def matrices(graph)
       matrix = Struct.new(:co_occurrence, :edge_bundling)
       matrix.new(
-        Society::Matrix::CoOccurrence.new(graph.nodes),
-        Society::Matrix::EdgeBundling.new(graph.nodes)
+        Society::Matrix::CoOccurrence.new(graph),
+        Society::Matrix::EdgeBundling.new(graph)
       )
     end
 
@@ -61,7 +59,8 @@ module Society
     end
 
     def references_from(klass)
-      throw "Implement me!"
+      []
+      #throw "Implement me!"
     end
       # def add_association(method_name, args)
       #   target_class = value_from_hash_node(args.last, :class_name)

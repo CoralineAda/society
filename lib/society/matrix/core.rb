@@ -9,22 +9,16 @@ module Society
 
       def self.included(klass)
         klass.send(:attr_reader, :nodes)
+        klass.send(:attr_reader, :edges)
       end
 
-      def initialize(nodes)
-        @nodes = nodes
+      def initialize(graph)
+        @nodes = graph.nodes
+        @edges = graph.edges
       end
 
       def to_json
         to_hash.to_json
-      end
-
-      def node_names
-        self.nodes.map(&:name)
-      end
-
-      def node_name_symbols
-        node_names.map{ |name| name.gsub(/^./, '').to_sym }
       end
 
     end

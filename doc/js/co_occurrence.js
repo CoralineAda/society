@@ -14,7 +14,7 @@ var coOccurrenceSvg = d3.select("#co-occurrence").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("data/co_occurence.json", function(analysis) {
+d3.json("data/co_occurrence.json", function(analysis) {
   var matrix = [],
       nodes = analysis.nodes,
       n = nodes.length;

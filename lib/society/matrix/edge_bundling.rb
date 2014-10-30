@@ -10,10 +10,12 @@ module Society
       include Society::Matrix::Core
 
       def to_json
-        nodes.map do |node|
+        self.nodes.map do |node|
           {
-            name: node.name,
-            edges: node.edges.uniq.select{ |n| node_names.include? n }
+            name: node,
+            edges: self.edges.select{|edge| edge.from == node}.map(&:to).select do |edge|
+              self.nodes.include?(edge)
+            end
           }
         end.to_json
       end
@@ -23,3 +25,9 @@ module Society
   end
 
 end
+
+# [
+#   { name: "Foo", edges: ["Bar"] },
+#   { name: "Bar", edges: ["Foo", "Baz"] },
+#   { name: "Baz", edges: [] },
+# ]
