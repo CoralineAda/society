@@ -21,13 +21,13 @@ describe "Formatters::HtmlIndex" do
 
   let (:formatter) { Formatters::HtmlIndex.new(file_summary) }
 
-  describe "#initialize" do
+  describe "::initialize" do
     it "initializes with a file summary" do
       expect(formatter.file_summary).to eq file_summary
     end
   end
 
-  describe "#filename" do
+  describe "::filename" do
     it "returns the expected filename" do
       expect(formatter.filename).to eq "index.htm"
     end

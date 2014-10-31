@@ -11,12 +11,16 @@ class ParsedFile
     @source = parse!
   end
 
+  def parsed_content
+    @parsed_content ||= Analyst.new(self.path_to_file)
+  end
+
   def class_name
-    @class_name ||= analyzer.class_name
+    @class_name ||= parsed_content.classes.first.full_name
   end
 
   def class_references
-    @class_references ||= analyzer.constants
+    @class_references ||= parsed_content.constants
   end
 
   def content
@@ -32,7 +36,7 @@ class ParsedFile
   end
 
   def methods
-    @methods ||= analyzer.methods
+    @methods ||= parsed_content.classes.first.all_methods.map(&:name)
   end
 
   def method_counts

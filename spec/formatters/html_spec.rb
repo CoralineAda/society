@@ -32,8 +32,8 @@ describe "Formatters::Text" do
 
   describe "#rows" do
     it "returns HTML-formatted rows" do
-      expected = "<tr class='even'>\r\n  <td>Foo</td>\r\n  <td>#initialize</td>\r\n  <td>13</td>\r\n</tr>\r\n"
-      expected << "<tr class='odd'>\r\n  <td>Foo</td>\r\n  <td>#report</td>\r\n  <td>11</td>\r\n</tr>"
+      expected = "<tr class='even'>\r\n  <td>Foo</td>\r\n  <td>::initialize</td>\r\n  <td>13</td>\r\n</tr>\r\n"
+      expected << "<tr class='odd'>\r\n  <td>Foo</td>\r\n  <td>::report</td>\r\n  <td>11</td>\r\n</tr>"
       allow(mock_parsed_file).to receive(:methods) { [method_1, method_2] }
       expect(formatter.rows).to eq(expected)
     end

@@ -19,16 +19,16 @@ describe "Formatters::Csv" do
   let(:mock_parsed_file) { parsed_file.new("fred/foo.rb", "Foo") }
   let (:formatter) { Formatters::Csv.new(mock_parsed_file) }
 
-  describe "#rows" do
+  describe "::rows" do
     it "returns comma-separated rows" do
       allow(mock_parsed_file).to receive(:methods) { [method_1, method_2] }
       expect(formatter.rows).to eq(
-        "fred/foo.rb,Foo,#initialize,13\r\nfred/foo.rb,Foo,#report,11"
+        "fred/foo.rb,Foo,::initialize,13\r\nfred/foo.rb,Foo,::report,11"
       )
     end
   end
 
-  describe "#file_extension" do
+  describe "::file_extension" do
     it "returns the proper extension" do
       expect(formatter.file_extension).to eq ".csv"
     end

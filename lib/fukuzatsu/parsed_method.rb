@@ -21,7 +21,7 @@ class ParsedMethod
 
   def prefix
     return "." if self.type == :class
-    return "#" if self.type == :instance
+    return "::" if self.type == :instance
     return "*"
   end
 

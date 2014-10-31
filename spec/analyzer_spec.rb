@@ -9,7 +9,7 @@ describe Analyzer do
   let(:content_5)   { File.read("spec/fixtures/eg_module.rb") }
   let(:content_6)   { File.read("spec/fixtures/eg_mod_class_2.rb") }
 
-  context "#extract_class_name" do
+  context "::extract_class_name" do
 
     context "from Class Foo" do
       it "returns Foo" do
@@ -36,7 +36,7 @@ describe Analyzer do
     end
   end
 
-  describe "#complexity" do
+  describe "::complexity" do
     context "program_1" do
 
       let(:analyzer)  { Analyzer.new(content_1) }
@@ -81,14 +81,14 @@ describe Analyzer do
   end
 
   describe "extract_methods" do
-    # Note: should implicitly trust private method #methods_from
+    # Note: should implicitly trust private method ::methods_from
     context "from a file with a single method" do
       let(:analyzer) { Analyzer.new(File.read("spec/fixtures/single_method.rb")) }
       it "should return a single method" do
         expect(analyzer.extract_methods.count).to eq 1
       end
       it "should extract the method name" do
-        expect(analyzer.extract_methods[0].name).to eq "#read_poem"
+        expect(analyzer.extract_methods[0].name).to eq "::read_poem"
       end
       it "should extract the method content" do
         expect(analyzer.extract_methods[0].content).to eq 'def read_poem
@@ -102,19 +102,19 @@ end'
     context "from a file with multiple methods" do
       let(:analyzer) { Analyzer.new(File.read("spec/fixtures/multiple_methods.rb")) }
       it "should return multiple methods" do
-        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["#bake_treats", "#lower_from_window"]
+        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["::bake_treats", "::lower_from_window"]
       end
     end
     context "from a file with nested methods" do
       let(:analyzer) { Analyzer.new(File.read("spec/fixtures/nested_methods.rb")) }
       it "should return the root method, and its child" do
-        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["#grow_flowers", "#water_earth"]
+        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["::grow_flowers", "::water_earth"]
       end
     end
     context "from a file with a class" do
       let(:analyzer) { Analyzer.new(File.read("spec/fixtures/single_class.rb")) }
       it "should return the class and its methods" do
-        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["#initialize", "#color"]
+        expect(analyzer.extract_methods.map { |m| m.name }).to eq ["::initialize", "::color"]
       end
     end
   end

@@ -30,7 +30,7 @@ describe "Fukuzatsu::CLI" do
     allow(cli).to receive(:summaries) { [summary_1, summary_2] }
   end
 
-  describe "#formatter" do
+  describe "::formatter" do
     it "returns a csv formatter" do
       allow(cli).to receive(:options) { {'format' => 'csv'} }
       expect(cli.send(:formatter)).to eq Formatters::Csv

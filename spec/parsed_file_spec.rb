@@ -45,8 +45,7 @@ describe ParsedFile do
       allow(parsed_file).to receive(:analyzer) { analyzer }
     end
     it "retrieves methods from analyzer" do
-      allow(analyzer).to receive(:methods) { [:talk, :walk] }
-      expect(parsed_file.methods).to eq([:talk, :walk])
+      expect(parsed_file.methods).to eq(["say_hello"])
     end
   end
 
