@@ -41,10 +41,10 @@ module Society
     end
 
     def formatters(graph)
-      formatter = Struct.new(:co_occurrence, :edge_bundling)
+      formatter = Struct.new(:heatmap, :network)
       formatter.new(
-        Society::Formatter::CoOccurrence.new(graph),
-        Society::Formatter::EdgeBundling.new(graph)
+        Society::Formatter::Heatmap.new(graph),
+        Society::Formatter::Network.new(graph)
       )
     end
 
