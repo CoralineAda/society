@@ -11,24 +11,16 @@ class ParsedFile
     @source = parse!
   end
 
-  def parsed_content
-    @parsed_content ||= Analyst.new(self.path_to_file)
+  def average_complexity
+    methods.map(&:complexity).reduce(:+) / methods.count.to_f
   end
 
   def class_name
-    @class_name ||= parsed_content.classes.first.full_name
-  end
-
-  def class_references
-    @class_references ||= parsed_content.constants
+    @class_name ||= this_class.full_name
   end
 
   def content
     @content ||= File.open(path_to_file, "r").read
-  end
-
-  def average_complexity
-    methods.map(&:complexity).reduce(:+) / methods.count.to_f
   end
 
   def complexity
@@ -36,16 +28,11 @@ class ParsedFile
   end
 
   def methods
-    @methods ||= parsed_content.classes.first.all_methods.map(&:name)
+    @methods ||= this_class.all_methods.map(&:name)
   end
 
-  def method_counts
-    referenced_methods = methods.map(&:references).flatten
-    referenced_methods.inject({}) do |hash, method|
-      hash[method] ||= 0
-      hash[method] += 1
-      hash
-    end
+  def parsed_content
+    @parsed_content ||= Analyst.new(self.path_to_file)
   end
 
   def source
@@ -70,11 +57,11 @@ class ParsedFile
     }
   end
 
-  private
-
-  def analyzer
-    @analyzer ||= Analyzer.new(content)
+  def this_class
+    @this_class ||= parsed_content.classes.first
   end
+
+  private
 
   def content
     @content ||= File.open(path_to_file, "r").read
