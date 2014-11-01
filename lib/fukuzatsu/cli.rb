@@ -1,5 +1,4 @@
 require 'thor'
-require 'fukuzatsu'
 
 module Fukuzatsu
 

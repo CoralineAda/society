@@ -1,38 +1,30 @@
 module Fukuzatsu
   class ParsedFile
 
-    attr_accessor :lines_of_code, :source
-    attr_accessor :complexity, :path_to_file, :class_name, :path_to_results
+    attr_accessor :path_to_file
 
-    def initialize(path_to_file: path_to_file, class_name: class_name=nil, complexity: complexity)
+    def initialize(path_to_file)
       @path_to_file = path_to_file
-      @class_name = class_name
       @lines_of_code = []
-      @complexity = complexity
-      @source = parse!
     end
 
     def average_complexity
-      methods.map(&:complexity).reduce(:+) / methods.count.to_f
+      parsed_methods.map(&:complexity).reduce(:+) / methods.count.to_f
     end
 
     def class_name
       @class_name ||= this_class.full_name
     end
 
-    def content
-      @content ||= File.open(path_to_file, "r").read
-    end
-
     def complexity
-      @complexity ||= analyzer.complexity
+      @complexity ||= Fukuzatsu::Analyzer.new(this_entity).complexity
     end
 
-    def methods
-      @methods ||= this_class.all_methods.map do |method_obj|
+    def parsed_methods
+      @parsed_methods ||= this_class.all_methods.map do |method_obj|
         ParsedMethod.new(
           name: method_obj.name,
-          content: source[method_obj.location]
+          complexity: Fukuzatsu::Analyzer.new(method_obj).complexity
         )
       end
     end
@@ -41,15 +33,16 @@ module Fukuzatsu
       @parsed_content ||= Analyst.new(self.path_to_file)
     end
 
-    def source
-      return @source if @source
-      end_pos = 0
-      self.lines_of_code = []
-      @source = File.readlines(self.path_to_file).each_with_index do |line, index|
-        start_pos = end_pos + 1
-        end_pos += line.size
-        self.lines_of_code << LineOfCode.new(line_number: index + 1, range: (start_pos..end_pos))
-        line
+    def lines_of_code
+      @lines_of_code ||= begin
+        source_from_file.each_with_index do |line, index|
+          end_pos ||= 0
+          start_pos = end_pos + 1
+          end_pos += line.size
+          self.lines_of_code ||= []
+          self.lines_of_code << LineOfCode.new(line_number: index + 1, range: (start_pos..end_pos))
+          line
+        end
       end.join
     end
 
@@ -57,30 +50,19 @@ module Fukuzatsu
       {
         path_to_file: self.path_to_file,
         results_file: self.path_to_results,
-        source: source,
         class_name: self.class_name,
         complexity: complexity
       }
     end
 
-    def this_class
+    def entity
       @this_class ||= parsed_content.classes.first
     end
 
     private
 
-    def content
-      @content ||= File.open(path_to_file, "r").read
-    end
-
-    def parse!
-      end_pos = 0
-      File.readlines(self.path_to_file).each_with_index do |line, index|
-        start_pos = end_pos + 1
-        end_pos += line.size
-        self.lines_of_code << LineOfCode.new(line_number: index + 1, range: (start_pos..end_pos))
-        line
-      end.join
+    def source_from_file
+      @source_from_file ||= File.open(path_to_file, "r").read
     end
 
   end
