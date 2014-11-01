@@ -1,32 +1,36 @@
-class ParsedMethod
+module Fukuzatsu
 
-  attr_reader :name, :content, :type, :complexity, :references
+  class ParsedMethod
 
-  def initialize(name: name, content: content, type: type, refs: refs=[], complexity: complexity)
-    @name = name
-    @content = content
-    @type = type
-    @references = refs
-    @complexity = complexity
-  end
+    attr_reader :name, :content, :type, :complexity, :references
 
-  def complexity
-    @complexity ||= analyzer.complexity
-  end
+    def initialize(name: name, content: content, type: type, refs: refs=[], complexity: complexity)
+      @name = name
+      @content = content
+      @type = type
+      @references = refs
+      @complexity = complexity
+    end
 
-  def name
-    return "" if self.type == :none
-    "#{prefix}#{@name}"
-  end
+    def complexity
+      @complexity ||= analyzer.complexity
+    end
 
-  def prefix
-    return "." if self.type == :class
-    return "::" if self.type == :instance
-    return "*"
-  end
+    def name
+      return "" if self.type == :none
+      "#{prefix}#{@name}"
+    end
 
-  def analyzer
-    Analyzer.new(self.content)
+    def prefix
+      return "." if self.type == :class
+      return "::" if self.type == :instance
+      return "*"
+    end
+
+    def analyzer
+      Analyzer.new(self.content)
+    end
+
   end
 
 end
