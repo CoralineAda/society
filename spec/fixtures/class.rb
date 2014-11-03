@@ -1,3 +1,4 @@
+# complexity:5
 class Spaghetti
 
   def toppings

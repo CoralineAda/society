@@ -13,14 +13,10 @@ module Fukuzatsu
       :and
     ]
 
-    def self.from(content: content, source_file: source_file=nil)
-      parser = Analyst::Parser.from_source(content)
-      entities = parser.classes
-      entities << parser.modules
-      entities = entities.reject{ |entity| entity.blank? }
-      entities = entities.flatten.uniq
-      entities.map do |entity|
-        summary = Summary.new(
+    def self.from(content:, source_file:nil)
+      parser = Analyst::Parser.from_source(content) # TODO change to Analyst.from_source
+      parser.top_level_entities.map do |entity|
+        Fukuzatsu::Summary.new(
           source: content,
           entity: entity,
           source_file: source_file
@@ -28,7 +24,7 @@ module Fukuzatsu
       end
     end
 
-    def initialize(source: source, entity: entity, source_file: source_file=nil)
+    def initialize(source:, entity:, source_file:nil)
       @source = source
       @entity = entity
       @source_file = source_file

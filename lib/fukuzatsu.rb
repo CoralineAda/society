@@ -5,7 +5,6 @@ require 'haml'
 require 'analyst'
 
 require_relative "fukuzatsu/cli"
-require_relative "fukuzatsu/conditional_finder"
 require_relative "fukuzatsu/file_reader"
 require_relative "fukuzatsu/formatters/base"
 require_relative "fukuzatsu/formatters/csv"
