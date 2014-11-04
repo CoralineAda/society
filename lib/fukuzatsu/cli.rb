@@ -1,4 +1,5 @@
 require 'thor'
+require 'fukuzatsu'
 
 module Fukuzatsu
 
@@ -12,12 +13,11 @@ module Fukuzatsu
     method_option :threshold, :type => :numeric, :default => 0, :aliases => "-t"
 
     def check(path="./")
-      parser = Fukuzatsu::Parser.new(
+      parser = Fukuzatsu.new(
         path,
         formatter,
         options['threshold']
       )
-      parser.parse_files
       parser.report
     end
 
@@ -26,14 +26,7 @@ module Fukuzatsu
     private
 
     def formatter
-      case options['format']
-      when 'html'
-        Formatters::Html
-      when 'csv'
-        Formatters::Csv
-      else
-        Formatters::Text
-      end
+      options['format'] && options['format'].to_sym || :text
     end
 
   end

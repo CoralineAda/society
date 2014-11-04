@@ -31,7 +31,7 @@ module Fukuzatsu
       def export
         return if rows.empty?
         table = Terminal::Table.new(
-          title: file.path_to_file.color(:white),
+          title: "FIXME".color(:white),
           headings: header,
           rows: rows,
           style: {width: 90}
@@ -42,18 +42,19 @@ module Fukuzatsu
 
       def rows
         summaries.map do |summary|
+          next unless summary.complexity > 1
           color = color_for(summary)
           [
             wrap("#{summary.source_file}").color(color),
             wrap("#{summary.entity_name}".color(color)),
             "#{summary.complexity}".color(color)
           ]
-        end
+        end.compact
       end
 
       def wrap(string)
         return string if string.length < 25
-        string[0..20] << "..."
+        string[0..500] << "..."
       end
 
     end

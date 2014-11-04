@@ -14,13 +14,18 @@ module Fukuzatsu
     ]
 
     def self.from(content:, source_file:nil)
-      parser = Analyst::Parser.from_source(content) # TODO change to Analyst.from_source
-      parser.top_level_entities.map do |entity|
-        Fukuzatsu::Summary.new(
-          source: content,
-          entity: entity,
-          source_file: source_file
-        )
+      parser = Analyst.for_source(content)
+      containers = parser.top_level_entities.select{|e| e.respond_to? :all_methods}
+      containers.map do |container|
+        container.all_methods.map do |method|
+          summary = Fukuzatsu::Summary.new(
+            source: method.send(:contents),
+            entity: container,
+            source_file: source_file
+          )
+          binding.pry
+          summary
+        end
       end
     end
 
@@ -38,8 +43,12 @@ module Fukuzatsu
       end
     end
 
+    def entity_name
+      self.entity.full_name
+    end
+
     def to_s
-      "#{self.source_file} #{self.entity.full_name} #{complexity}"
+      "#{self.source_file} #{self.entity_name} #{complexity}"
     end
 
     private

@@ -16,7 +16,15 @@ require_relative "fukuzatsu/summary"
 require_relative "fukuzatsu/version"
 
 module Fukuzatsu
-  def self.new(path_to_files)
-    Fukuzatsu::Parser.new(path_to_files)
+  def self.new(path_to_files, formatter=:text, threshold=0)
+    Fukuzatsu::Parser.new(path_to_files, formatters[formatter])
+  end
+
+  def self.formatters
+    {
+      html: Fukuzatsu::Formatters::Html,
+      csv:  Fukuzatsu::Formatters::Csv,
+      text: Fukuzatsu::Formatters::Text
+    }
   end
 end

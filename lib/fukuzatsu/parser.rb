@@ -5,35 +5,36 @@ module Fukuzatsu
 
   class Parser
 
-    attr_reader :path_to_files
+    attr_reader :path_to_files, :formatter
 
-    def initialize(path_to_files)
+    def initialize(path_to_files, formatter)
       @path_to_files = path_to_files
+      @formatter = formatter
     end
 
     def report
-      file_reader.source_files.each do |source_file|
-        summaries = Fukuzatsu::Summary.from(
-          content:     source_file.contents,
+      self.formatter.new(summaries: summaries).export
+    end
+
+    private
+
+    def summaries
+      @summaries ||= file_reader.source_files.map do |source_file|
+        Fukuzatsu::Summary.from(
+          content: source_file.contents,
           source_file: source_file.filename
         )
-      end
+      end.flatten
     end
 
     def file_reader
       @file_reader ||= Fukuzatsu::FileReader.new(self.path_to_files)
     end
 
-  #     self.parsed_files.each do |file|
-  #       print "."
-  #       formatter.new(file, OUTPUT_DIRECTORY, file.source).export
-  #     end
-  #     puts
-  #     write_report_index
-  #     report_complexity
-  #   end
+  end
 
-    private
+end
+
 
   #   def reset_output_directory
   #     begin
@@ -57,7 +58,3 @@ module Fukuzatsu
   #     return unless self.formatter.has_index?
   #     formatter.index_class.new(parsed_files.map(&:summary), OUTPUT_DIRECTORY).export
   #   end
-
-  end
-
-end
