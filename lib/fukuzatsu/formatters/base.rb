@@ -5,14 +5,14 @@ module Fukuzatsu
     module Base
 
       def self.included(klass)
-        klass.send(:attr_accessor, :file)
+        klass.send(:attr_accessor, :summaries)
         klass.send(:attr_accessor, :source)
         klass.send(:attr_accessor, :output_directory)
       end
 
-      def initialize(file, output_directory=nil, source="")
-        self.file = file
+      def initialize(output_directory: nil, source: nil, summaries:)
         self.source = source
+        self.summaries = summaries
         self.output_directory = output_directory
       end
 

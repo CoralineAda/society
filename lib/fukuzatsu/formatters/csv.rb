@@ -35,8 +35,8 @@ module Fukuzatsu
       end
 
       def rows
-        file.methods.map do |method|
-          "#{file.path_to_file},#{file.class_name},#{method.name},#{method.complexity}"
+        summaries.map do |summary|
+          "#{summary.source_file},#{summary.entity_name},#{summary.complexity}"
         end.join("\r\n")
       end
 

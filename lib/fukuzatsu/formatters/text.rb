@@ -17,10 +17,10 @@ module Fukuzatsu
         false
       end
 
-      def color_for(row)
-        return :green if row.complexity == 0
-        return :yellow if row.complexity <= file.average_complexity
-        return :red if row.complexity > file.average_complexity
+      def color_for(entity)
+        return :green if entity.complexity == 0
+        # return :yellow if row.complexity <= summary.average_complexity
+        # return :red if row.complexity > file.average_complexity
         return :white
       end
 
@@ -41,9 +41,13 @@ module Fukuzatsu
       end
 
       def rows
-        file.methods.map do |method|
-          color = color_for(method)
-          [wrap("#{file.class_name}").color(color), wrap("#{method.name}".color(color)), "#{method.complexity}".color(color)]
+        summaries.map do |summary|
+          color = color_for(summary)
+          [
+            wrap("#{summary.source_file}").color(color),
+            wrap("#{summary.entity_name}".color(color)),
+            "#{summary.complexity}".color(color)
+          ]
         end
       end
 

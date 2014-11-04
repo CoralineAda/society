@@ -1,25 +1,11 @@
 require 'spec_helper'
 
-describe "Formatters::Text" do
+describe Fukuzatsu::Formatters::Text do
 
-  let (:parsed_file) { ParsedFile.new(class_name: "Foo", complexity: 11) }
-  let (:method_1) { ParsedMethod.new(
-      name: "initialize",
-      complexity: 13,
-      type: "instance"
-    )
-  }
-  let (:method_2) { ParsedMethod.new(
-      name: "report",
-      complexity: 11,
-      type: "instance"
-    )
-  }
-
-
-  let(:parsed_file) { Struct.new(:path_to_file, :class_name, :average_complexity)}
-  let(:mock_parsed_file) { parsed_file.new("fred/foo.rb", "Foo", 12) }
-  let (:formatter) { Formatters::Text.new(mock_parsed_file) }
+  let (:summary) { Struct.new(:source_file, :entity_name, :complexity) }
+  let (:summary_1) { summary.new("foo.rb", "Foo", "13") }
+  let (:summary_2) { summary.new("bar.rb", "Bar", "11") }
+  let (:formatter) { Fukuzatsu::Formatters::Text.new(summaries: [ summary_1, summary_2]) }
 
   describe "#header" do
     it "returns a header array" do
@@ -29,9 +15,11 @@ describe "Formatters::Text" do
 
   describe "#rows" do
     it "returns formatted rows" do
-      allow(mock_parsed_file).to receive(:methods) { [method_1, method_2] }
       expect(formatter.rows).to eq(
-        [["\e[31mFoo\e[0m", "\e[31m*initialize\e[0m", "\e[31m13\e[0m"], ["\e[33mFoo\e[0m", "\e[33m*report\e[0m", "\e[33m11\e[0m"]]
+        [
+          ["\e[37mfoo.rb\e[0m", "\e[37mFoo\e[0m", "\e[37m13\e[0m"],
+          ["\e[37mbar.rb\e[0m", "\e[37mBar\e[0m", "\e[37m11\e[0m"]
+        ]
       )
     end
   end
