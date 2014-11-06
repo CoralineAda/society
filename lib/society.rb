@@ -1,3 +1,4 @@
+require "analyst"
 require "fileutils"
 require "active_support/core_ext/string/inflections"
 
@@ -29,8 +30,8 @@ module Society
     file.write network_json
     file.close
 
-    #for debugging, return the unresolved edges
-    parser.unresolved_edges
+    #for debugging, return everything
+    parser.all_the_data
   end
 end
 

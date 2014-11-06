@@ -56,6 +56,17 @@ module Society
       }
     end
 
+    def all_the_data
+      {
+        classes: analyzer.classes,
+        resolved: {
+          associations: @association_processor.associations,
+          references: @reference_processor.references
+        },
+        unresolved: unresolved_edges
+      }
+    end
+
     private
 
     def class_names

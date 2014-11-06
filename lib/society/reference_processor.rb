@@ -17,7 +17,7 @@ module Society
       classes.each do |klass|
         klass.constants.each do |const|
           if target = class_by_name(const.full_name)
-            @references << Edge.new(from: klass, to: target)
+            @references << Edge.new(from: klass, to: target, meta: const)
           else
             @unresolved_references << { class: klass,
                                         target_name: const.full_name,
