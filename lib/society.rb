@@ -28,7 +28,9 @@ module Society
     file = File.open(File.join(data_dir, 'network.json'), 'w')
     file.write network_json
     file.close
-    true
+
+    #for debugging, return the unresolved edges
+    parser.unresolved_edges
   end
 end
 

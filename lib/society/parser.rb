@@ -47,6 +47,15 @@ module Society
       )
     end
 
+    # TODO: this is dumb, cuz it depends on class_graph to be called first,
+    #       but i'm just doing it for debugging right now, so LAY OFF ME
+    def unresolved_edges
+      {
+        associations: @association_processor.unresolved_associations,
+        references: @reference_processor.unresolved_references
+      }
+    end
+
     private
 
     def class_names
@@ -66,3 +75,4 @@ module Society
   end
 
 end
+
