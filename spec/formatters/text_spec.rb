@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Fukuzatsu::Formatters::Text do
 
   let (:summary) { Struct.new(:source_file, :entity_name, :complexity) }
-  let (:summary_1) { summary.new("foo.rb", "Foo", "13") }
-  let (:summary_2) { summary.new("bar.rb", "Bar", "11") }
+  let (:summary_1) { summary.new("foo.rb", "Foo", 13) }
+  let (:summary_2) { summary.new("bar.rb", "Bar", 11) }
   let (:formatter) { Fukuzatsu::Formatters::Text.new(summaries: [ summary_1, summary_2]) }
 
   describe "#header" do

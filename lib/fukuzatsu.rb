@@ -3,6 +3,7 @@ require 'poro_plus'
 require 'fileutils'
 require 'haml'
 require 'analyst'
+require 'pry'
 
 require_relative "fukuzatsu/cli"
 require_relative "fukuzatsu/file_reader"
