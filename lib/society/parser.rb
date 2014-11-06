@@ -9,7 +9,7 @@ module Society
     end
 
     def analyzer
-      @analyzer ||= ::Analyst.new(self.start_path)
+      @analyzer ||= ::Analyst.for_files(self.start_path)
     end
 
     def class_graph

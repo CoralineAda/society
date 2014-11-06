@@ -26,8 +26,6 @@ module Society
       if last_arg.is_a? Analyst::Entities::Hash
         target_class = last_arg.to_hash[:class_name]
       end
-      # TODO: make sure those #pluralize and #classify calls come from
-      # ActiveSupport, cuz that's where they come from in real relations
       target_class ||= association.arguments.first.value.to_s.pluralize.classify
     end
 

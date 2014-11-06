@@ -1,4 +1,5 @@
 require "fileutils"
+require "active_support/core_ext/string/inflections"
 
 require_relative "society/cli"
 require_relative "society/association_processor"
