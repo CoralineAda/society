@@ -14,29 +14,29 @@ module Society
 
     def class_graph
       @class_graph ||= begin
-        graph = ObjectGraph.new
-        graph.nodes = analyzer.classes.map{ |klass| klass.full_name }
-        analyzer.classes.map do |klass|
-          graph.edges.concat(relations_from(klass))
-          graph.edges.concat(references_from(klass))
-        end
-        graph
+        classes = analyzer.classes
+        associations = associations_from(classes) + references_from(classes)
+        # TODO: merge identical classes, and (somewhere else) deal with
+        #       identical associations too. need a WeightedEdge, and each
+        #       one will be unique on [from, to], but will have a weight
+
+        ObjectGraph.new(nodes: classes, edges: associations)
       end
     end
 
     # TODO pass in class name, don't assume #first
     def method_graph
-      @method_graph ||= begin
-        graph = ObjectGraph.new
-        target = analyzer.classes.first
-        graph.nodes = target.all_methods.map do |method|
-          Node.new(
-            name: method.name,
-            edges: [] #method.references
-          )
-        end
-        graph
-      end
+      # @method_graph ||= begin
+      #   graph = ObjectGraph.new
+      #   target = analyzer.classes.first
+      #   graph.nodes = target.all_methods.map do |method|
+      #     Node.new(
+      #       name: method.name,
+      #       edges: [] #method.references
+      #     )
+      #   end
+      #   graph
+      # end
     end
 
     def formatters(graph)
@@ -53,14 +53,14 @@ module Society
       @class_names ||= analyzer.classes.map(&:full_name)
     end
 
-    def relations_from(klass)
-      AssociationProcessor.new(klass).associations
+    def associations_from(all_classes)
+      @association_processor ||= AssociationProcessor.new(all_classes)
+      @association_processor.associations
     end
 
-    def references_from(klass)
-      klass.constants.map do |const|
-        Edge.new from: klass.name, to: const.name
-      end
+    def references_from(all_classes)
+      @reference_processor ||= ReferenceProcessor.new(all_classes)
+      @reference_processor.references
     end
 
   end
