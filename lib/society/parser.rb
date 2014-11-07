@@ -2,14 +2,14 @@ module Society
 
   class Parser
 
-    attr_reader :start_path
+    attr_reader :start_paths
 
-    def initialize(start_path)
-      @start_path = start_path
+    def initialize(*start_paths)
+      @start_paths = start_paths
     end
 
     def analyzer
-      @analyzer ||= ::Analyst.for_files(self.start_path)
+      @analyzer ||= ::Analyst.for_files(*start_paths)
     end
 
     def class_graph
@@ -63,7 +63,13 @@ module Society
           associations: @association_processor.associations,
           references: @reference_processor.references
         },
-        unresolved: unresolved_edges
+        unresolved: unresolved_edges,
+        stats: {
+          resolved_associations: @association_processor.associations.size,
+          unresolved_associations: @association_processor.unresolved_associations.size,
+          resolved_references: @reference_processor.references.size,
+          unresolved_references: @reference_processor.unresolved_references.size
+        }
       }
     end
 
