@@ -108,7 +108,6 @@ d3.json("data/heatmap.json", function(analysis) {
   }
 
   d3.select("#order").on("change", function() {
-    clearTimeout(timeout);
     order(this.value);
   });
 
@@ -128,9 +127,4 @@ d3.json("data/heatmap.json", function(analysis) {
         .delay(function(d, i) { return x(i) * 4; })
         .attr("transform", function(d, i) { return "translate(" + x(i) + ")rotate(-90)"; });
   }
-
-  var timeout = setTimeout(function() {
-    order("group");
-    d3.select("#order").property("selectedIndex", 2).node().focus();
-  }, 5000);
 });
