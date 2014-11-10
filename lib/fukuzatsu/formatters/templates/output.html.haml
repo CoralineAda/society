@@ -11,60 +11,29 @@
     %script{language: "javascript", src: "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js", type: "text/javascript"}
     :css
       #{Rouge::Theme.find('thankful_eyes').render(scope: '.highlight')}
-      body { background: #593232; color: ::fff; font-family: arial, sans-serif; padding: 2em; }
-      div.column { float: left; width: 45%; margin-left: 4%; }
-      div.file_listing { padding: .1em; border-radius: 5px; background: #000; width: 100%; border: 1px solid #000;}
-      div.file_meta { float: left; height: 3em; width: 30%; }
-      h1 { color:::fff; font-size: 1.25em; margin-top: .25em; }
-      h2 { color:::fff; font-size: .75em; margin-top: -1em; }
-      h3 { color:::fff; font-size: 1.1em;margin-top: 1em; }
-      h3.highlighted { background: rgba(170, 161, 57, .6); border-radius: 100px; padding: .25em; padding-left: 1em; color: #000;}
-      h3.highlighted-method { background: rgba(153, 51, 80, .6); border-radius: 100px; padding-left: 1em; }
-      li { margin-bottom: 1em;}
-      pre { line-height: 1.75em;}
-      pre.lineno { margin-top: -1.4em !important;}
-      span.highlighted { padding-left: 1em; display: inline-block; position: absolute; left: 0px; padding-right: 90%}
-      a:link, a:visited { color: ::aaa }
 
-      .file_listing table { width: 100%; box-shadow: 0 5px 0 rgba(0,0,0,.8); border-spacing: 0; border: 5px solid #000; border-radius: 5px; border-collapse: collapse; min-width: 50%; }
-      .file_listing td { text-align: left; padding: .5em; padding-left: 1.25em !important;}
-      .file_listing td.gutter { background-color: rgb(109, 109, 109) !important; }
-      .file_listing tfoot { background: #000; border-top: 10px solid #000; font-family: courier; margin-top: 4em; font-size: .75em;  }
-      .file_listing th { background: #000; text-align: left; padding: .5em; }
-      .file_listing tr.faint td { opacity: 0.5; font-style: italic; }
-      .file_listing tr.header { background-color: #222; }
-      .file_listing tr { background: rgba(0, 0, 0, 0.25) !important; border-bottom: 1px solid #000;}
-      .file_listing th { background: #000; text-align: left; padding: .5em;}
-      .file_listing td { text-align: left; padding: .5em; padding-left: 1.25em !important;}
-      .file_listing td.center { text-align: center; }
-      .file_listing td.sorting_1 { background: none !important; padding-left: 1.25em !important; }
-      .file_listing tfoot { background: #000; font-family: courier; margin-top: 4em; font-size: .75em;  }
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        padding: 2em;
+      }
 
-      table { box-shadow: 0 5px 0 rgba(0,0,0,.8); background: #444; border-spacing: 0; border: 5px solid #000; border-radius: 25px; border-collapse: collapse; min-width: 50%; }
-      th.sorting_asc, th.sorting_desc { text-transform: uppercase !important; font-size: .8em !important; background-image: none !important; background: rgba(64, 41, 41, .5) !important;}
-      th.sorting { background-position: left !important; border-right: 1px solid #222; text-transform: uppercase !important; font-size: .8em !important}
-      tr.header th:first-child { border-radius: 6px 0 0 0; }
-      tr.header th:last-child { border-radius: 0 6px 0 0; }
-      tr.header th:only-child { border-radius: 6px 6px 0 0; }
-      tfoot tr { border-radius: 6px 6px 6px 6px; }
-      tr.header { background-color: #222; }
-      tr.even { background: rgba(128, 128, 128, 0.5) !important;}
-      tr.odd { background: rgba(128, 128, 128, 0.25) !important}
-      tr.even:hover, tr.odd:hover { background: rgba(128, 128, 128, 0.75) !important;}
-      th { background: #000; text-align: left; padding: .5em;}
-      td { text-align: left; padding: .5em; padding-left: 1.25em !important;}
-      td.center { text-align: center; }
-      td.sorting_1 { background: none !important; padding-left: 1.25em !important; }
-      tfoot { background: #000; font-family: courier; margin-top: 4em; font-size: .75em;  }
+      a { color: #fff; }
+      table { border: 4px solid #444; width: 100%; }
 
-      h1 { color:::fff; font-size: 1.25em; margin-top: .25em; }
-      h2 { color:::fff; font-size: .75em; margin-top: -1em; }
-      h3 { color:::fff; font-size: 1em; float: right; margin-top: 1em; }
+      tr.sort-controls th {
+        background-color: #999 !important;
+        font-size: .75em;
+        text-transform: uppercase;
+        text-align: left;
+      }
 
+      tr.header th, tfoot { background-color: #444 !important; color: #fff; }
+      tfoot td { font-size: .75em; }
+      tr.odd td { background-color: #eee; }
       div.dataTables_filter { display: none !important; }
       div.dataTables_paginate { display: none !important; }
       div.dataTables_info { display: none !important; }
-
 
   %body
     .container
@@ -80,7 +49,7 @@
               .file_meta_right
                 %h3
                   = "Overall Complexity: #{complexity}"
-          %tr
+          %tr.sort-controls
             = header
         %tbody
           = rows
@@ -97,7 +66,7 @@
                   Fukuzatsu
     %br
     %input{onclick: "history.back(-1)", type: "button", value: "Back"}
-
+    %br
     %br
 
     .file_listing

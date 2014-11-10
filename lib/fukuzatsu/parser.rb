@@ -15,8 +15,10 @@ module Fukuzatsu
     def report
       # TODO HERE handle index?
       summaries.uniq(&:container_name).each do |summary|
-        self.formatter.new(summary: summary).export
+        formatter = self.formatter.new(summary: summary)
+        formatter.export
       end
+      self.formatter.explain(summaries.count)
     end
 
     private

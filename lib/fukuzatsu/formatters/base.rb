@@ -4,13 +4,16 @@ module Fukuzatsu
 
     module Base
 
+      DEFAULT_OUTPUT_DIRECTORY = "doc/fukuzatsu/"
+
       def self.included(klass)
         klass.send(:attr_accessor, :summary)
         klass.send(:attr_accessor, :source)
         klass.send(:attr_accessor, :output_directory)
+        klass.extend(ClassMethods)
       end
 
-      def initialize(output_directory: "./doc/fukuzatsu/", source: nil, summary:)
+      def initialize(output_directory: "./#{DEFAULT_OUTPUT_DIRECTORY}", source: nil, summary:)
         self.source = source
         self.summary = summary
         self.output_directory = output_directory
@@ -30,6 +33,13 @@ module Fukuzatsu
         File.join(output_path, filename)
       end
 
+      module ClassMethods
+
+        def explain(count)
+          puts "Processed #{count} file(s)."
+        end
+
+      end
     end
 
   end

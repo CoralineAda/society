@@ -2,7 +2,7 @@ module Fukuzatsu
 
   class Summary
 
-    attr_reader :entity, :source, :source_file, :container
+    attr_reader :entity, :source_file, :container
     attr_accessor :edges, :nodes, :exits, :summaries
 
     BRANCHES = [
@@ -67,6 +67,10 @@ module Fukuzatsu
     def average_complexity
       return 0 if self.summaries.blank?
       self.summaries.map(&:complexity).reduce(&:+) / self.summaries.count.to_f
+    end
+
+    def raw_source
+      self.source_file && "\n#{File.open(self.source_file, "r").read}" || @source
     end
 
     private

@@ -8,6 +8,10 @@ module Fukuzatsu
 
       include Formatters::Base
 
+      def self.explain(count)
+        puts "Processed #{count} file(s). Results written to #{DEFAULT_OUTPUT_DIRECTORY}"
+      end
+
       def self.has_index?
         false
       end
@@ -64,7 +68,7 @@ module Fukuzatsu
       end
 
       def preprocessed
-        formatter.format(lexer.lex(summary.source))
+        formatter.format(lexer.lex(summary.raw_source))
       end
 
       def rows
