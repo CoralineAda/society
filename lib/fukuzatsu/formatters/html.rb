@@ -39,7 +39,7 @@ module Fukuzatsu
             rows: rows,
             source_lines: preprocessed,
             class_name: summary.container_name,
-            complexity: summary.complexity,
+            average_complexity: sprintf("%0.2f", summary.average_complexity),
             path_to_file: summary.source_file,
             date: Time.now.strftime("%Y/%m/%d"),
             time: Time.now.strftime("%l:%M %P")

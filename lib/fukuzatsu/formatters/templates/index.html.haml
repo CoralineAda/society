@@ -55,7 +55,7 @@
               - else
                 = summary.entity.full_name
             %td
-              = summary.complexity
+              = sprintf("%0.2f", summary.average_complexity)
             %td
               %a{href: "#{summary.source_file}.htm"}
                 View Details
