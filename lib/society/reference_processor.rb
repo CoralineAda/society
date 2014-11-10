@@ -16,8 +16,20 @@ module Society
     def process
       classes.each do |klass|
         klass.constants.each do |const|
-          if target = class_by_name(const.full_name)
-            @references << Edge.new(from: klass, to: target)
+          if assigned_constant(const, klass)
+            next
+          elsif target = perfect_match_for(const)
+            @references << Edge.new(from: klass,
+                                    to: target,
+                                    meta: {
+                                      type: :perfect,
+                                      entity: const})
+          elsif target = partial_match_for(const)
+            @references << Edge.new(from: klass,
+                                    to: target,
+                                    meta: {
+                                      type: :partial,
+                                      entity: const})
           else
             @unresolved_references << { class: klass,
                                         target_name: const.full_name,
@@ -27,8 +39,19 @@ module Society
       end
     end
 
-    def class_by_name(name)
-      classes.detect { |klass| klass.full_name == name }
+    def perfect_match_for(const)
+      classes.detect { |klass| klass.full_name == const.name }
+    end
+
+    def partial_match_for(const)
+      partial_matches = classes.select do |klass|
+        klass.full_name.include? const.full_name
+      end
+      partial_matches.first if partial_matches.size == 1
+    end
+
+    def assigned_constant(const, klass)
+      klass.constant_assignments.map(&:name).include? const.name
     end
 
   end

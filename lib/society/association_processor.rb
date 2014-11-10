@@ -23,7 +23,7 @@ module Society
         end.each do |association|
           target_name = target_class_of(association)
           if target = class_by_name(target_name)
-            @associations << Edge.new(from: klass, to: target)
+            @associations << Edge.new(from: klass, to: target, meta: association)
           else
             @unresolved_associations << { class: klass,
                                           target_name: target_name,

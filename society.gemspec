@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "activesupport"
-  spec.add_dependency "analyst", ">= 0.14.2"
+  spec.add_dependency "analyst", ">= 0.15.0"
   spec.add_dependency "parser"
   spec.add_dependency "rainbow"
   spec.add_dependency "terminal-table"

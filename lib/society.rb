@@ -1,3 +1,4 @@
+require "analyst"
 require "fileutils"
 require "active_support/core_ext/string/inflections"
 
@@ -13,8 +14,8 @@ require_relative "society/parser"
 require_relative "society/version"
 
 module Society
-  def self.analyze_classes(path)
-    parser = Society::Parser.new(path)
+  def self.analyze_classes(*path)
+    parser = Society::Parser.new(*path)
     graph = parser.class_graph
     heatmap_json = parser.formatters(graph).heatmap.to_json
     network_json = parser.formatters(graph).network.to_json
@@ -28,7 +29,9 @@ module Society
     file = File.open(File.join(data_dir, 'network.json'), 'w')
     file.write network_json
     file.close
-    true
+
+    #for debugging, return everything
+    parser.all_the_data
   end
 end
 
