@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Formatters::Text" do
+describe "Formatters::HTML" do
 
   let(:parsed_file) { Struct.new(:path_to_file, :class_name)}
   let(:mock_parsed_file) { parsed_file.new("fred/foo.rb", "Foo") }

@@ -29,16 +29,21 @@ module Fukuzatsu
       end
 
       def export
-        summaries.uniq(&:container_name).each do |summary|
-          table = Terminal::Table.new(
-            title: "#{summary.source_file}".color(:white),
-            headings: header,
-            rows: rows_for([summary, summary.summaries].flatten, summary.average_complexity),
-            style: {width: 120}
-          )
-          table.align_column(3, :right)
-          puts table
-        end
+        table = Terminal::Table.new(
+          title: "#{summary.source_file}".color(:white),
+          headings: header,
+          rows: rows,
+          style: {width: 120}
+        )
+        table.align_column(3, :right)
+        puts table
+      end
+
+      def rows
+        rows_for(
+          [self.summary, self.summary.summaries].flatten,
+          self.summary.average_complexity
+        )
       end
 
       def rows_for(summaries, average_complexity)

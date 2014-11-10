@@ -18,7 +18,7 @@ module Fukuzatsu
 
       containers = parser.top_level_entities.select{|e| e.respond_to? :all_methods}
       containers << containers.map(&:classes)
-      containers = containers.flatten.reject!{ |container| container.all_methods.empty? }
+      containers.flatten!.reject!{ |container| container.all_methods.empty? }
 
       containers.map do |container|
         summary = Fukuzatsu::Summary.new(

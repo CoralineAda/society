@@ -9,7 +9,7 @@ module Fukuzatsu
       include Formatters::Base
 
       def self.has_index?
-        true
+        false
       end
 
       def self.writes_to_file_system?
@@ -30,9 +30,9 @@ module Fukuzatsu
             header: header,
             rows: rows,
             source_lines: preprocessed,
-            class_name: file.class_name,
-            complexity: file.complexity,
-            path_to_file: file.path_to_file,
+            class_name: summary.entity_name,
+            complexity: summary.complexity,
+            path_to_file: summary.source_file,
             date: Time.now.strftime("%Y/%m/%d"),
             time: Time.now.strftime("%l:%M %P")
           }
@@ -64,17 +64,17 @@ module Fukuzatsu
       end
 
       def preprocessed
-        formatter.format(lexer.lex(source))
+        formatter.format(lexer.lex(summary.source))
       end
 
       def rows
         i = 0
-        file.methods.inject([]) do |a, method|
+        summary.summaries.inject([]) do |a, summary|
           i += 1
           a << "<tr class='#{i % 2 == 1 ? 'even' : 'odd'}'>"
-          a << "  <td>#{file.class_name}</td>"
-          a << "  <td>#{method.name}</td>"
-          a << "  <td>#{method.complexity}</td>"
+          a << "  <td>#{summary.container_name}</td>"
+          a << "  <td>#{summary.entity_name}</td>"
+          a << "  <td>#{summary.complexity}</td>"
           a << "</tr>"
           a
         end.join("\r\n")
