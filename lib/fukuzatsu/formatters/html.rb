@@ -9,11 +9,20 @@ module Fukuzatsu
       include Formatters::Base
 
       def self.explain(count)
-        puts "Processed #{count} file(s). Results written to #{DEFAULT_OUTPUT_DIRECTORY}"
+        puts "Processed #{count} file(s). Results written to #{new.output_directory}."
       end
 
       def self.index(summaries)
-        Fukuzatsu::Formatters::HtmlIndex.new(summaries, DEFAULT_OUTPUT_DIRECTORY).export
+        Fukuzatsu::Formatters::HtmlIndex.new(summaries).export
+      end
+
+      def self.reset_output_directory
+        directory = new.output_directory
+        begin
+          FileUtils.remove_dir(directory)
+        rescue Errno::ENOENT
+        end
+        FileUtils.mkpath(directory)
       end
 
       def self.has_index?
@@ -54,6 +63,8 @@ module Fukuzatsu
           puts "Unable to write output: #{e} #{e.backtrace}"
         end
       end
+
+      private
 
       def formatter
         Rouge::Formatters::HTML.new(line_numbers: true)

@@ -4,19 +4,21 @@ module Fukuzatsu
 
     module Base
 
-      DEFAULT_OUTPUT_DIRECTORY = "doc/fukuzatsu/"
+      BASE_OUTPUT_DIRECTORY = "doc/fukuzatsu/"
 
       def self.included(klass)
         klass.send(:attr_accessor, :summary)
         klass.send(:attr_accessor, :source)
-        klass.send(:attr_accessor, :output_directory)
         klass.extend(ClassMethods)
       end
 
-      def initialize(output_directory: "./#{DEFAULT_OUTPUT_DIRECTORY}", source: nil, summary:)
+      def initialize(source: nil, summary:nil)
         self.source = source
         self.summary = summary
-        self.output_directory = output_directory
+      end
+
+      def output_directory
+        BASE_OUTPUT_DIRECTORY + file_extension.gsub(".","")
       end
 
       def filename
@@ -24,7 +26,7 @@ module Fukuzatsu
       end
 
       def output_path
-        output_path = File.dirname(File.join(self.output_directory, self.summary.source_file))
+        output_path = File.dirname(File.join(output_directory, self.summary.source_file))
         FileUtils.mkpath(output_path)
         output_path
       end
@@ -37,6 +39,9 @@ module Fukuzatsu
 
         def explain(count)
           puts "Processed #{count} file(s)."
+        end
+
+        def index(summaries)
         end
 
       end

@@ -6,11 +6,10 @@ module Fukuzatsu
 
       include Formatters::Base
 
-      attr_reader :summaries, :output_directory
+      attr_reader :summaries
 
-      def initialize(summaries, output_directory)
+      def initialize(summaries)
         @summaries = summaries
-        @output_directory = output_directory
       end
 
       def content
@@ -33,6 +32,10 @@ module Fukuzatsu
 
       def filename
         "index.htm"
+      end
+
+      def file_extension
+        ".htm"
       end
 
       def output_path
