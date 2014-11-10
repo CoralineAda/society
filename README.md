@@ -7,17 +7,17 @@ generates relative complexity figures similar to the results of cyclomatic compl
 Why should you care about this kind of complexity? More complex code tends to attract bugs and to
 increase the friction around extending features or refactoring code.
 
-Fukuzatsu was created by [Coraline Ada Ehmke](http://where.coraline.codes/) with invaluable assistance from [Mike Ziwisky](https://github.com/mziwisky). It was inspired by Saikuro, written by Zev Blut.
+Fukuzatsu was created by [Coraline Ada Ehmke](http://where.coraline.codes/) and [Mike Ziwisky](https://github.com/mziwisky) at [Instructure](http://www.instructure.com/). It was inspired by Saikuro, written by Zev Blut.
 
 ## Screenshots
 
 These are screenshots of the `-f html` output. First, the overall project summary:
 
-![Project Summary](https://gitlab.com/coraline/fukuzatsu/raw/master/doc/overview.png)
+![Project Summary](https://gitlab.com/coraline/fukuzatsu/raw/master/doc/images/overview.png)
 
 Then the detail view of a single class:
 
-![Project Summary](https://gitlab.com/coraline/fukuzatsu/raw/master/doc/details.png)
+![Project Summary](https://gitlab.com/coraline/fukuzatsu/raw/master/doc/images/details.png)
 
 ## Installation
 
@@ -32,10 +32,10 @@ This installs the CLI tool.
     fuku check path/to/file/my_file.rb
 
     fuku check path/to/file/my_file.rb -f html
-    # Writes to doc/fuzuzatsu/path/to_file/my_file.rb.htm
+    # Writes to doc/fuzuzatsu/htm/path/to_file/my_file.rb.htm
 
     fuku check path/to/file/my_file.rb -f csv
-    # Writes to doc/fuzuzatsu/path/to_file/my_file.rb.csv
+    # Writes to doc/fuzuzatsu/csv/results.rb.csv
 
 ## Contributing
 
