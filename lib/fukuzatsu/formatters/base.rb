@@ -17,12 +17,12 @@ module Fukuzatsu
         self.summary = summary
       end
 
-      def output_directory
-        BASE_OUTPUT_DIRECTORY + file_extension.gsub(".","")
-      end
-
       def filename
         File.basename(self.summary.source_file) + file_extension
+      end
+
+      def output_directory
+        BASE_OUTPUT_DIRECTORY + file_extension.gsub(".","")
       end
 
       def output_path

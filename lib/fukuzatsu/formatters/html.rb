@@ -12,20 +12,20 @@ module Fukuzatsu
         puts "Processed #{count} file(s). Results written to #{new.output_directory}."
       end
 
-      def self.index(summaries)
-        Fukuzatsu::Formatters::HtmlIndex.new(summaries).export
-      end
-
       def self.has_index?
         false
       end
 
-      def self.writes_to_file_system?
-        true
+      def self.index(summaries)
+        Fukuzatsu::Formatters::HtmlIndex.new(summaries).export
       end
 
       def self.index_class
         Formatters::HtmlIndex
+      end
+
+      def self.writes_to_file_system?
+        true
       end
 
       def columns
@@ -55,7 +55,9 @@ module Fukuzatsu
         end
       end
 
-      private
+      def file_extension
+        ".htm"
+      end
 
       def formatter
         Rouge::Formatters::HTML.new(line_numbers: true)
@@ -88,10 +90,6 @@ module Fukuzatsu
           a << "</tr>"
           a
         end.join("\r\n")
-      end
-
-      def file_extension
-        ".htm"
       end
 
     end

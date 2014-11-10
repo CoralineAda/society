@@ -13,6 +13,9 @@ module Fukuzatsu
         false
       end
 
+      def self.reset_output_directory
+      end
+
       def self.writes_to_file_system?
         false
       end

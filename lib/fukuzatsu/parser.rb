@@ -25,11 +25,11 @@ module Fukuzatsu
 
     private
 
-     def check_complexity
+    def check_complexity
       return if self.threshold == 0
-      complexities = self.parsed_files.map(&:average_complexity)
-      return if complexities.max.to_i <= self.threshold
-      puts "Maximum average complexity of #{complexities.max} exceeds #{options['threshold']} threshold!"
+      complexities = summaries.map(&:average_complexity)
+      return if complexities.max.to_f <= self.threshold.to_f
+      puts "Maximum average complexity of #{complexities.max} exceeds #{self.threshold.to_f} threshold!"
       exit 1
     end
 
