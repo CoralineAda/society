@@ -1,36 +1,58 @@
 require 'spec_helper'
 
-describe "Formatters::Csv" do
+describe Fukuzatsu::Formatters::Csv do
 
-  let (:method_1) { ParsedMethod.new(
-      name: "initialize",
-      complexity: 13,
-      type: :instance
-    )
-  }
-  let (:method_2) { ParsedMethod.new(
-      name: "report",
-      complexity: 11,
-      type: :instance
+  let (:method_summary_1) { Fukuzatsu::Summary.new(
+      :source => "",
+      :source_file => "foo.rb",
+      :entity => "::initialize",
+      :container => "Foo",
+      :summaries => []
     )
   }
 
-  let(:parsed_file) { Struct.new(:path_to_file, :class_name) }
-  let(:mock_parsed_file) { parsed_file.new("fred/foo.rb", "Foo") }
-  let (:formatter) { Formatters::Csv.new(mock_parsed_file) }
+  let (:method_summary_2) { Fukuzatsu::Summary.new(
+      :source => "",
+      :source_file => "foo.rb",
+      :entity => "#print",
+      :container => "Foo",
+      :summaries => []
+    )
+  }
 
-  describe "::rows" do
-    it "returns comma-separated rows" do
-      allow(mock_parsed_file).to receive(:methods) { [method_1, method_2] }
-      expect(formatter.rows).to eq(
-        "fred/foo.rb,Foo,::initialize,13\r\nfred/foo.rb,Foo,::report,11"
-      )
+  let (:summary) { Fukuzatsu::Summary.new(
+      :source => "",
+      :source_file => "foo.rb",
+      :entity => "Foo",
+      :container => "Foo",
+      :summaries => [method_summary_1, method_summary_2]
+    )
+  }
+
+  let (:formatter) { Fukuzatsu::Formatters::Csv.new(summary: summary) }
+
+  describe "#rows" do
+
+    before do
+      allow(summary).to receive(:container_name).and_return("Foo")
+      allow(summary).to receive(:entity_name).and_return("*")
+      allow(summary).to receive(:complexity).and_return(13)
+      allow(summary).to receive(:averge_complexity).and_return(11)
+      allow(method_summary_1).to receive(:container_name).and_return("Foo")
+      allow(method_summary_1).to receive(:entity_name).and_return("::initialize")
+      allow(method_summary_1).to receive(:complexity).and_return(13)
+      allow(method_summary_2).to receive(:container_name).and_return("Foo")
+      allow(method_summary_2).to receive(:entity_name).and_return("#report")
+      allow(method_summary_2).to receive(:complexity).and_return(11)
     end
-  end
 
-  describe "::file_extension" do
-    it "returns the proper extension" do
-      expect(formatter.file_extension).to eq ".csv"
+    it "returns formatted rows" do
+      expect(formatter.rows).to eq(
+        [
+          ["foo.rb","Foo","::initialize",13].join(","),
+          ["foo.rb","Foo","#report",11].join(","),
+        ].join("\r\n")
+      )
     end
   end
 
