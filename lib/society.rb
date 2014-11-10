@@ -15,7 +15,7 @@ require_relative "society/version"
 
 module Society
   def self.analyze_classes(*path)
-    parser = Society::Parser.new(*path)
+    parser = Society::Parser.for_files(*path)
     graph = parser.class_graph
     heatmap_json = parser.formatters(graph).heatmap.to_json
     network_json = parser.formatters(graph).network.to_json
