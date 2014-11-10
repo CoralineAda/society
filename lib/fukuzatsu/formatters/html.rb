@@ -12,6 +12,10 @@ module Fukuzatsu
         puts "Processed #{count} file(s). Results written to #{DEFAULT_OUTPUT_DIRECTORY}"
       end
 
+      def self.index(summaries)
+        Fukuzatsu::Formatters::HtmlIndex.new(summaries, DEFAULT_OUTPUT_DIRECTORY).export
+      end
+
       def self.has_index?
         false
       end
@@ -34,7 +38,7 @@ module Fukuzatsu
             header: header,
             rows: rows,
             source_lines: preprocessed,
-            class_name: summary.entity_name,
+            class_name: summary.container_name,
             complexity: summary.complexity,
             path_to_file: summary.source_file,
             date: Time.now.strftime("%Y/%m/%d"),

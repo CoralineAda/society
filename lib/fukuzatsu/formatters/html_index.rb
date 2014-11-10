@@ -6,17 +6,17 @@ module Fukuzatsu
 
       include Formatters::Base
 
-      attr_reader :file_summary, :output_directory
+      attr_reader :summaries, :output_directory
 
-      def initialize(file_summary, output_directory=nil)
-        @file_summary = file_summary
+      def initialize(summaries, output_directory)
+        @summaries = summaries
         @output_directory = output_directory
       end
 
       def content
         Haml::Engine.new(output_template).render(
           Object.new, {
-            file_summary: file_summary,
+            summaries: summaries,
             date: Time.now.strftime("%Y/%m/%d"),
             time: Time.now.strftime("%l:%M %P")
           }

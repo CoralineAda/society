@@ -13,7 +13,8 @@ module Fukuzatsu
     end
 
     def report
-      # TODO HERE handle index?
+      reset_output_directory
+      self.formatter.index(summaries)
       summaries.uniq(&:container_name).each do |summary|
         formatter = self.formatter.new(summary: summary)
         formatter.export
@@ -36,18 +37,18 @@ module Fukuzatsu
       @file_reader ||= Fukuzatsu::FileReader.new(self.path_to_files)
     end
 
+    def reset_output_directory
+      begin
+        FileUtils.remove_dir(Fukuzatsu::Formatters::Base::DEFAULT_OUTPUT_DIRECTORY)
+      rescue Errno::ENOENT
+      end
+      FileUtils.mkpath(Fukuzatsu::Formatters::Base::DEFAULT_OUTPUT_DIRECTORY)
+    end
+
   end
 
 end
 
-
-  #   def reset_output_directory
-  #     begin
-  #       FileUtils.remove_dir(OUTPUT_DIRECTORY)
-  #     rescue Errno::ENOENT
-  #     end
-  #     FileUtils.mkpath(OUTPUT_DIRECTORY)
-  #   end
 
   #   def report_complexity
   #     return if self.threshold == 0
