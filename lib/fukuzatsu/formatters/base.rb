@@ -44,6 +44,15 @@ module Fukuzatsu
         def index(summaries)
         end
 
+        def reset_output_directory
+          directory = new.output_directory
+          begin
+            FileUtils.remove_dir(directory)
+          rescue Errno::ENOENT
+          end
+          FileUtils.mkpath(directory)
+        end
+
       end
     end
 

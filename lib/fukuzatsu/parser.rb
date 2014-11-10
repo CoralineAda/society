@@ -17,8 +17,7 @@ module Fukuzatsu
       self.formatter.reset_output_directory
       self.formatter.index(summaries)
       summaries.uniq(&:container_name).each do |summary|
-        formatter = self.formatter.new(summary: summary)
-        formatter.export
+        self.formatter.new(summary: summary).export
       end
       self.formatter.explain(summaries.count)
       check_complexity

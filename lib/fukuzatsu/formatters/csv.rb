@@ -35,8 +35,8 @@ module Fukuzatsu
       end
 
       def rows
-        summaries.map do |summary|
-          "#{summary.source_file},#{summary.entity_name},#{summary.complexity}"
+        summary.summaries.map do |summary|
+          "#{summary.source_file},#{summary.container_name},#{summary.entity_name},#{summary.complexity}"
         end.join("\r\n")
       end
 

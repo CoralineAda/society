@@ -16,15 +16,6 @@ module Fukuzatsu
         Fukuzatsu::Formatters::HtmlIndex.new(summaries).export
       end
 
-      def self.reset_output_directory
-        directory = new.output_directory
-        begin
-          FileUtils.remove_dir(directory)
-        rescue Errno::ENOENT
-        end
-        FileUtils.mkpath(directory)
-      end
-
       def self.has_index?
         false
       end
