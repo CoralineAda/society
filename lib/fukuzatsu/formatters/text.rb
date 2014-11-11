@@ -9,9 +9,7 @@ module Fukuzatsu
 
       include Formatters::Base
 
-      def self.has_index?
-        false
-      end
+      def self.explain(count); end
 
       def self.reset_output_directory
       end

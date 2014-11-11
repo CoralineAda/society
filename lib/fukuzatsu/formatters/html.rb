@@ -8,24 +8,8 @@ module Fukuzatsu
 
       include Formatters::Base
 
-      def self.explain(count)
-        puts "Processed #{count} file(s). Results written to #{new.output_directory}."
-      end
-
-      def self.has_index?
-        false
-      end
-
       def self.index(summaries)
         Fukuzatsu::Formatters::HtmlIndex.new(summaries).export
-      end
-
-      def self.index_class
-        Formatters::HtmlIndex
-      end
-
-      def self.writes_to_file_system?
-        true
       end
 
       def columns

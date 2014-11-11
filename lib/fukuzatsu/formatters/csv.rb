@@ -6,10 +6,6 @@ module Fukuzatsu
 
       include Formatters::Base
 
-      def self.has_index?
-        false
-      end
-
       def self.writes_to_file_system?
         true
       end

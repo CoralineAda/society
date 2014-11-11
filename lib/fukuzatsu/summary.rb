@@ -59,8 +59,12 @@ module Fukuzatsu
       self.container.full_name
     end
 
+    def is_class_or_module?
+      self.container == self.entity
+    end
+
     def entity_name
-      return "*" if self.container == self.entity
+      return "*" if is_class_or_module?
       self.entity.full_name.gsub(self.container.full_name, '')
     end
 
