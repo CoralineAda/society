@@ -48,6 +48,10 @@ svg {
   fill: #d62728;
 }
 
+.node--faded {
+  opacity: 0.3;
+}
+
 .link--source,
 .link--target {
   stroke-opacity: 1;
