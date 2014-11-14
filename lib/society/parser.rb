@@ -2,10 +2,11 @@ module Society
 
   class Parser
 
-    attr_reader :start_paths
+    attr_reader :start_paths, :scope
 
-    def initialize(*start_paths)
+    def initialize(start_paths, scope=nil)
       @start_paths = start_paths
+      @scope = scope
     end
 
     def analyzer
@@ -17,10 +18,6 @@ module Society
         classes = analyzer.classes
         associations = associations_from(classes) + references_from(classes)
         nodes = Society::Node.from_edges(associations)
-        # TODO: merge identical classes, and (somewhere else) deal with
-        #       identical associations too. need a WeightedEdge, and each
-        #       one will be unique on [from, to], but will have a weight
-
         ObjectGraph.new(nodes: nodes, edges: associations)
       end
     end
@@ -43,8 +40,8 @@ module Society
     def formatters(graph)
       formatter = Struct.new(:heatmap, :network)
       formatter.new(
-        Society::Formatter::Heatmap.new(graph),
-        Society::Formatter::Network.new(graph)
+        Society::Formatter::Heatmap.new(graph, self.scope),
+        Society::Formatter::Network.new(graph, self.scope)
       )
     end
 

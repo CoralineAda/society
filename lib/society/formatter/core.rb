@@ -10,11 +10,13 @@ module Society
       def self.included(klass)
         klass.send(:attr_reader, :nodes)
         klass.send(:attr_reader, :edges)
+        klass.send(:attr_reader, :scope)
       end
 
-      def initialize(graph)
+      def initialize(graph, scope=nil)
         @nodes = graph.nodes
         @edges = graph.edges
+        @scope = scope
       end
 
       def to_json
