@@ -8,16 +8,22 @@ module Society
     attr_reader :name
 
     def self.from_edges(edges)
-      origin_names = edges.map(&:from).uniq
-      destination_names = origin_names - edges.map(&:to).uniq
-      (origin_names + destination_names).map do |connection|
-        new(name: connection, edges: edges.select{|e| e.from == connection || e.to == connection})
+      names = (edges.map(&:from) + edges.map(&:to)).uniq
+      names.map do |connection|
+        new(
+          name: connection.full_name,
+          edges: edges.select{|e| e.from.full_name == connection.full_name || e.to.full_name == connection.full_name})
       end
     end
 
     def initialize(name:, edges:[])
       @name = name
       self.edges = edges
+    end
+
+    # TODO fixme remove
+    def full_name
+      self.name
     end
 
   end

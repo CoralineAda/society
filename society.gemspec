@@ -20,9 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activesupport"
   spec.add_dependency "analyst", ">= 0.16.0"
-  spec.add_dependency "parser"
-  spec.add_dependency "rainbow"
-  spec.add_dependency "terminal-table"
+  spec.add_dependency "ephemeral", ">= 2.0"
   spec.add_dependency "thor"
 
   spec.add_development_dependency "bundler", "~> 1.6"

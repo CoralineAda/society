@@ -12,9 +12,8 @@ module Society
       def to_json
         self.nodes.map do |node|
           {
-            name: node.full_name,
-            edges: self.edges.select { |edge| edge.from == node }
-                             .map { |edge| edge.to.full_name }
+            name: node.name,
+            edges: node.edges.map{|e| e.to.full_name }
           }
         end.to_json
       end

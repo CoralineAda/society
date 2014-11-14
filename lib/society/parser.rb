@@ -16,11 +16,12 @@ module Society
       @class_graph ||= begin
         classes = analyzer.classes
         associations = associations_from(classes) + references_from(classes)
+        nodes = Society::Node.from_edges(associations)
         # TODO: merge identical classes, and (somewhere else) deal with
         #       identical associations too. need a WeightedEdge, and each
         #       one will be unique on [from, to], but will have a weight
 
-        ObjectGraph.new(nodes: classes, edges: associations)
+        ObjectGraph.new(nodes: nodes, edges: associations)
       end
     end
 
