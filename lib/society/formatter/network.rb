@@ -10,10 +10,12 @@ module Society
       include Society::Formatter::Core
 
       def to_json
-        self.nodes.map do |node|
+        subject = "LiveCourse"
+        nodes = self.nodes.select{|n| n.edges.about(subject).present? }
+        nodes.map do |node|
           {
             name: node.name,
-            edges: node.edges.map{|e| e.to.full_name }
+            edges: node.edges.about(subject).map{|e| e.to.full_name}
           }
         end.to_json
       end
@@ -23,9 +25,3 @@ module Society
   end
 
 end
-
-# [
-#   { name: "Foo", edges: ["Bar"] },
-#   { name: "Bar", edges: ["Foo", "Baz"] },
-#   { name: "Baz", edges: [] },
-# ]
