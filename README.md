@@ -18,25 +18,14 @@ Or install it yourself as:
 
 ## Usage
 
-Initialize a parser with source files:
+From your terminal:
 
-     parser = Society::Parser.for_files("path/to/models")
+    society from path/to/models
 
-Generate a dependency graph:
+and then open `doc/index.htm` in your browser.
 
-     graph = parser.class_graph # or parser.method_graph
-
-Generate JSON dependency graph for visualization:
-
-    heatmap_json = parser.formatters(graph).heatmap.to_json
-    network_json = parser.formatters(graph).network.to_json
-
-  then save the json:
-
-    file = File.open("./doc/data/heatmap.json","w"); file.write heatmap_json; file.close
-    file = File.open("./doc/data/network.json","w"); file.write network_json; file.close
-
-  and open `doc/index.htm` in your browser.
+The default format is HTML; you can skip the HTML interface and just get the
+JSON by passing `--format json`
 
 ## TODO
 
