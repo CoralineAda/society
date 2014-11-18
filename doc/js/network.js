@@ -104,7 +104,7 @@ function edgesFrom(nodes) {
   var edges = [];
   nodes.forEach(function(d) { map[d.name] = d; });
   nodes.forEach(function(d) {
-    if (d.edges) d.edges.forEach(function(i) {
+    if (d.relations) d.relations.forEach(function(i) {
       edges.push({source: map[d.name], target: map[i]});
     });
   });
