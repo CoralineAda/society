@@ -1,5 +1,4 @@
 module Society
-
   class Edge
 
     attr_reader :from, :to
@@ -12,5 +11,4 @@ module Society
     end
 
   end
-
 end
