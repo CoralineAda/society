@@ -6,9 +6,10 @@ require_relative "society/cli"
 require_relative "society/association_processor"
 require_relative "society/reference_processor"
 require_relative "society/edge"
-require_relative "society/formatter/core"
-require_relative "society/formatter/heatmap"
-require_relative "society/formatter/network"
+require_relative "society/formatter/graph/core"
+require_relative "society/formatter/graph/heatmap"
+require_relative "society/formatter/graph/network"
+require_relative "society/formatter/report/html"
 require_relative "society/object_graph"
 require_relative "society/parser"
 require_relative "society/version"
@@ -24,6 +25,13 @@ module Society
     graph = parser.class_graph
     heatmap_json = parser.formatters(graph).heatmap.to_json
     network_json = parser.formatters(graph).network.to_json
+  end
+
+  def self.formatters
+    {
+      html: Society::Formatter::Report::HTML,
+      json: Society::Formatter::Report::Json
+    }
   end
 
 end

@@ -2,19 +2,31 @@ module Society
 
   class Parser
 
-    def self.for_files(*file_paths)
-      new(::Analyst.for_files(*file_paths))
+    attr_accessor
+    def self.for_files(file_path, formatter)
+      new(::Analyst.for_files(file_path, formatter))
     end
 
-    def self.for_source(source)
-      new(::Analyst.for_source(source))
+    def self.for_source(source, formatter)
+      new(::Analyst.for_source(source, formatter))
     end
 
-    attr_reader :analyzer
+    attr_reader :analyzer, :formatter
 
-    def initialize(analyzer)
+    def initialize(analyzer, formatter)
       @analyzer = analyzer
+      @formatter = formatter.new(
+        heatmap_json: Society::Formatter::Heatmap.new(graph),
+        network_json: Society::Formatter::Network.new(graph),
+        data_directory: "../doc/data/" # FIXME don't hardcode
+      )
     end
+
+    def report
+      formatter.write
+    end
+
+    private
 
     def class_graph
       @class_graph ||= begin
@@ -22,13 +34,6 @@ module Society
         associations = associations_from(classes) + references_from(classes)
         ObjectGraph.new(nodes: classes, edges: associations)
       end
-    end
-
-    def graph_formatters(graph)
-      {
-        heatmap: Society::Formatter::Heatmap.new(graph),
-        network: Society::Formatter::Network.new(graph)
-      }
     end
 
     def heatmap_json
@@ -83,8 +88,6 @@ module Society
     def class_names
       @class_names ||= analyzer.classes.map(&:full_name)
     end
-
-    private
 
     def associations_from(all_classes)
       @association_processor ||= AssociationProcessor.new(all_classes)
