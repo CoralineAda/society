@@ -7,7 +7,6 @@ Gemfile.lock
 InstalledFiles
 _yardoc
 coverage
-doc/fukuzatsu/*
 lib/bundler/man
 pkg
 rdoc
@@ -21,5 +20,3 @@ tmp
 *.a
 mkmf.log
 .console_history
-*.swp
-coverage
