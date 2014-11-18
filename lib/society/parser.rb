@@ -2,8 +2,8 @@ module Society
 
   class Parser
 
-    def self.for_files(*file_paths)
-      new(::Analyst.for_files(*file_paths))
+    def self.for_files(file_path)
+      new(::Analyst.for_files(file_path))
     end
 
     def self.for_source(source)
@@ -16,48 +16,13 @@ module Society
       @analyzer = analyzer
     end
 
-    def class_graph
-      @class_graph ||= begin
-        classes = analyzer.classes
-        associations = associations_from(classes) + references_from(classes)
-        # TODO: merge identical classes, and (somewhere else) deal with
-        #       identical associations too. need a WeightedEdge, and each
-        #       one will be unique on [from, to], but will have a weight
-
-        ObjectGraph.new(nodes: classes, edges: associations)
-      end
-    end
-
-    # TODO pass in class name, don't assume #first
-    def method_graph
-      # @method_graph ||= begin
-      #   graph = ObjectGraph.new
-      #   target = analyzer.classes.first
-      #   graph.nodes = target.all_methods.map do |method|
-      #     Node.new(
-      #       name: method.name,
-      #       edges: [] #method.references
-      #     )
-      #   end
-      #   graph
-      # end
-    end
-
-    def formatters(graph)
-      formatter = Struct.new(:heatmap, :network)
+    def report(format, output_path='./doc/society')
+      raise(ArgumentError, "Unknown format #{format}") unless formatter = FORMATTERS[format]
       formatter.new(
-        Society::Formatter::Heatmap.new(graph),
-        Society::Formatter::Network.new(graph)
-      )
-    end
-
-    # TODO: this is dumb, cuz it depends on class_graph to be called first,
-    #       but i'm just doing it for debugging right now, so LAY OFF ME
-    def unresolved_edges
-      {
-        associations: @association_processor.unresolved_associations,
-        references: @reference_processor.unresolved_references
-      }
+        heatmap_json: heatmap_json,
+        network_json: network_json,
+        data_directory: output_path
+      ).write
     end
 
     def all_the_data
@@ -78,6 +43,43 @@ module Society
     end
 
     private
+
+    FORMATTERS = {
+      html: Society::Formatter::Report::HTML,
+      json: Society::Formatter::Report::Json
+    }
+
+    def classes
+      @classes ||= analyzer.classes
+    end
+
+    def class_graph
+      @class_graph ||= begin
+        associations = associations_from(classes) + references_from(classes)
+        # TODO: merge identical classes, and (somewhere else) deal with
+        #       identical associations too. need a WeightedEdge, and each
+        #       one will be unique on [from, to], but will have a weight
+
+        ObjectGraph.new(nodes: classes, edges: associations)
+      end
+    end
+
+    def heatmap_json
+      Society::Formatter::Graph::Heatmap.new(class_graph).to_json
+    end
+
+    def network_json
+      Society::Formatter::Graph::Network.new(class_graph).to_json
+    end
+
+    # TODO: this is dumb, cuz it depends on class_graph to be called first,
+    #       but i'm just doing it for debugging right now, so LAY OFF ME
+    def unresolved_edges
+      {
+        associations: @association_processor.unresolved_associations,
+        references: @reference_processor.unresolved_references
+      }
+    end
 
     def associations_from(all_classes)
       @association_processor ||= AssociationProcessor.new(all_classes)

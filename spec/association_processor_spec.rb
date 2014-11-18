@@ -5,24 +5,26 @@ describe Society::AssociationProcessor do
   describe "#associations" do
 
     context "`belongs_to`, `has_many`, and `has_many through:` associations" do
-      let(:parser) { Society::Parser.for_source(<<-CODE
-        class Assembly < ActiveRecord::Base
-          has_many :manifests
-          has_many :parts, through: :manifests
-        end
+      let(:code) {
+        <<-CODE
+          class Assembly < ActiveRecord::Base
+            has_many :manifests
+            has_many :parts, through: :manifests
+          end
 
-        class Manifest < ActiveRecord::Base
-          belongs_to :assembly
-          belongs_to :part
-        end
+          class Manifest < ActiveRecord::Base
+            belongs_to :assembly
+            belongs_to :part
+          end
 
-        class Part < ActiveRecord::Base
-          has_many :manifests
-          has_many :assemblies, through: :manifests
-        end
-      CODE
-      )}
+          class Part < ActiveRecord::Base
+            has_many :manifests
+            has_many :assemblies, through: :manifests
+          end
+        CODE
+      }
 
+      let(:parser) { Society::Parser.for_source(code, Society::Formatter::Report::HTML) }
       let(:processor) { Society::AssociationProcessor.new(parser.analyzer.classes) }
       let(:assembly) { processor.classes.detect {|c| c.name == "Assembly" } }
       let(:manifest) { processor.classes.detect {|c| c.name == "Manifest" } }
@@ -43,19 +45,19 @@ describe Society::AssociationProcessor do
     end
 
     context "associations with `class_name` specified" do
-      let(:parser) { Society::Parser.for_source(<<-CODE
-        class Post < ActiveRecord::Base
-          belongs_to :author, :class_name => "User"
-          belongs_to :editor, :class_name => "User"
-        end
+      let(:code) {<<-CODE
+          class Post < ActiveRecord::Base
+            belongs_to :author, :class_name => "User"
+            belongs_to :editor, :class_name => "User"
+          end
 
-        class User < ActiveRecord::Base
-          has_many :authored_posts, :foreign_key => "author_id", :class_name => "Post"
-          has_many :edited_posts, :foreign_key => "editor_id", :class_name => "Post"
-        end
-      CODE
-      )}
-
+          class User < ActiveRecord::Base
+            has_many :authored_posts, :foreign_key => "author_id", :class_name => "Post"
+            has_many :edited_posts, :foreign_key => "editor_id", :class_name => "Post"
+          end
+        CODE
+      }
+      let(:parser) { Society::Parser.for_source(code, Society::Formatter::Report::HTML) }
       let(:processor) { Society::AssociationProcessor.new(parser.analyzer.classes) }
       let(:user) { processor.classes.detect {|c| c.name == "User" } }
       let(:post) { processor.classes.detect {|c| c.name == "Post" } }
@@ -72,7 +74,7 @@ describe Society::AssociationProcessor do
     end
 
     context "associations with `class_name` or `source` specified" do
-      let(:parser) { Society::Parser.for_source(<<-CODE
+      let(:code) { <<-CODE
         class Post < ActiveRecord::Base
           has_many :post_authorings, :foreign_key => :authored_post_id
           has_many :authors, :through => :post_authorings, :source => :post_author
@@ -90,8 +92,8 @@ describe Society::AssociationProcessor do
           belongs_to :authored_post, :class_name => "Post"
         end
       CODE
-      )}
-
+      }
+      let(:parser) { Society::Parser.for_source(code, Society::Formatter::Report::HTML) }
       let(:processor) { Society::AssociationProcessor.new(parser.analyzer.classes) }
       let(:user) { processor.classes.detect {|c| c.name == "User" } }
       let(:post) { processor.classes.detect {|c| c.name == "Post" } }
@@ -114,7 +116,7 @@ describe Society::AssociationProcessor do
     end
 
     context "polymorphic associations" do
-      let(:parser) { Society::Parser.for_source(<<-CODE
+      let(:code) { <<-CODE
         class Picture < ActiveRecord::Base
           belongs_to :imageable, polymorphic: true
         end
@@ -127,8 +129,8 @@ describe Society::AssociationProcessor do
           has_many :pictures, as: :imageable
         end
       CODE
-      )}
-
+      }
+      let(:parser) { Society::Parser.for_source(code, Society::Formatter::Report::HTML) }
       let(:processor) { Society::AssociationProcessor.new(parser.analyzer.classes) }
       let(:picture) { processor.classes.detect {|c| c.name == "Picture" } }
       let(:employee) { processor.classes.detect {|c| c.name == "Employee" } }
@@ -149,7 +151,7 @@ describe Society::AssociationProcessor do
     end
 
     context "self joins" do
-      let(:parser) { Society::Parser.for_source(<<-CODE
+      let(:code) {<<-CODE
         class Employee < ActiveRecord::Base
           has_many :subordinates, class_name: "Employee",
                                   foreign_key: "manager_id"
@@ -157,8 +159,8 @@ describe Society::AssociationProcessor do
           belongs_to :manager, class_name: "Employee"
         end
       CODE
-      )}
-
+      }
+      let(:parser) { Society::Parser.for_source(code, Society::Formatter::Report::HTML) }
       let(:processor) { Society::AssociationProcessor.new(parser.analyzer.classes) }
       let(:employee) { processor.classes.detect {|c| c.name == "Employee" } }
 

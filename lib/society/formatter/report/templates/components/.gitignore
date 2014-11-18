@@ -1,0 +1,7 @@
+# ignore all bower noise
+*/*
+
+# explicitly list the files needed to build the gem
+!/d3/d3.min.js
+!/society-assets/society.*
+
