@@ -4,21 +4,22 @@ module Society
 
   class CLI < Thor
 
-    desc_text = ""
+    desc_text = "Formats are html (default) and json."
+    desc_text << "Example: society from foo/ -f json"
 
-    desc "from PATH_TO_FILE", desc_text
-    def from(path="./")
-      parser = Society::Parser.new(path)
-      parser.parse_files
-      parser.report
+    desc "from PATH_TO_FILE [-f FORMAT]", desc_text
+    method_option :format, :type => :string, :default => 'html', :aliases => "-f"
+
+    def from(path)
+      Society.new(path, format).report
     end
 
     default_task :from
 
     private
 
-    def formatter
-      Formatters::Text
+    def format
+      options['format'] && options['format'].to_sym
     end
 
   end

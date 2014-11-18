@@ -2,23 +2,38 @@ module Society
 
   class Parser
 
-    def self.for_files(*file_paths)
-      new(::Analyst.for_files(*file_paths))
+    attr_accessor
+    def self.for_files(file_path, formatter)
+      new(::Analyst.for_files(file_path), formatter)
     end
 
-    def self.for_source(source)
-      new(::Analyst.for_source(source))
+    def self.for_source(source, formatter)
+      new(::Analyst.for_source(source), formatter)
     end
 
-    attr_reader :analyzer
+    attr_reader :analyzer, :reporter
 
-    def initialize(analyzer)
+    def initialize(analyzer, formatter)
       @analyzer = analyzer
+      @reporter = formatter.new(
+        heatmap_json: heatmap_json,
+        network_json: network_json,
+        data_directory: "./doc/society/" # FIXME don't hardcode
+      )
+    end
+
+    def report
+      reporter.write
+    end
+
+    private
+
+    def classes
+      @classes ||= analyzer.classes
     end
 
     def class_graph
       @class_graph ||= begin
-        classes = analyzer.classes
         associations = associations_from(classes) + references_from(classes)
         # TODO: merge identical classes, and (somewhere else) deal with
         #       identical associations too. need a WeightedEdge, and each
@@ -43,12 +58,12 @@ module Society
       # end
     end
 
-    def formatters(graph)
-      formatter = Struct.new(:heatmap, :network)
-      formatter.new(
-        Society::Formatter::Heatmap.new(graph),
-        Society::Formatter::Network.new(graph)
-      )
+    def heatmap_json
+      Society::Formatter::Graph::Heatmap.new(class_graph).to_json
+    end
+
+    def network_json
+      Society::Formatter::Graph::Network.new(class_graph).to_json
     end
 
     # TODO: this is dumb, cuz it depends on class_graph to be called first,
@@ -77,7 +92,9 @@ module Society
       }
     end
 
-    private
+    def class_names
+      @class_names ||= analyzer.classes.map(&:full_name)
+    end
 
     def associations_from(all_classes)
       @association_processor ||= AssociationProcessor.new(all_classes)
