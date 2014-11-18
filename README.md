@@ -20,7 +20,7 @@ Or install it yourself as:
 
 Initialize a parser with source files:
 
-     parser = Society::Parser.new("path/to/models")
+     parser = Society::Parser.for_files("path/to/models")
 
 Generate a dependency graph:
 

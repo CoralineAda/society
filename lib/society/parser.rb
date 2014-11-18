@@ -2,14 +2,18 @@ module Society
 
   class Parser
 
-    attr_reader :start_paths
-
-    def initialize(*start_paths)
-      @start_paths = start_paths
+    def self.for_files(*file_paths)
+      new(::Analyst.for_files(*file_paths))
     end
 
-    def analyzer
-      @analyzer ||= ::Analyst.for_files(*start_paths)
+    def self.for_source(source)
+      new(::Analyst.for_source(source))
+    end
+
+    attr_reader :analyzer
+
+    def initialize(analyzer)
+      @analyzer = analyzer
     end
 
     def class_graph
@@ -74,10 +78,6 @@ module Society
     end
 
     private
-
-    def class_names
-      @class_names ||= analyzer.classes.map(&:full_name)
-    end
 
     def associations_from(all_classes)
       @association_processor ||= AssociationProcessor.new(all_classes)
