@@ -1,6 +1,6 @@
-var diameter = 960,
+var diameter = 1200,
     radius = diameter / 2,
-    innerRadius = radius - 120;
+    innerRadius = radius - 260;
 
 var cluster = d3.layout.cluster()
     .size([360, innerRadius])
@@ -21,33 +21,94 @@ var edgeBundlingSvg = d3.select("#network").append("svg")
     .append("g")
     .attr("transform", "translate(" + radius + "," + radius + ")");
 
-var link = edgeBundlingSvg.append("g").selectAll(".link");
-var node = edgeBundlingSvg.append("g").selectAll(".node");
+var linkAnchor = edgeBundlingSvg.append("g");
+var nodeAnchor = edgeBundlingSvg.append("g");
 
-d3.json("data/network.json", function(classes, error) {
+var rawJson;
+var hideIsolatedNodes = false;
+
+d3.json("data/network.json", function(error, json) { rawJson = json; handleJson(rawJson); });
+
+function handleJson(classes) {
   var nodes = cluster.nodes(nodesFrom(classes));
   var edges = edgesFrom(nodes);
 
-  link = link
-      .data(bundle(edges))
-      .enter().append("path")
+  var link = linkAnchor.selectAll(".link").data(bundle(edges), function(d) {
+    return d.length == 3 ? d[0].name + " - " + d[2].name : d[0].name;
+  });
+  var node = nodeAnchor.selectAll(".node").data(nodes.filter(function(n) { return !n.children; }),
+      function(d) {
+        return d.name;
+  });
+
+  link.enter().append("path")
+      .attr("opacity", 0)
+      .attr("class", "link");
+
+  link.transition().duration(1000)
+      .attr("opacity", 1)
       .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
-      .attr("class", "link")
       .attr("d", line);
 
-  node = node
-      .data(nodes.filter(function(n) { return !n.children; }))
-    .enter().append("text")
+  link.exit().transition().duration(250).attr("opacity", 0).remove();
+
+  var newNodes = node.enter().append("text")
+      .attr("opacity", 0)
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 64) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+      .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
       .attr("class", "node")
       .attr("dy", ".31em")
-      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
-      .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
       .text(function(d) { return d.key; })
       .on("mouseover", mouseovered)
       .on("mouseout", mouseouted);
-});
+
+  node.transition().duration(1000)
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+      .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; });
+
+  newNodes.transition().duration(1000)
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+      .attr("opacity", 1);
+
+  node.exit().transition().duration(250)
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 32) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+      .attr("opacity", 0).remove();
+}
+
+function toggleIsolated() {
+  hideIsolatedNodes = !hideIsolatedNodes;
+  if (!hideIsolatedNodes) handleJson(rawJson);
+  else {
+    // remove nodes without incoming or outgoing edges
+    var json = rawJson.slice();
+    var jsonFrd = [];
+    var names = json.map(function(klass) { return klass.name; });
+    json.forEach(function(klass) {
+      klass.edges.forEach(function(edge) {
+        if (klass.name === edge) return;
+        var i = names.indexOf(edge);
+        json[i]._HAS_INCOMING_ = true;
+      });
+    });
+
+    json.forEach(function(klass) {
+      var notSelfReference = function(edge) { return edge !== klass.name; };
+      if (klass.edges.filter(notSelfReference).length || klass._HAS_INCOMING_) {
+        jsonFrd.push(klass);
+      }
+    });
+
+    handleJson(jsonFrd);
+  }
+}
+
+d3.select("#network").append('button')
+    .text('Toggle Isolated Nodes')
+    .on('click', toggleIsolated);
 
 function mouseovered(d) {
+  var node = nodeAnchor.selectAll(".node");
+  var link = linkAnchor.selectAll(".link");
   node
       .each(function(n) { n.target = n.source = false; });
 
@@ -59,15 +120,19 @@ function mouseovered(d) {
 
   node
       .classed("node--target", function(n) { return n.target; })
-      .classed("node--source", function(n) { return n.source; });
+      .classed("node--source", function(n) { return n.source; })
+      .classed("node--faded", function(n) { return !n.target && !n.source && n !== d; });
 }
 
 function mouseouted(d) {
+  var node = nodeAnchor.selectAll(".node");
+  var link = linkAnchor.selectAll(".link");
   link
       .classed("link--target", false)
       .classed("link--source", false);
 
   node
+      .classed("node--faded", false)
       .classed("node--target", false)
       .classed("node--source", false);
 }
@@ -100,7 +165,7 @@ function nodesFrom(classes) {
 
 // Return a list of edges for the given array of nodes.
 function edgesFrom(nodes) {
-  var map = {}
+  var map = {};
   var edges = [];
   nodes.forEach(function(d) { map[d.name] = d; });
   nodes.forEach(function(d) {

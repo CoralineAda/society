@@ -14,16 +14,16 @@ require_relative "society/parser"
 require_relative "society/version"
 
 module Society
+
   def self.new(*path, formatter=:html)
-    Society::Parser.new(path_to_files, formatter[formatter])
+    Society::Parser.new(path_to_files, formatter)
   end
 
-  def self.formatters
-    {
-      html: Society::Formatters::HTML,
-      json: Society::Formatters::Json
-    }
-  end
+  def self.analyze_classes(*path)
+    parser = Society::Parser.for_files(*path)
+    graph = parser.class_graph
+    heatmap_json = parser.formatters(graph).heatmap.to_json
+    network_json = parser.formatters(graph).network.to_json
 
 end
 

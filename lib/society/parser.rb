@@ -2,25 +2,18 @@ module Society
 
   class Parser
 
-    attr_reader :start_path, :formatter
-
-    def initialize(start_path, formatter)
-      @start_path = start_paths
-      @formatter = formatter
+    def self.for_files(*file_paths)
+      new(::Analyst.for_files(*file_paths))
     end
 
-    def report
-      formatter.new(
-        heatmap_json: heatmap_json,
-        network_json: network_json,
-        data_dir: File.join(File.dirname(__FILE__), '..', 'doc', 'data')
-      ).write
+    def self.for_source(source)
+      new(::Analyst.for_source(source))
     end
 
-    private
+    attr_reader :analyzer
 
-    def analyzer
-      @analyzer ||= ::Analyst.for_files(*start_paths)
+    def initialize(analyzer)
+      @analyzer = analyzer
     end
 
     def class_graph
@@ -90,6 +83,8 @@ module Society
     def class_names
       @class_names ||= analyzer.classes.map(&:full_name)
     end
+
+    private
 
     def associations_from(all_classes)
       @association_processor ||= AssociationProcessor.new(all_classes)
