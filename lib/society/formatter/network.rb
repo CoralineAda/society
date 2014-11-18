@@ -13,7 +13,7 @@ module Society
         node_names.map do |name|
           {
             name: name,
-            edges: named_edges.select { |edge| edge.from == name }.map(&:to)
+            relations: named_edges.select { |edge| edge.from == name }.map(&:to)
           }
         end.to_json
       end
@@ -31,9 +31,3 @@ module Society
   end
 
 end
-
-# [
-#   { name: "Foo", edges: ["Bar"] },
-#   { name: "Bar", edges: ["Foo", "Baz"] },
-#   { name: "Baz", edges: [] },
-# ]
