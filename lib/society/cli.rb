@@ -9,22 +9,18 @@ module Society
     desc_text << "Example: society from foo/ -f json"
 
     desc "from PATH_TO_FILE [-f FORMAT]", desc_text
-    method_option :format, :type => :string, :default => 'text', :aliases => "-f"
+    method_option :format, :type => :string, :default => 'html', :aliases => "-f"
 
-    def from(path="./")
-      Society.new(path, formatter).report
+    def from(path)
+      Society.new(path, format).report
     end
 
     default_task :from
 
-    private
+   private
 
-    def formatter
-      if options['format'] && options['format'] == 'json'
-        Society::Formatter::Json
-      else
-        Society::Formatter::Html
-      end
+    def format
+      options['format'] && options['format'].to_sym
     end
 
   end

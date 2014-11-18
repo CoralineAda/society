@@ -6,7 +6,7 @@ module Society
     module Graph
       class Network
 
-        include Society::Formatter::Core
+        include Society::Formatter::Graph::Core
 
         def to_json
           node_names.map do |name|

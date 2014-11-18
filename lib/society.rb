@@ -10,14 +10,15 @@ require_relative "society/formatter/graph/core"
 require_relative "society/formatter/graph/heatmap"
 require_relative "society/formatter/graph/network"
 require_relative "society/formatter/report/html"
+require_relative "society/formatter/report/json"
 require_relative "society/object_graph"
 require_relative "society/parser"
 require_relative "society/version"
 
 module Society
 
-  def self.new(*path, format)
-    Society::Parser.new(path_to_files, format || :html)
+  def self.new(path_to_files, format)
+    Society::Parser.for_files(path_to_files, formatters[format])
   end
 
   def self.analyze_classes(*path)

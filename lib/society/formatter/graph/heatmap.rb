@@ -6,7 +6,7 @@ module Society
     module Graph
       class Heatmap
 
-        include Society::Formatter::Core
+        include Society::Formatter::Graph::Core
 
         def to_hash
           {

@@ -4,40 +4,43 @@ module Society
 
     attr_accessor
     def self.for_files(file_path, formatter)
-      new(::Analyst.for_files(file_path, formatter))
+      new(::Analyst.for_files(file_path), formatter)
     end
 
     def self.for_source(source, formatter)
-      new(::Analyst.for_source(source, formatter))
+      new(::Analyst.for_source(source), formatter)
     end
 
-    attr_reader :analyzer, :formatter
+    attr_reader :analyzer, :reporter
 
     def initialize(analyzer, formatter)
       @analyzer = analyzer
-      @formatter = formatter.new(
-        heatmap_json: Society::Formatter::Heatmap.new(graph),
-        network_json: Society::Formatter::Network.new(graph),
-        data_directory: "../doc/data/" # FIXME don't hardcode
+      @reporter = formatter.new(
+        heatmap_json: heatmap_json,
+        network_json: network_json,
+        data_directory: "./doc/data/" # FIXME don't hardcode
       )
     end
 
     def report
-      formatter.write
+      reporter.write
     end
 
     private
 
+    def classes
+      @classes ||= analyzer.classes
+    end
+
     def class_graph
       @class_graph ||= begin
-        classes = analyzer.classes
         associations = associations_from(classes) + references_from(classes)
         ObjectGraph.new(nodes: classes, edges: associations)
       end
     end
 
     def heatmap_json
-      heatmap_json = parser.formatters(class_graph).heatmap.to_json
+      Society::Formatter::Graph::Heatmap.new(class_graph).to_json
     end
 
     # TODO pass in class name, don't assume #first
@@ -56,7 +59,7 @@ module Society
     end
 
     def network_json
-      network_json = parser.formatters(class_graph).network.to_json
+      Society::Formatter::Graph::Network.new(class_graph).to_json
     end
 
     # TODO: this is dumb, cuz it depends on class_graph to be called first,

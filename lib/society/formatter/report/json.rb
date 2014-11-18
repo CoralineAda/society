@@ -3,7 +3,7 @@ require 'json'
 module Society
   module Formatter
     module Report
-      class HTML
+      class Json
 
         attr_reader :heatmap_json, :network_json, :data_directory
 
@@ -15,7 +15,7 @@ module Society
 
         def write
           reset_output_directory
-          write_heatmap_json
+          write_headmap_json
           write_network_json
         end
 
