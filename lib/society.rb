@@ -14,24 +14,28 @@ require_relative "society/parser"
 require_relative "society/version"
 
 module Society
-  def self.analyze_classes(*path)
-    parser = Society::Parser.new(*path)
-    graph = parser.class_graph
-    heatmap_json = parser.formatters(graph).heatmap.to_json
-    network_json = parser.formatters(graph).network.to_json
-
-    data_dir = File.join(File.dirname(__FILE__), '..', 'doc', 'data')
-
-    file = File.open(File.join(data_dir, 'heatmap.json'), 'w')
-    file.write heatmap_json
-    file.close
-
-    file = File.open(File.join(data_dir, 'network.json'), 'w')
-    file.write network_json
-    file.close
-
-    #for debugging, return everything
-    parser.all_the_data
+  def self.new(*path, formatter=:html)
+    Society::Parser.new(path_to_files, formatter[formatter])
   end
+
+  def self.formatters
+    {
+      html: Society::Formatters::HTML,
+      json: Society::Formatters::Json
+    }
+  end
+
 end
 
+
+
+    # graph = parser.class_graph
+    # heatmap_json = parser.formatters(graph).heatmap.to_json
+    # network_json = parser.formatters(graph).network.to_json
+    # formatter = Formatter::HTML.new(
+    #   heatmap_json: heatmap_json,
+    #   network_json: network_json,
+    #   data_dir: File.join(File.dirname(__FILE__), '..', 'doc', 'data')
+    # )
+    # formatter.write
+    # parser.all_the_data

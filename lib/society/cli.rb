@@ -1,4 +1,5 @@
 require "thor"
+require "society"
 
 module Society
 
@@ -11,9 +12,7 @@ module Society
     method_option :format, :type => :string, :default => 'text', :aliases => "-f"
 
     def from(path="./")
-      parser = Society::Parser.new(path, formatter)
-      parser.parse_files
-      parser.report
+      Society.new(path, formatter).report
     end
 
     default_task :from
@@ -22,9 +21,9 @@ module Society
 
     def formatter
       if options['format'] && options['format'] == 'json'
-        Formatters::Json
+        Society::Formatter::Json
       else
-        Formatters::Text
+        Society::Formatter::Html
       end
     end
 

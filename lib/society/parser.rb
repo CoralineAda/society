@@ -2,11 +2,22 @@ module Society
 
   class Parser
 
-    attr_reader :start_paths
+    attr_reader :start_path, :formatter
 
-    def initialize(*start_paths)
-      @start_paths = start_paths
+    def initialize(start_path, formatter)
+      @start_path = start_paths
+      @formatter = formatter
     end
+
+    def report
+      formatter.new(
+        heatmap_json: heatmap_json,
+        network_json: network_json,
+        data_dir: File.join(File.dirname(__FILE__), '..', 'doc', 'data')
+      ).write
+    end
+
+    private
 
     def analyzer
       @analyzer ||= ::Analyst.for_files(*start_paths)
@@ -16,12 +27,19 @@ module Society
       @class_graph ||= begin
         classes = analyzer.classes
         associations = associations_from(classes) + references_from(classes)
-        # TODO: merge identical classes, and (somewhere else) deal with
-        #       identical associations too. need a WeightedEdge, and each
-        #       one will be unique on [from, to], but will have a weight
-
         ObjectGraph.new(nodes: classes, edges: associations)
       end
+    end
+
+    def graph_formatters(graph)
+      {
+        heatmap: Society::Formatter::Heatmap.new(graph),
+        network: Society::Formatter::Network.new(graph)
+      }
+    end
+
+    def heatmap_json
+      heatmap_json = parser.formatters(class_graph).heatmap.to_json
     end
 
     # TODO pass in class name, don't assume #first
@@ -39,12 +57,8 @@ module Society
       # end
     end
 
-    def formatters(graph)
-      formatter = Struct.new(:heatmap, :network)
-      formatter.new(
-        Society::Formatter::Heatmap.new(graph),
-        Society::Formatter::Network.new(graph)
-      )
+    def network_json
+      network_json = parser.formatters(class_graph).network.to_json
     end
 
     # TODO: this is dumb, cuz it depends on class_graph to be called first,
@@ -56,7 +70,7 @@ module Society
       }
     end
 
-    def all_the_data
+    def debug
       {
         classes: analyzer.classes,
         resolved: {
@@ -72,8 +86,6 @@ module Society
         }
       }
     end
-
-    private
 
     def class_names
       @class_names ||= analyzer.classes.map(&:full_name)
