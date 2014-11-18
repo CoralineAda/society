@@ -92,4 +92,3 @@ module Society
   end
 
 end
-
