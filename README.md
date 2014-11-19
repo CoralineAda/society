@@ -1,6 +1,7 @@
 # Society
 
-Society analyzes and presents a social graph of relationships between classes or methods.
+Society analyzes and presents a social graph of relationships between classes or
+methods.
 
 ## Installation
 
@@ -27,13 +28,18 @@ and then open `doc/index.htm` in your browser.
 The default format is HTML; you can skip the HTML interface and just get the
 JSON by passing `--format json`
 
+Note that all JSON data is timestamped (regardless of output format) to store
+snapshots of your project over time.
+
 ## TODO
 
 * Hierarchical edge bundling visualization (e.g. http://bl.ocks.org/mbostock/7607999)
 
 ## Contributing
 
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/Bantik/society/blob/master/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct]
+(http://contributor-covenant.org/version/1/1/0/).
+By participating in this project you agree to abide by its terms.
 
 
 1. Fork it ( https://github.com/[my-github-username]/society/fork )
