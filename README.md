@@ -38,7 +38,7 @@ snapshots of your project over time.
 ## Contributing
 
 Please note that this project is released with a [Contributor Code of Conduct]
-(http://contributor-covenant.org/version/1/1/0/).
+(http://contributor-covenant.org/version/1/0/0/).
 By participating in this project you agree to abide by its terms.
 
 
