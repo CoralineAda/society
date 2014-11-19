@@ -18,7 +18,7 @@ module Society
       @reporter = formatter.new(
         heatmap_json: heatmap_json,
         network_json: network_json,
-        data_directory: "./doc/data/" # FIXME don't hardcode
+        data_directory: "./doc/society/" # FIXME don't hardcode
       )
     end
 
