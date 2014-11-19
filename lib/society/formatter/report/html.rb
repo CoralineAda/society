@@ -1,4 +1,5 @@
 require 'json'
+require 'society_debut'
 
 module Society
   module Formatter
@@ -25,18 +26,8 @@ module Society
         private
 
         def copy_assets
-          FileUtils.cp(
-            File.dirname(__FILE__) + "/templates/css/style.css",
-            "#{data_directory}css/style.css"
-          )
-          FileUtils.cp(
-            File.dirname(__FILE__) + "/templates/js/heatmap.js",
-            "#{data_directory}js/heatmap.js"
-          )
-          FileUtils.cp(
-            File.dirname(__FILE__) + "/templates/js/network.js",
-            "#{data_directory}js/network.js"
-          )
+          File.open("#{data_directory}css/society.css", 'w') {|outfile| outfile.write(::SocietyDebut::Assets.css)}
+          File.open("#{data_directory}js/society.js", 'w') {|outfile| outfile.write(::SocietyDebut::Assets.js)}
         end
 
         def index

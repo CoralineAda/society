@@ -22,8 +22,8 @@ module Society
         network_json: network_json,
         data_directory: output_path && !output_path.empty? ? output_path : "./doc/society/"
       ).write
-    # rescue
-    #   raise ArgumentError, "Unknown format #{format}"
+    rescue
+      raise ArgumentError, "Unknown format #{format}"
     end
 
     private
