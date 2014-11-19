@@ -53,7 +53,7 @@ module Society
         end
 
         def timestamp
-          Time.now.strftime("%Y_%m_%d_%h_%m_%p")
+          Time.now.strftime("%Y_%m_%d_%H_%M_%S")
         end
 
         def reset_output_directory

@@ -15,11 +15,16 @@ module Society
 
         def write
           reset_output_directory
-          write_headmap_json
-          write_network_json
+          write_json_data
+        rescue Exception => e
+          puts "Unable to write output: #{e} #{e.backtrace}"
         end
 
         private
+
+        def timestamp
+          Time.now.strftime("%Y_%m_%d_%H_%M_%S")
+        end
 
         def reset_output_directory
           begin
@@ -27,18 +32,17 @@ module Society
           rescue Errno::ENOENT
           end
           FileUtils.mkpath(data_directory)
+          FileUtils.mkpath("#{data_directory}/data/#{timestamp}")
         end
 
-        def write_heatmap_json
-          file = File.open(File.join(data_directory, 'heatmap.json'), 'w')
-          file.write heatmap_json
-          file.close
-        end
-
-        def write_network_json
-          file = File.open(File.join(data_directory, 'network.json'), 'w')
-          file.write network_json
-          file.close
+        def write_json_data
+          json_directory = "#{data_directory}/data/#{timestamp}"
+          File.open(File.join(json_directory, 'heatmap.json'), 'w') do |file|
+            file.write heatmap_json
+          end
+          File.open(File.join(json_directory, 'network.json'), 'w') do |file|
+            file.write network_json
+          end
         end
 
       end
