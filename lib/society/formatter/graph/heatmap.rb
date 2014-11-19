@@ -1,5 +1,4 @@
 require 'json'
-require 'pry'
 
 module Society
   module Formatter

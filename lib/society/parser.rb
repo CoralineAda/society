@@ -2,28 +2,28 @@ module Society
 
   class Parser
 
-    attr_accessor
-    def self.for_files(file_path, formatter)
-      new(::Analyst.for_files(file_path), formatter)
+    def self.for_files(file_path)
+      new(::Analyst.for_files(file_path))
     end
 
-    def self.for_source(source, formatter)
-      new(::Analyst.for_source(source), formatter)
+    def self.for_source(source)
+      new(::Analyst.for_source(source))
     end
 
-    attr_reader :analyzer, :reporter
+    attr_reader :analyzer
 
-    def initialize(analyzer, formatter)
+    def initialize(analyzer)
       @analyzer = analyzer
-      @reporter = formatter.new(
+    end
+
+    def report(format)
+      formatters[format].new(
         heatmap_json: heatmap_json,
         network_json: network_json,
         data_directory: "./doc/society/" # FIXME don't hardcode
-      )
-    end
-
-    def report
-      reporter.write
+      ).write
+    rescue
+      raise ArgumentError, "Unknown format #{format}"
     end
 
     private
@@ -43,27 +43,19 @@ module Society
       end
     end
 
-    # TODO pass in class name, don't assume #first
-    def method_graph
-      # @method_graph ||= begin
-      #   graph = ObjectGraph.new
-      #   target = analyzer.classes.first
-      #   graph.nodes = target.all_methods.map do |method|
-      #     Node.new(
-      #       name: method.name,
-      #       edges: [] #method.references
-      #     )
-      #   end
-      #   graph
-      # end
-    end
-
     def heatmap_json
       Society::Formatter::Graph::Heatmap.new(class_graph).to_json
     end
 
     def network_json
       Society::Formatter::Graph::Network.new(class_graph).to_json
+    end
+
+    def formatters
+      {
+        html: Society::Formatter::Report::HTML,
+        json: Society::Formatter::Report::Json
+      }
     end
 
     # TODO: this is dumb, cuz it depends on class_graph to be called first,
@@ -90,10 +82,6 @@ module Society
           unresolved_references: @reference_processor.unresolved_references.size
         }
       }
-    end
-
-    def class_names
-      @class_names ||= analyzer.classes.map(&:full_name)
     end
 
     def associations_from(all_classes)

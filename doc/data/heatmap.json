@@ -1,1 +1,0 @@
-{"nodes":[{"name":"Society::AssociationProcessor","group":1},{"name":"Society::CLI","group":1},{"name":"Society::Edge","group":1},{"name":"Society::Matrix::CoOccurrence","group":1},{"name":"Society::Matrix::EdgeBundling","group":1},{"name":"Society::Node","group":1},{"name":"Society::ObjectGraph","group":1},{"name":"Society::Parser","group":1}],"links":[]}

@@ -18,7 +18,7 @@ require_relative "society/version"
 module Society
 
   def self.new(path_to_files, format)
-    Society::Parser.for_files(path_to_files, formatters[format])
+    Society::Parser.for_files(path_to_files)
   end
 
   def self.analyze_classes(*path)
@@ -39,13 +39,6 @@ module Society
 
     #for debugging, return everything
     parser.all_the_data
-  end
-
-  def self.formatters
-    {
-      html: Society::Formatter::Report::HTML,
-      json: Society::Formatter::Report::Json
-    }
   end
 
 end
