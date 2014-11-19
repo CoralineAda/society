@@ -1,4 +1,5 @@
 require "thor"
+require "society"
 
 module Society
 
@@ -11,7 +12,7 @@ module Society
     method_option :format, :type => :string, :default => 'html', :aliases => "-f"
 
     def from(path)
-      Society.new(path, format).report
+      Society.new(path, format).report(format)
     end
 
     default_task :from
