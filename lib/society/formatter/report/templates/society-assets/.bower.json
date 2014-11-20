@@ -1,0 +1,30 @@
+{
+  "name": "society_assets",
+  "authors": [
+    "CoralineAda <coraline@idolhands.com>"
+  ],
+  "description": "JS and CSS for Society gem output",
+  "main": "society.js",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "homepage": "https://github.com/CoralineAda/society-assets",
+  "_release": "3a216a4528",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "3a216a45288ec043b8fec1628a6bb83c250ffdeb"
+  },
+  "_source": "git@github.com:CoralineAda/society-assets.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:CoralineAda/society-assets.git"
+}

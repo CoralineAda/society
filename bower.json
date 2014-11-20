@@ -1,0 +1,6 @@
+{
+  "name": "society",
+  "dependencies": {
+    "society-assets": "git@github.com:CoralineAda/society-assets.git"
+  }
+}

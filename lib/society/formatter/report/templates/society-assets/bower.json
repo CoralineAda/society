@@ -1,0 +1,21 @@
+{
+  "name": "society_assets",
+  "version": "1.0.0",
+  "authors": [
+    "CoralineAda <coraline@idolhands.com>"
+  ],
+  "description": "JS and CSS for Society gem output",
+  "main": "society.js",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

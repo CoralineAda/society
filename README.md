@@ -35,6 +35,11 @@ snapshots of your project over time.
 
 * Hierarchical edge bundling visualization (e.g. http://bl.ocks.org/mbostock/7607999)
 
+## Updating assets
+
+Run `bower install` from the command line to install updated javascript and
+CSS files, maintained in their separate repo.
+
 ## Contributing
 
 Please note that this project is released with a [Contributor Code of Conduct]

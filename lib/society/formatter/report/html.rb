@@ -26,18 +26,14 @@ module Society
 
         def copy_assets
           FileUtils.cp(
-            File.dirname(__FILE__) + "/templates/css/style.css",
-            "#{data_directory}css/style.css"
+            File.dirname(__FILE__) + "/templates/society-assets/dist/stylesheets/society.css",
+            "#{data_directory}stylesheets/society.css"
           )
           FileUtils.cp(
-            File.dirname(__FILE__) + "/templates/js/heatmap.js",
-            "#{data_directory}js/heatmap.js"
+            File.dirname(__FILE__) + "/templates/society-assets/dist/javascripts/society.js",
+            "#{data_directory}javascripts/society.js"
           )
-          FileUtils.cp(
-            File.dirname(__FILE__) + "/templates/js/network.js",
-            "#{data_directory}js/network.js"
-          )
-        end
+       end
 
         def index
           Haml::Engine.new(template).render(
@@ -62,9 +58,9 @@ module Society
           rescue Errno::ENOENT
           end
           FileUtils.mkpath(data_directory)
-          FileUtils.mkpath("#{data_directory}/css")
+          FileUtils.mkpath("#{data_directory}/stylesheets")
           FileUtils.mkpath("#{data_directory}/data/#{timestamp}")
-          FileUtils.mkpath("#{data_directory}/js")
+          FileUtils.mkpath("#{data_directory}/javascripts")
         end
 
         def write_json_data

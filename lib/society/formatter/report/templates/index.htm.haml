@@ -4,7 +4,7 @@
     %meta{:charset => "utf-8"}
       %title Society Relational Analysis
       :css
-        @import url(css/style.css);
+        @import url(stylesheets/society.css);
       %script{:src => "http://d3js.org/d3.v3.min.js"}
   %body
     %div{:style => "text-align: center;"}
@@ -33,5 +33,4 @@
     :javascript
       var heatmapPath = "#{heatmap_path}";
       var networkPath = "#{network_path}";
-    %script{:src => "js/heatmap.js"}
-    %script{:src => "js/network.js"}
+    %script{:src => "javascripts/society.js"}
