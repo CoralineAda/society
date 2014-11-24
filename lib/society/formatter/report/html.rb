@@ -5,7 +5,7 @@ module Society
 
         attr_reader :json_data, :output_path
 
-        def initialize(json_data:, output_path:)
+        def initialize(json_data:, output_path: default_output_path)
           @json_data = json_data
           @output_path = output_path
         end
@@ -18,6 +18,10 @@ module Society
         end
 
         private
+
+        def default_output_path
+          File.join(%w[doc society])
+        end
 
         def write_html
           File.open(File.join(output_path, 'index.htm'), 'w') {|outfile| outfile.write(index)}

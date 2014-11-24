@@ -11,6 +11,10 @@ module Society
         end
 
         def to_json
+          to_hash.to_json
+        end
+
+        def to_hash
           {
             nodes: node_names.map { |name| { name: name } },
             edges: named_edges.map do |edge|
@@ -19,7 +23,7 @@ module Society
                 to: node_names.index(edge.to)
               }
             end
-          }.to_json
+          }
         end
 
         private
