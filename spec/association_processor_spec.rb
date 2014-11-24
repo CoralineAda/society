@@ -24,7 +24,7 @@ describe Society::AssociationProcessor do
         CODE
       }
 
-      let(:parser) { Society::Parser.for_source(code, Society::Formatter::Report::HTML) }
+      let(:parser) { Society::Parser.for_source(code) }
       let(:processor) { Society::AssociationProcessor.new(parser.analyzer.classes) }
       let(:assembly) { processor.classes.detect {|c| c.name == "Assembly" } }
       let(:manifest) { processor.classes.detect {|c| c.name == "Manifest" } }
@@ -57,7 +57,7 @@ describe Society::AssociationProcessor do
           end
         CODE
       }
-      let(:parser) { Society::Parser.for_source(code, Society::Formatter::Report::HTML) }
+      let(:parser) { Society::Parser.for_source(code) }
       let(:processor) { Society::AssociationProcessor.new(parser.analyzer.classes) }
       let(:user) { processor.classes.detect {|c| c.name == "User" } }
       let(:post) { processor.classes.detect {|c| c.name == "Post" } }
@@ -93,7 +93,7 @@ describe Society::AssociationProcessor do
         end
       CODE
       }
-      let(:parser) { Society::Parser.for_source(code, Society::Formatter::Report::HTML) }
+      let(:parser) { Society::Parser.for_source(code) }
       let(:processor) { Society::AssociationProcessor.new(parser.analyzer.classes) }
       let(:user) { processor.classes.detect {|c| c.name == "User" } }
       let(:post) { processor.classes.detect {|c| c.name == "Post" } }
@@ -130,7 +130,7 @@ describe Society::AssociationProcessor do
         end
       CODE
       }
-      let(:parser) { Society::Parser.for_source(code, Society::Formatter::Report::HTML) }
+      let(:parser) { Society::Parser.for_source(code) }
       let(:processor) { Society::AssociationProcessor.new(parser.analyzer.classes) }
       let(:picture) { processor.classes.detect {|c| c.name == "Picture" } }
       let(:employee) { processor.classes.detect {|c| c.name == "Employee" } }
@@ -160,7 +160,7 @@ describe Society::AssociationProcessor do
         end
       CODE
       }
-      let(:parser) { Society::Parser.for_source(code, Society::Formatter::Report::HTML) }
+      let(:parser) { Society::Parser.for_source(code) }
       let(:processor) { Society::AssociationProcessor.new(parser.analyzer.classes) }
       let(:employee) { processor.classes.detect {|c| c.name == "Employee" } }
 

@@ -18,13 +18,5 @@ module Society
     Society::Parser.for_files(path_to_files)
   end
 
-  def self.analyze_classes(*path)
-    parser = Society::Parser.for_files(*path)
-    parser.report(:html)
-
-    #for debugging, return everything
-    parser.all_the_data
-  end
-
 end
 
