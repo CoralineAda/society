@@ -1,78 +1,68 @@
-require 'json'
-
 module Society
   module Formatter
     module Report
       class HTML
 
-        attr_reader :heatmap_json, :network_json, :data_directory
+        attr_reader :json_data, :output_path
 
-        def initialize(heatmap_json:, network_json:, data_directory:)
-          @heatmap_json = heatmap_json
-          @network_json = network_json
-          @data_directory = ("./#{data_directory}/").gsub("//","/")
+        def initialize(json_data:, output_path:)
+          @json_data = json_data
+          @output_path = output_path
         end
 
         def write
-          reset_output_directory
-          File.open("#{data_directory}index.htm", 'w') {|outfile| outfile.write(index)}
+          prepare_output_directory
+          write_html
           copy_assets
           write_json_data
-        rescue Exception => e
-          puts "Unable to write output: #{e} #{e.backtrace}"
         end
 
         private
 
+        def write_html
+          File.open(File.join(output_path, 'index.htm'), 'w') {|outfile| outfile.write(index)}
+        end
+
         def copy_assets
+          bower_dir = File.join(File.dirname(__FILE__), 'templates', 'components')
           FileUtils.cp(
-            File.dirname(__FILE__) + "/templates/components/society-assets/society.css",
-            "#{data_directory}stylesheets/society.css"
+            File.join(bower_dir, 'society-assets', 'society.css'),
+            File.join(output_path, 'stylesheets', 'society.css')
           )
           FileUtils.cp(
-            File.dirname(__FILE__) + "/templates/components/society-assets/society.js",
-            "#{data_directory}javascripts/society.js"
+            File.join(bower_dir, 'society-assets', 'society.js'),
+            File.join(output_path, 'javascripts', 'society.js')
           )
           FileUtils.cp(
-            File.dirname(__FILE__) + "/templates/components/d3/d3.min.js",
-            "#{data_directory}javascripts/d3.js"
+            File.join(bower_dir, 'd3', 'd3.min.js'),
+            File.join(output_path, 'javascripts', 'd3.min.js')
           )
-       end
+        end
 
         def index
           Haml::Engine.new(template).render(
-            Object.new, {
-              heatmap_path: "data/#{timestamp}/heatmap.json",
-              network_path: "data/#{timestamp}/network.json"
-           }
+            Object.new, json_data: json_data
           )
         end
 
         def template
-          File.read(File.dirname(__FILE__) + "/templates/index.htm.haml")
+          path = File.join(File.dirname(__FILE__), 'templates', 'index.htm.haml')
+          File.read(path)
         end
 
         def timestamp
-          Time.now.strftime("%Y_%m_%d_%H_%M_%S")
+          @timestamp ||= Time.now.strftime("%Y_%m_%d_%H_%M_%S")
         end
 
-        def reset_output_directory
-          FileUtils.mkpath(data_directory)
-          FileUtils.mkpath("#{data_directory}/stylesheets")
-          FileUtils.mkpath("#{data_directory}/data/#{timestamp}")
-          FileUtils.mkpath("#{data_directory}/javascripts")
+        def prepare_output_directory
+          FileUtils.mkpath(File.join(output_path, 'stylesheets'))
+          FileUtils.mkpath(File.join(output_path, 'javascripts'))
         end
 
         def write_json_data
-          json_directory = "#{data_directory}/data/#{timestamp}"
-          File.open(File.join(json_directory, 'heatmap.json'), 'w') do |file|
-            file.write heatmap_json
-          end
-          File.open(File.join(json_directory, 'network.json'), 'w') do |file|
-            file.write network_json
-          end
+          json_path = File.join(output_path, 'data', timestamp, 'society_graph.json')
+          Formatter::Report::Json.new(json_data: json_data, output_path: json_path).write
         end
-
       end
     end
   end

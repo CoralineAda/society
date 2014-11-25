@@ -33,8 +33,11 @@ snapshots of your project over time.
 
 ## Updating assets
 
-Run `bower update` from the command line to install updated javascript and
-CSS files, maintained in their separate repo.
+All JavaScript and CSS dependencies are checked into the repo, so any given
+commit should have everything it needs. However, if you're developing the gem
+and need to pull in updates from the
+[society-assets](https://github.com/CoralineAda/society-assets) package, you
+can do so on the command line with `$ bower update`.
 
 ## Contributing
 

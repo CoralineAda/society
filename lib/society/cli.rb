@@ -6,9 +6,9 @@ module Society
   class CLI < Thor
 
     desc_text = "Formats are html (default) and json."
-    desc_text << "Example: society from foo/ -f json"
+    desc_text << "Example: society from foo/ -f json -o ./society_data.json"
 
-    desc "from PATH_TO_FILE [-f FORMAT] [-o OUTPUT_DIRECTORY]", desc_text
+    desc "from PATH_TO_FILE [-f FORMAT] [-o OUTPUT_PATH]", desc_text
     method_option :format, :type => :string, :default => 'html', :aliases => "-f"
     method_option :output, :type => :string, :aliases => "-o"
 

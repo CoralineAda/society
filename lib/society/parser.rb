@@ -19,9 +19,8 @@ module Society
     def report(format, output_path='./doc/society')
       raise(ArgumentError, "Unknown format #{format}") unless formatter = FORMATTERS[format]
       formatter.new(
-        heatmap_json: heatmap_json,
-        network_json: network_json,
-        data_directory: output_path
+        json_data: json_data,
+        output_path: output_path
       ).write
     end
 
@@ -64,12 +63,8 @@ module Society
       end
     end
 
-    def heatmap_json
-      Society::Formatter::Graph::Heatmap.new(class_graph).to_json
-    end
-
-    def network_json
-      Society::Formatter::Graph::Network.new(class_graph).to_json
+    def json_data
+      Society::Formatter::Graph::JSON.new(class_graph).to_json
     end
 
     # TODO: this is dumb, cuz it depends on class_graph to be called first,

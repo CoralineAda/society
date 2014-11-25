@@ -5,7 +5,7 @@
       %title Society Relational Analysis
       :css
         @import url(stylesheets/society.css);
-      %script{:src => "javascripts/d3.js"}
+      %script{:src => "javascripts/d3.min.js"}
       %script{:src => "javascripts/society.js"}
       :css
         body {
@@ -33,15 +33,16 @@
           references (red).
     #network{:style => "height: 100%; width: 100%;"}
     :javascript
+      var data = JSON.parse('#{json_data}');
       Society.generate("#network", {
         data: {
-          url: "#{network_path}"
+          json: data
         }
       });
       Society.generate("#heatmap", {
         type: "heatmap",
         data: {
-          url: "#{heatmap_path}"
+          json: data
         }
       });
 
