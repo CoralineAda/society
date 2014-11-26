@@ -1,0 +1,70 @@
+.society-graph {
+  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.society-heatmap-bg {
+  fill: #eee;
+}
+
+.society-heatmap-select,
+.society-network-toggle {
+  display: block;
+  margin-bottom: 1em;
+  font: 300 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.society-heatmap-select {
+  display: block;
+  color: #555;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 3em;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  background-image: none;
+}
+
+.society-network-toggle input {
+  margin-right: 6px;
+}
+
+.society-link {
+  stroke: steelblue;
+  stroke-opacity: .4;
+  fill: none;
+  pointer-events: none;
+}
+
+.society-node:hover,
+.society-node--source,
+.society-node--target {
+  font-weight: 700;
+}
+
+.society-node--source {
+  fill: #2ca02c;
+}
+
+.society-node--target {
+  fill: #d62728;
+}
+
+.society-node--faded {
+  opacity: 0.3;
+}
+
+.society-link--source,
+.society-link--target {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.society-link--source {
+  stroke: #d62728;
+}
+
+.society-link--target {
+  stroke: #2ca02c;
+}

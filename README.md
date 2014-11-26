@@ -1,6 +1,7 @@
 # Society
 
-Society analyzes and presents a social graph of relationships between classes or methods.
+Society analyzes and presents a social graph of relationships between classes or
+methods.
 
 ## Installation
 
@@ -18,33 +19,31 @@ Or install it yourself as:
 
 ## Usage
 
-Initialize a parser with source files:
+From your terminal:
 
-     parser = Society::Parser.for_files("path/to/models")
+    society from path/to/models
 
-Generate a dependency graph:
+and then open `doc/society/index.htm` in your browser.
 
-     graph = parser.class_graph # or parser.method_graph
+The default format is HTML; you can skip the HTML interface and just get the
+JSON by passing `--format json`
 
-Generate JSON dependency graph for visualization:
+Note that all JSON data is timestamped (regardless of output format) to store
+snapshots of your project over time.
 
-    heatmap_json = parser.formatters(graph).heatmap.to_json
-    network_json = parser.formatters(graph).network.to_json
+## Updating assets
 
-  then save the json:
-
-    file = File.open("./doc/data/heatmap.json","w"); file.write heatmap_json; file.close
-    file = File.open("./doc/data/network.json","w"); file.write network_json; file.close
-
-  and open `doc/index.htm` in your browser.
-
-## TODO
-
-* Hierarchical edge bundling visualization (e.g. http://bl.ocks.org/mbostock/7607999)
+All JavaScript and CSS dependencies are checked into the repo, so any given
+commit should have everything it needs. However, if you're developing the gem
+and need to pull in updates from the
+[society-assets](https://github.com/CoralineAda/society-assets) package, you
+can do so on the command line with `$ bower update`.
 
 ## Contributing
 
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/Bantik/society/blob/master/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct]
+(http://contributor-covenant.org/version/1/0/0/).
+By participating in this project you agree to abide by its terms.
 
 
 1. Fork it ( https://github.com/[my-github-username]/society/fork )
