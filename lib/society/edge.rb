@@ -11,4 +11,5 @@ module Society
     end
 
   end
+
 end

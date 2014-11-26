@@ -29,14 +29,14 @@ describe Society::Formatter::Report::Json do
 
     context "with no output path specified" do
 
-      let(:default_path) { 'society_graph.json' }
+      let(:default_output_directory) { File.join(%w[doc society TIMESTAMP]) }
       let(:report) do
         Society::Formatter::Report::Json.new(
           json_data: json_data
         )
       end
 
-      it "does not create a directory" do
+      it "creates the default directory" do
         expect(FileUtils).to receive(:mkpath).with('.')
         report.send(:prepare_output_directory)
       end

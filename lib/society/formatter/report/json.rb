@@ -5,7 +5,7 @@ module Society
 
         attr_reader :json_data, :output_path
 
-        def initialize(json_data:, output_path: 'society_graph.json')
+        def initialize(json_data:, output_path: default_output_path)
           @json_data = json_data
           @output_path = output_path
         end
@@ -16,6 +16,14 @@ module Society
         end
 
         private
+
+        def default_output_path
+          File.join('doc', 'society', timestamp, 'society_graph.json')
+        end
+
+        def timestamp
+          @timestamp ||= Time.now.strftime("%Y_%m_%d_%H_%M_%S")
+        end
 
         def prepare_output_directory
           directory_path = File.split(output_path).first
