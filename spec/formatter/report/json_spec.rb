@@ -37,7 +37,11 @@ describe Society::Formatter::Report::Json do
       end
 
       it "creates the default directory" do
-        expect(FileUtils).to receive(:mkpath).with('.')
+        private_timestamp = report.send(:timestamp)
+        output_directory = default_output_directory.gsub('TIMESTAMP', private_timestamp)
+        default_directory_matcher = Regexp.new(output_directory)
+
+        expect(FileUtils).to receive(:mkpath).with(default_directory_matcher)
         report.send(:prepare_output_directory)
       end
     end
