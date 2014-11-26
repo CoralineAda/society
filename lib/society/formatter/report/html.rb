@@ -5,7 +5,7 @@ module Society
 
         attr_reader :json_data, :output_path
 
-        def initialize(json_data:, output_path:)
+        def initialize(json_data:, output_path: File.join(%w[doc society]))
           @json_data = json_data
           @output_path = output_path
         end

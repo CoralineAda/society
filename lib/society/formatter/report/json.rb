@@ -5,19 +5,19 @@ module Society
 
         attr_reader :json_data, :output_path
 
-        def initialize(json_data:, output_path:)
+        def initialize(json_data:, output_path: 'society_graph.json')
           @json_data = json_data
           @output_path = output_path
         end
 
         def write
-          create_output_directory
+          prepare_output_directory
           write_json_data
         end
 
         private
 
-        def create_output_directory
+        def prepare_output_directory
           directory_path = File.split(output_path).first
           FileUtils.mkpath directory_path
         end

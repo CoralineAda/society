@@ -16,29 +16,11 @@ module Society
       @analyzer = analyzer
     end
 
-    def report(format, output_path='./doc/society')
-      raise(ArgumentError, "Unknown format #{format}") unless formatter = FORMATTERS[format]
-      formatter.new(
-        json_data: json_data,
-        output_path: output_path
-      ).write
-    end
-
-    def all_the_data
-      {
-        classes: analyzer.classes,
-        resolved: {
-          associations: @association_processor.associations,
-          references: @reference_processor.references
-        },
-        unresolved: unresolved_edges,
-        stats: {
-          resolved_associations: @association_processor.associations.size,
-          unresolved_associations: @association_processor.unresolved_associations.size,
-          resolved_references: @reference_processor.references.size,
-          unresolved_references: @reference_processor.unresolved_references.size
-        }
-      }
+    def report(format, output_path=nil)
+      raise ArgumentError, "Unknown format #{format}" unless known_formats.include?(format)
+      options = { json_data: json_data }
+      options[:output_path] = output_path unless output_path.nil?
+      FORMATTERS[format].new(options).write
     end
 
     private
@@ -67,13 +49,8 @@ module Society
       Society::Formatter::Graph::JSON.new(class_graph).to_json
     end
 
-    # TODO: this is dumb, cuz it depends on class_graph to be called first,
-    #       but i'm just doing it for debugging right now, so LAY OFF ME
-    def unresolved_edges
-      {
-        associations: @association_processor.unresolved_associations,
-        references: @reference_processor.unresolved_references
-      }
+    def known_formats
+      FORMATTERS.keys
     end
 
     def associations_from(all_classes)
