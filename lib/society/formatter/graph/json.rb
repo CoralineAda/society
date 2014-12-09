@@ -6,8 +6,7 @@ module Society
       class JSON
 
         def initialize(graph)
-          @nodes = graph.nodes
-          @edges = graph.edges
+          @graph = graph
         end
 
         def to_json
@@ -22,20 +21,27 @@ module Society
                 from: node_names.index(edge.from),
                 to: node_names.index(edge.to)
               }
-            end
+            end,
+            clusters: clusters_of_indices
           }
         end
 
         private
 
-        attr_reader :nodes, :edges
+        attr_reader :graph
 
         def node_names
-          @node_names ||= nodes.map(&:full_name).uniq
+          @node_names ||= graph.nodes.map(&:full_name).uniq
         end
 
         def named_edges
-          @named_edges ||= edges.map { |edge| Edge.new(from: edge.from.full_name, to: edge.to.full_name) }
+          @named_edges ||= graph.edges.map { |edge| Edge.new(from: edge.from.full_name, to: edge.to.full_name) }
+        end
+
+        def clusters_of_indices
+          Society::Clusterer.new.cluster(graph).map do |cluster|
+            cluster.map { |node| graph.nodes.index(node) }
+          end
         end
 
       end

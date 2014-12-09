@@ -2,8 +2,8 @@ module Society
 
   class Parser
 
-    def self.for_files(file_path)
-      new(::Analyst.for_files(file_path))
+    def self.for_files(*file_paths)
+      new(::Analyst.for_files(*file_paths))
     end
 
     def self.for_source(source)

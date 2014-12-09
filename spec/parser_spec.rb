@@ -5,11 +5,11 @@ describe Society::Parser do
   describe "::for_files" do
 
     it "returns a parser object" do
-      expect(Society::Parser.for_files('./spec/fixtures').class.name).to eq("Society::Parser")
+      expect(Society::Parser.for_files('./spec/fixtures/for_parser_spec').class.name).to eq("Society::Parser")
     end
 
     it "initializes the parser with an Analyzer object" do
-      expect(Society::Parser.for_files('./spec/fixtures').analyzer.class.name).to eq("Analyst::Parser")
+      expect(Society::Parser.for_files('./spec/fixtures/for_parser_spec').analyzer.class.name).to eq("Analyst::Parser")
     end
 
   end

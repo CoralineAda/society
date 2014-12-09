@@ -39,6 +39,14 @@ and need to pull in updates from the
 [society-assets](https://github.com/CoralineAda/society-assets) package, you
 can do so on the command line with `$ bower update`.
 
+## Recognition
+
+The graph clustering algorithm used in this software is called MCL, described
+in:
+
+* Stijn van Dongen, _Graph Clustering by Flow Simulation_, PhD thesis,
+  University of Utrecht, May 2000. [micans.org/mcl](http://micans.org/mcl)
+
 ## Contributing
 
 Please note that this project is released with a [Contributor Code of Conduct]
