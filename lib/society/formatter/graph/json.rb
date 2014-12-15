@@ -39,9 +39,13 @@ module Society
         end
 
         def clusters_of_indices
-          Society::Clusterer.new.cluster(graph).map do |cluster|
-            cluster.map { |node| graph.nodes.index(node) }
+          Society::Clusterer.new.cluster(graph_of_names).map do |cluster|
+            cluster.map { |name| node_names.index(name) }
           end
+        end
+
+        def graph_of_names
+          ObjectGraph.new(nodes: node_names, edges: named_edges)
         end
 
       end
