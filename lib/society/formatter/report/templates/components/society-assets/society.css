@@ -6,6 +6,10 @@
   fill: #eee;
 }
 
+.society-cell-outline {
+  stroke: #fff;
+}
+
 .society-heatmap-select,
 .society-network-toggle {
   display: block;
