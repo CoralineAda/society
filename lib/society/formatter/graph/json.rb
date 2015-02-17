@@ -15,13 +15,19 @@ module Society
 
         def to_hash
           {
-            nodes: node_names.map { |name| { name: name } },
-            edges: named_edges.map do |edge|
+            nodes: node_names.map do |name|
               {
-                from: node_names.index(edge.from),
-                to: node_names.index(edge.to)
+                name: name,
+                couplings: named_edges.select { |edge| edge.from == name }
+                  .map(&:to)
               }
             end,
+            # edges: named_edges.map do |edge|
+            #   {
+            #     from: node_names.index(edge.from),
+            #     to: node_names.index(edge.to)
+            #   }
+            # end,
             clusters: clusters_of_indices
           }
         end
