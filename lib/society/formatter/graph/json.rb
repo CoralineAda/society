@@ -18,7 +18,7 @@ module Society
             nodes: node_names.map do |name|
               {
                 name: name,
-                couplings: named_edges.select { |edge| edge.from == name }
+                relations: named_edges.select { |edge| edge.from == name }
                   .map(&:to)
               }
             end,
