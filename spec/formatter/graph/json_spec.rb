@@ -27,14 +27,10 @@ describe Society::Formatter::Graph::JSON do
       it "with properly formatted nodes" do
         expect(hash[:nodes]).to eq(
           [
-            {name: "sample_node"},
-            {name: "other_node"}
+            {name: "sample_node", relations: ["other_node"]},
+            {name: "other_node",  relations: []}
           ]
         )
-      end
-
-      it "with properly formatted edges" do
-        expect(hash[:edges]).to eq([{from: 0, to: 1}])
       end
     end
   end
