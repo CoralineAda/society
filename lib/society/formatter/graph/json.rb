@@ -22,12 +22,6 @@ module Society
                   .map(&:to)
               }
             end,
-            # edges: named_edges.map do |edge|
-            #   {
-            #     from: node_names.index(edge.from),
-            #     to: node_names.index(edge.to)
-            #   }
-            # end,
             clusters: clusters_of_indices
           }
         end
