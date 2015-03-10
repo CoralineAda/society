@@ -1,9 +1,7 @@
-require "analyst"
+require "ripper"
 require "fileutils"
 require "active_support/core_ext/string/inflections"
 
-require_relative "society/association_processor"
-require_relative "society/reference_processor"
 require_relative "society/edge"
 require_relative "society/node"
 require_relative "society/object_graph"
