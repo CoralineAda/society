@@ -454,11 +454,10 @@ module Society
       return nil unless meta['through']
 
       through = meta['through'].pluralize.classify
-      node    = graph.select { |n| n.name == through }.first
       ref     = meta['source'] || meta[:reference]
-      node.meta.select do |m|
-        [ref, ref.singularize].include?(m[:reference])
-      end.map { |edge| edge_names_from_meta_node(graph, edge) }
+      graph.select { |n| n.name == through }.flat_map do |n|
+        n.meta.select { |m| [ref, ref.singularize].include?(m[:reference]) }
+      end.map { |meta| edge_names_from_meta_node(graph, meta) }
     end
 
     # Internal: Resolve references for polymorphic ActiveRecord associations.
