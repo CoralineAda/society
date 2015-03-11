@@ -15,6 +15,7 @@ module Society
           write_html
           copy_assets
           write_json_data
+          puts "Results written to #{self.output_path}." unless self.output_path.nil?
         end
 
         private
