@@ -5,7 +5,7 @@ describe Society::CLI do
 
   describe "#from" do
 
-    let(:parser) { Society::Parser.new(nil) }
+    let(:parser) { Society::Parser.new([]) }
 
     it "invokes Society with a path" do
       allow(parser).to receive(:report)
