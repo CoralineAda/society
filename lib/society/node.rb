@@ -74,7 +74,7 @@ module Society
     def accumulate_edges(edges_a, edges_b)
       new_edges = (edges_a + edges_b).flatten.reduce([]) do  |edges, edge|
         if edges.detect { |e| e.to == edge.to }
-          edges.map { |e| e + edge || edge }
+          edges.map { |e| e + edge || e }
         else
           edges + [edge]
         end

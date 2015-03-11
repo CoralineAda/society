@@ -3,9 +3,8 @@ require 'analyst'
 
 describe Society::Node do
 
-  let(:edge)   { Struct.new(:to, :weight) { def +(_) self end } }
-  let(:edge_a) { edge.new("A", 1) }
-  let(:edge_b) { edge.new("B", 1) }
+  let(:edge_a) { Society::Edge.new(to: "A", weight: 1) }
+  let(:edge_b) { Society::Edge.new(to: "B", weight: 1) }
 
   describe "#initialize" do
 
@@ -16,7 +15,8 @@ describe Society::Node do
 
     it "initializes its edges" do
       node = Society::Node.new(name: "A", type: :class, edges: [edge_a, edge_b])
-      expect(node.edges.first).to eq(edge.new("A", 1))
+      expect(node.edges.first.to).to eq("A")
+      expect(node.edges.first.weight).to eq(1)
     end
 
     it "initializes metainformation" do
@@ -52,6 +52,16 @@ describe Society::Node do
       node_e = node_a + node_c
       expect(node_e.edges).to eq([edge_a])
       expect(node_e.unresolved).to eq([edge_b])
+    end
+
+    it "accumulates edges upon addition" do
+      node_d = node_b + node_a + node_b
+      expect(node_d.edges.map(&:to).sort).to match_array ["A", "B"]
+      expect(node_d.edges.sort_by(&:to).map(&:weight)).to match_array [1, 2]
+
+      node_e = node_a + node_b + node_a
+      expect(node_e.edges.map(&:to).sort).to match_array ["A", "B"]
+      expect(node_e.edges.sort_by(&:to).map(&:weight)).to match_array [2, 1]
     end
 
     it "treats addition against itself as a no-op" do
