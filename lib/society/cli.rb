@@ -12,8 +12,8 @@ module Society
     method_option :format, :type => :string, :default => 'html', :aliases => "-f"
     method_option :output, :type => :string, :aliases => "-o"
 
-    def from(path)
-      Society.new(path).report(format, options['output'])
+    def from(*path)
+      Society.new(*path).report(format, options['output'])
     end
 
     default_task :from

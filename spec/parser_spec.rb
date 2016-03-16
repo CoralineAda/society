@@ -204,10 +204,6 @@ describe Society::Parser do
       expect(Society::Parser.for_files('./spec/fixtures/for_parser_spec').class.name).to eq("Society::Parser")
       expect(Society::Parser.for_files('./spec/fixtures/for_parser_spec').classes).to eq(["Whaler"])
     end
-
-    it "returns a parser object when given a glob" do
-      expect(Society::Parser.for_files("#{Dir.getwd}/lib/society/{parser.rb,node.rb}").classes).to eq(["Society", "Society::Parser", "Society::Node"])
-    end
   end
 
   describe "#initialize" do
