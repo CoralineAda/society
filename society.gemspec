@@ -6,8 +6,8 @@ require 'society/version'
 Gem::Specification.new do |spec|
   spec.name          = "society"
   spec.version       = Society::VERSION
-  spec.authors       = ["Coraline Ada Ehmke"]
-  spec.email         = ["coraline@instructure.com"]
+  spec.authors       = ["Coraline Ada Ehmke", "Instructure"]
+  spec.email         = ["coraline@instructure.com", "eng@instructure.com"]
   spec.summary       = %q{Social graph for Ruby objects}
   spec.description   = %q{Social graph for Ruby objects. Based on an original idea by Kerri Miller.}
   spec.homepage      = "https://github.com/CoralineAda/society"

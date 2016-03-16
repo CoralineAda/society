@@ -26,6 +26,8 @@ From your terminal:
 
 and then open `doc/society/index.htm` in your browser.
 
+You can also pass in a file glob, but it must be enclosed in quotes.
+
 The default format is HTML; you can skip the HTML interface and just get the
 JSON by passing `--format json`
 
