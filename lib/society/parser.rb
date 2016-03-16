@@ -13,7 +13,7 @@ module Society
     #
     # Returns a Parser.
     def self.for_files(*file_paths)
-      files = file_paths.flatten.flat_map do |path|
+      files = Dir.glob(file_paths).flatten.flat_map do |path|
         File.directory?(path) ? Dir.glob(File.join(path, '**', '*.rb')) : path
       end
       new(files.lazy.map { |f| File.read(f) })
@@ -489,4 +489,3 @@ module Society
   end
 
 end
-
