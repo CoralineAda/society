@@ -28,7 +28,6 @@
   font-size: 14px;
   line-height: 1.42857143;
   background-image: none;
-  margin: auto;
 }
 
 .society-network-toggle input {
@@ -72,4 +71,10 @@
 
 .society-link--target {
   stroke: #2ca02c;
+}
+
+.society-heatmap-select-label {
+  font-size: 16px;
+  text-align: center;
+  display: block;
 }
