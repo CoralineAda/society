@@ -34,14 +34,6 @@ JSON by passing `--format json`
 Note that all JSON data is timestamped (regardless of output format) to store
 snapshots of your project over time.
 
-## Updating assets
-
-All JavaScript and CSS dependencies are checked into the repo, so any given
-commit should have everything it needs. However, if you're developing the gem
-and need to pull in updates from the
-[society-assets](https://github.com/CoralineAda/society-assets) package, you
-can do so on the command line with `$ bower update`.
-
 ## Recognition
 
 Society was inspired by an original idea by Kerri Miller (@kerrizor).
