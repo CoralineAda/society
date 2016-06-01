@@ -45,7 +45,7 @@ Please note that this project is released with a [Contributor Code of Conduct]
 By participating in this project you agree to abide by its terms.
 
 
-1. Fork it ( https://github.com/[my-github-username]/society/fork )
+1. Fork it ( https://github.com/CoralineAda/society/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
