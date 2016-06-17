@@ -10,6 +10,7 @@
   stroke: #fff;
 }
 
+.society-
 .society-heatmap-select,
 .society-network-toggle {
   display: block;
@@ -48,11 +49,11 @@
 }
 
 .society-node--source {
-  fill: #2ca02c;
+  fill: #009191;
 }
 
 .society-node--target {
-  fill: #d62728;
+  fill: #d66a00;
 }
 
 .society-node--faded {
@@ -65,14 +66,14 @@
   stroke-width: 2px;
 }
 
+.society-link {
+  stroke: #000;
+}
+
 .society-link--source {
-  stroke: #d62728;
+  stroke: #009191;
 }
 
 .society-link--target {
-  stroke: #2ca02c;
-}
-
-.society-heatmap-select-label {
-  font-size: 16px;
+  stroke: #d66a00;
 }
