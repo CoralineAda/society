@@ -36,7 +36,9 @@ From your terminal:
 
 and then open `doc/society/index.htm` in your browser.
 
-For more complex applications, society also supports file globbing.
+For more complex applications, society also supports file globbing:
+
+    society from ../path/to/models/*user*
 
 The default format is HTML; you can skip the HTML interface and just get the
 JSON by passing `--format json`
