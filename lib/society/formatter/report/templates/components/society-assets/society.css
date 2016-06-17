@@ -1,3 +1,13 @@
+body {
+  background-color: #fff;
+  padding: 1em;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+a {
+  color: #990000;
+}
 .society-graph {
   font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
