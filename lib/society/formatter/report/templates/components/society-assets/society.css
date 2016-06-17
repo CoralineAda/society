@@ -77,3 +77,21 @@
 .society-link--target {
   stroke: #d66a00;
 }
+
+.key-green {
+  height: 1em;
+  background-color: #009191;
+  padding: .25em;
+  color: #fff;
+}
+
+.key-red {
+  height: 1em;
+  background-color: #d66a00;
+  padding: .25em;
+  color: #fff;
+}
+
+.instructions {
+  width: 100%;
+}
