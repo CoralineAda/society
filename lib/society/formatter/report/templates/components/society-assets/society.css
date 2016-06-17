@@ -19,16 +19,19 @@
 }
 
 .society-heatmap-select {
-  display: block;
+  display: inline;
   color: #555;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
   height: 2em;
   padding: 6px 12px;
-  font-size: 14px;
   line-height: 1.42857143;
   background-image: none;
+}
+
+label.society-heatmap-select-label {
+  font: 300 12px "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 .society-network-toggle input {
