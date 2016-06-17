@@ -32,7 +32,7 @@ Or install it yourself as:
 
 From your terminal:
 
-    society from path/to/models
+    society from path/to/models [more/paths/if/applicable]
 
 and then open `doc/society/index.htm` in your browser.
 
