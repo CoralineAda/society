@@ -47,6 +47,9 @@
       #tabs-2
         %div
           %h2 Heatmap
+          %p.instructions
+            Order by frequency to see how strong the relation between two classes is.
+            Order by hierarchy to visualize the relations in hierarchical clustering.
         #heatmap
     :javascript
       var data = JSON.parse('#{json_data}');
