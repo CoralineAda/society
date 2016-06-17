@@ -4,6 +4,16 @@ Society analyzes and presents a social graph of relationships between classes in
 
 Please note that Society requires Ruby 2.1 or later.
 
+## Sample output
+
+### Network graph
+
+![Network graph][network]
+
+### Heatmap
+
+![Heatmap][heatmap]
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -50,3 +60,6 @@ By participating in this project you agree to abide by its terms.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+[network]: https://raw.githubusercontent.com/CoralineAda/society/master/network_graph.png "Sample network graph"
+[heatmap]: https://raw.githubusercontent.com/CoralineAda/society/master/heatmap.png "Sample heatmap"
