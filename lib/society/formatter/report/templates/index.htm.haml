@@ -5,22 +5,22 @@
       %title Society Relational Analysis
       :css
         @import url(stylesheets/society.css);
-            %script{:src => "javascripts/d3.min.js"}
-      %link{:href => "http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css", :rel => "stylesheet"}
-        %script{:src => "http://code.jquery.com/jquery-1.10.2.js"}
-        %script{:src => "http://code.jquery.com/ui/1.11.4/jquery-ui.js"}
-        %script{:src => "javascripts/society.js"}
-        :css
-          body {
-            background-color: #fff;
-            padding: 1em;
-            font-family: Consolas, Verdana, sans-serif;
-            font-size: 12px;
-          }
-          $(function() {
-            $( "#tabs" ).tabs();
-          });
-        %body
+        @import url(http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css)
+      %script{:src => "javascripts/d3.min.js"}
+      %script{:src => "http://code.jquery.com/jquery-1.10.2.js"}
+      %script{:src => "http://code.jquery.com/ui/1.11.4/jquery-ui.js"}
+      %script{:src => "javascripts/society.js"}
+      :css
+        body {
+          background-color: #fff;
+          padding: 1em;
+          font-family: Consolas, Verdana, sans-serif;
+          font-size: 12px;
+        }
+        $(function() {
+          $( "#tabs" ).tabs();
+        });
+      %body
     %div{:style => "text-align: center;"}
       %h1 Object Relational Matrices
       %h3
@@ -60,4 +60,7 @@
         data: {
           json: data
         }
+      });
+      $(function() {
+        $( "#tabs" ).tabs();
       });
