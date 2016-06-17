@@ -1,6 +1,6 @@
 # Society
 
-Society analyzes and presents a social graph of relationships between classes in a Ruby or Rails project.
+Society analyzes and presents social graphs of relationships between classes in a Ruby or Rails project. It displays relationships that are either explicitly declared (e.g. in an ActiveRecord relation) or defined by calls between classes (e.g. in the source of ClassA there is a call to ClassB). 
 
 Please note that Society requires Ruby 2.1 or later.
 
