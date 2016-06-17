@@ -34,14 +34,6 @@ JSON by passing `--format json`
 Note that all JSON data is timestamped (regardless of output format) to store
 snapshots of your project over time.
 
-## Updating assets
-
-All JavaScript and CSS dependencies are checked into the repo, so any given
-commit should have everything it needs. However, if you're developing the gem
-and need to pull in updates from the
-[society-assets](https://github.com/CoralineAda/society-assets) package, you
-can do so on the command line with `$ bower update`.
-
 ## Recognition
 
 Society was inspired by an original idea by Kerri Miller (@kerrizor).
@@ -53,7 +45,7 @@ Please note that this project is released with a [Contributor Code of Conduct]
 By participating in this project you agree to abide by its terms.
 
 
-1. Fork it ( https://github.com/[my-github-username]/society/fork )
+1. Fork it ( https://github.com/CoralineAda/society/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
