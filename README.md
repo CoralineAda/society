@@ -1,6 +1,6 @@
 # Society
 
-Society analyzes and presents social graphs of relationships between classes in a Ruby or Rails project. It displays relationships that are either explicitly declared (e.g. in an ActiveRecord relation) or defined by calls between classes (e.g. in the source of ClassA there is a call to ClassB). 
+Society analyzes and presents social graphs of relationships between classes in a Ruby or Rails project. It displays relationships that are either explicitly declared (e.g. in an ActiveRecord relation) or defined by calls between classes (e.g. in the source of ClassA there is a call to ClassB).
 
 Please note that Society requires Ruby 2.1 or later.
 
@@ -18,7 +18,9 @@ Please note that Society requires Ruby 2.1 or later.
 
 Add this line to your application's Gemfile:
 
-    gem 'society'
+```ruby
+gem 'society'
+```
 
 And then execute:
 
@@ -32,7 +34,7 @@ Or install it yourself as:
 
 From your terminal:
 
-    society from path/to/models [more/paths/if/applicable]
+    $ society from path/to/models [more/paths/if/applicable]
 
 and then open `doc/society/index.htm` in your browser.
 
