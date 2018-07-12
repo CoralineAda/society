@@ -61,23 +61,6 @@ module Society
       end.to_json
     end
 
-    def to_csv
-      output = ["Origin Class", "Destination Class", "Weight"]
-      map = to_h.reduce({}) do |hash, node|
-        name, edges_raw = node
-        edges = edges_raw.reduce({}) do |edges, edge|
-          edges.merge({ edge.to => edge.weight })
-        end
-        hash.merge({ name => edges })
-      end
-      map.each do |node, edges|
-        edge.each do |edge|
-          output << [node, edge.to, edge.weight]
-        end
-      end
-      output
-    end
-
   end
 
 end

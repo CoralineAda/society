@@ -5,7 +5,7 @@ module Society
 
         attr_reader :csv_data, :output_path
 
-        def initialize(rows:, output_path: nil)
+        def initialize(csv_data:, output_path: nil)
           @csv_data = csv_data
           @output_path = output_path
         end
