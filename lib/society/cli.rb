@@ -5,7 +5,7 @@ module Society
 
   class CLI < Thor
 
-    desc_text = "Formats are html (default) and json."
+    desc_text = "Formats are html (default), json, and csv."
     desc_text << "Example: society from foo/ -f json -o ./society_data.json"
 
     desc "from PATH_TO_FILE [-f FORMAT] [-o OUTPUT_PATH]", desc_text

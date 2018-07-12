@@ -476,7 +476,7 @@ module Society
 
     FORMATTERS = {
       html: Society::Formatter::Report::HTML,
-      json: Society::Formatter::Report::Json
+      json: Society::Formatter::Report::Json,
     }
 
     # Internal: List known output formatters.

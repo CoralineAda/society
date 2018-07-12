@@ -13,6 +13,7 @@ module Society
         def write
           prepare_output_directory
           write_html
+          write_csv
           copy_assets
           write_json_data
           puts "Results written to #{self.output_path}." unless self.output_path.nil?
@@ -26,6 +27,10 @@ module Society
 
         def write_html
           File.open(File.join(output_path, 'index.htm'), 'w') {|outfile| outfile.write(index)}
+        end
+
+        def write_csv
+          File.open(File.join(output_path, 'society.csv'), 'w') {|outfile| outfile.write(csv)}
         end
 
         def copy_assets
@@ -48,6 +53,17 @@ module Society
           Haml::Engine.new(template).render(
             Object.new, json_data: json_data
           )
+        end
+
+        def csv
+          Haml::Engine.new(csv_template).render(
+            Object.new, json_data: json_data
+          )
+        end
+
+        def csv_template
+          path = File.join(File.dirname(__FILE__), 'templates', 'society.csv.haml')
+          File.read(path)
         end
 
         def template

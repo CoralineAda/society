@@ -36,13 +36,13 @@ From your terminal:
 
     $ society from path/to/models [more/paths/if/applicable]
 
-and then open `doc/society/index.htm` in your browser.
+and then open `doc/society/index.htm` or `doc/society/society.csv` in your browser.
 
 For more complex applications, society also supports file globbing:
 
     society from ../path/to/models/*user*
 
-The default format is HTML; you can skip the HTML interface and just get the
+The default format is HTML and CSV; you can skip the HTML interface and just get the
 JSON by passing `--format json`
 
 Note that all JSON data is timestamped (regardless of output format) to store
