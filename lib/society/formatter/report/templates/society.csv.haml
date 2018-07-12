@@ -1,7 +1,4 @@
-!!!
 Model, Coupled Model, Weight
-- JSON.parse(json_data).each do |node, edges|
+- JSON.parse(json_data).sort{|a,b| a[0] <=> b[0]}.each do |node, edges|
   - edges.each do |edge|
-    #{node},#{edge.to},#{ednge.weight}
-  - end
-- end
+    #{node},#{edge[0]},#{edge[1]}
