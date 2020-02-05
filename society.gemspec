@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Social graph for Ruby objects}
   spec.description   = %q{Social graph for Ruby objects. Based on an original idea by Kerri Miller.}
   spec.homepage      = "https://github.com/CoralineAda/society"
-  spec.license       = "MIT-HL"
+  spec.license       = "MIT-Hippocratic-1.2"
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
